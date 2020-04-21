@@ -13,7 +13,14 @@ end Display_number;
 	
 
 architecture Display_number of Display_number is 
-signal cifre:array4digits;
+component Digit_to_BCD is
+  Port ( 
+  sw:in digit;
+  afisor:out BCD);
+end component;
+
+signal cifre:array4digits;	
+
 begin
 	
 	process(numar)
@@ -24,7 +31,11 @@ begin
 			cifre(I)<=(x rem 10);
 			x:=x/10;
 		end loop;
-	end process;
+	end process; 
+	G0:Digit_to_BCD port map (cifre(0),signals(0));
+	G1:Digit_to_BCD port map (cifre(1),signals(1));
+	G2:Digit_to_BCD port map (cifre(2),signals(2));
+	G3:Digit_to_BCD port map (cifre(3),signals(3));
 
 
 end Display_number;
