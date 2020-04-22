@@ -15,26 +15,18 @@ begin
 	process(clockin)
 	variable numarator1: integer range 0 to 1_000_000;
 	variable numarator2: integer range 0 to 45;
-	begin 
-		
-		if clockin = '1' then
-			numarator1:=numarator1 +1;
-			if not( (clockout = '1' ) and (clockout = '0') )  then
-				clockout <= '0';
-			end if ;
-			
-			if numarator1 = 1_000_000 then 	
-				numarator1:=0;
-				numarator2:=numarator2+1; 
-				if numarator2 = 1 then 
-				numarator2:=0;
-				clockout<= not(clockout) ;
-				end if ;
-				
-				
-			end if ;
-			
+	begin 	  
+		if not(clockout='0'or clockout ='1') then
+			clockout<='0';
 		end if;
+		if (clockin ='1')  then
+			numarator1:=numarator1+1;
+			if numarator1 =1_000_000 then
+				numarator1:=0;
+				clockout<=(not clockout);
+			end if;
+		end if ;
+		
 		
 		
 	end process	; 
