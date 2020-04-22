@@ -16,23 +16,22 @@ end read_integer;
 architecture a_read_integer of read_integer is
 
 begin
-    process(sw)
+    process(clk)
     variable y: array4digits;
     begin
     if clk= '1' then
-        for I in 0 to 3 loop
-            if y(I)=9 then
-                y(I):=0;
-                y(I+1):=y(I+1)+1;
-            end if;
-            if sw(I)= '1' then 
+        for I in 0 to 3 loop 
+			if sw(I)= '1' then 
+	            if y(I)=9 then
+	                y(I):=0;
+	            end if;
+            
                 y(I):=y(I)+1;
             end if; 
-        end loop;
+        end loop;  
+	numar<=y;
     end if;
-    for I in 0 to 3 loop
-    numar(I)<=y(I);
-    end loop;
-    end process;
+    end process;  
+	
 
 end a_read_integer;
