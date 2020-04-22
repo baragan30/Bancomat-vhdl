@@ -1,5 +1,3 @@
-
-
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 
@@ -10,13 +8,13 @@ entity read_integer is
   Port ( 
   clk: in std_logic;
   sw: in switch;
-  numar: inout array4digits);
+  numar: out number);
 end read_integer;
 
 architecture a_read_integer of read_integer is
 
 begin
-    process(clk,sw)
+    process(clk)
     variable y: array4digits;
     begin
     if clk= '1' then
@@ -24,14 +22,12 @@ begin
 			if sw(I)= '1' then 
 	            if y(I)=9 then
 	                y(I):=0; 
-	            else
-                    y(I):=y(I)+1;
-                end if; 
-            end if;
+				else 
+					y(I):=y(I)+1;
+	            end if;
+            end if; 
         end loop;  
-	for I in 0 to 3 loop
-	numar(I)<=y(I);
-	end loop;
+	numar<=(y(0)+y(1)*10+y(2)*100+y(3)*1000);
     end if;
     end process;  
 	
