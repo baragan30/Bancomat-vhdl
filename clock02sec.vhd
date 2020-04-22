@@ -21,9 +21,14 @@ begin
 		end if;
 		if (clockin ='1')  then
 			numarator1:=numarator1+1;
-			if numarator1 =1_000_000 then
-				numarator1:=0;
-				clockout<=(not clockout);
+			if numarator1 =100 then
+				numarator1:=0; 
+				numarator2:=numarator2+1;
+				if numarator2 =10 then
+					numarator2:=0;
+					clockout<=(not clockout);
+				end if;
+
 			end if;
 		end if ;
 		

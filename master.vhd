@@ -45,8 +45,10 @@ begin
 	process(clock)	 --initializare
 	begin 
 		if not(change='1'or change='0')then 
-			change<='0';	
-		elsif(clock2s='1' and ok ='1')then
+			change<='0';
+		end if;
+		
+		if(ok'event and ok ='1')then
 			change<=not change ;
 		end if;	
 	end process	;
