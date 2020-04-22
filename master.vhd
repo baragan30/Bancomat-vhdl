@@ -7,9 +7,8 @@ entity master is
 	port (
 	sw :in switch;
 	ok :in std_logic;
-	clock:in std_logic;
-	segments1:out array4BCD;
-	segments2:out array4BCD
+	clock:in std_logic;	
+	segments:out BCD
 	);
 end master;
 
@@ -34,6 +33,9 @@ component read_integer is
   sw: in switch;
   numar: out number);
 end component;
+
+signal segments1: array4BCD;
+signal segments2: array4BCD	;
 
 
 signal change :std_logic; 
@@ -63,10 +65,28 @@ begin
 			x:=number2;
 			number2<=number3;
 		end if;	
-		
-		
-		
 	end process; 
+	
+	process (clock)
+	variable x:integer range 0 to 4; 
+	variable y:std_logic;
+	begin  
+		if not(y='1'or y='0')then 
+			y:='0';
+		end if;
+		x:=x+1;	
+		if(x=4)then 
+			x:=0;
+			y:=not y;
+		end if;
+		
+		if(y='0') then 
+			segments<=segments1(x);
+		else
+			segments<=segments2(x);
+		end if;
+	end process;
+		
 	
 G1:clock02sec port map(clock,clock2s); 
 G2:Display_number port map(number1,segments1);

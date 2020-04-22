@@ -14,7 +14,7 @@ entity Digit_to_BCD is
 end Digit_to_BCD;
 
 architecture a_digit_to_BCD of Digit_to_BCD is
-begin
+begin	  --segements1(0)(0)
      afisor<=
      "0000001" when sw=0 else --0
      "1001111" when sw=1 else --1
