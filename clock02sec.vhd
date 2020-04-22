@@ -14,7 +14,7 @@ architecture clock02sec of clock02sec is
 begin
 	process(clockin)
 	variable numarator1: integer range 0 to 1_000_000;
-	variable numarator2: integer range 0 to 45;
+	variable numarator2: integer range 0 to 50;
 	begin 	  
 		if not(clockout='0'or clockout ='1') then
 			clockout<='0';
