@@ -53,15 +53,21 @@ begin
 		end if;	
 	end process	;
 	
-	process(clock)
-	begin	
-		if(change='0'and change'event )then
-			number1<=number2;
-			number2<=0;	
-		elsif (change ='1') then
+	process(clock) 
+	variable x:number;	
+	begin
+		if((change ='0') ) then	
+			number1<=x;
+			number2<=0;
+		elsif (change ='1') then 
+			x:=number2;
 			number2<=number3;
-		end if;
-	end process;
+		end if;	
+		
+		
+		
+	end process; 
+	
 G1:clock02sec port map(clock,clock2s); 
 G2:Display_number port map(number1,segments1);
 G3:Display_number port map(number2,segments2);
