@@ -43,6 +43,7 @@ signal clock2s :std_logic;
 signal number1:number;
 signal number2:number;	 
 signal number3:number;
+signal indiceBCD:integer range 0 to 7;
 begin 
 	process(clock)	 --initializare
 	begin 
@@ -74,6 +75,7 @@ begin
 		if not(y='1'or y='0')then 
 			y:='0';
 		end if;
+		
 		x:=x+1;	
 		if(x=4)then 
 			x:=0;
@@ -85,6 +87,11 @@ begin
 		else
 			segments<=segments2(x);
 		end if;
+		if y='1' then
+			indiceBCD<=x+4;
+		else indiceBCD<=x;
+		end if;
+		
 	end process;
 		
 	
