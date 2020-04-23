@@ -21,27 +21,32 @@ architecture master of master is
 	clockout :inout std_logic
 	);
 end component;
-component Display_number is  
-	port (
-	numar:in number;
-	signals:out array4BCD
-	);
-end component;
 component read_integer is
   Port ( 
   clk: in std_logic;
   sw: in switch;
   numar: out number);
+end component;	
+
+component Display_to_BCD is
+	port (
+	CLK :in std_logic;
+	intreg1:in number;
+	intreg2:in number;
+	afisor:out BCD;
+	segments:out std_logic_vector(7 downto 0)
+	);
 end component;
 
 signal afisor1: array4BCD;
 signal clock02s :std_logic;
-signal number1:number;
+signal number1:number:=0;
+signal number2:number:=0;
 begin 
 		
 	
-G1:clock02sec port map(clock,clock02s); 
-G2:Display_number port map(number1,afisor1);
-G3:read_integer port map (clock02s,sw,number1);
+	G1:clock02sec port map(clock,clock02s); 
+	G2:read_integer port map (clock02s,sw,number1);
+	G3:Display_to_BCD port map (clock,number1,number2,afisor,segments);
 
 end master;
