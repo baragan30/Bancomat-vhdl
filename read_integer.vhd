@@ -17,7 +17,7 @@ begin
     process(clk)
     variable y: array4digits;
     begin
-    if clk= '1' then
+    if clk= '1'and clk'event then
         for I in 0 to 3 loop 
 			if sw(I)= '1' then 
 	            if y(I)=9 then

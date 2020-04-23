@@ -26,6 +26,6 @@ begin	  --segements1(0)(0)
      "0001111" when sw=7 else --7
      "0000000" when sw=8 else --8
      "0000100" when sw=9 else --9
-     "0110000";                --E de la eroare
+     "0110000";               --E de la eroare
 
 end a_digit_to_BCD;

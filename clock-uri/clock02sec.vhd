@@ -13,13 +13,10 @@ end clock02sec;
 architecture clock02sec of clock02sec is
 begin
 	process(clockin)
-	variable numarator1: integer range 0 to 1_000_000;
-	variable numarator2: integer range 0 to 50;
+	variable numarator1: integer range 0 to 1_000_001:=0;
+	variable numarator2: integer range 0 to 26:=0;
 	begin 	  
-		if not(clockout='0'or clockout ='1') then
-			clockout<='0';
-		end if;
-		if (clockin ='1')  then
+		if (clockin ='1')and (clockin'event)  then
 			numarator1:=numarator1+1;
 			if numarator1 =1 then
 				numarator1:=0; 
