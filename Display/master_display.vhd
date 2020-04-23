@@ -57,9 +57,7 @@ begin
 			afisor<=BCDs(numarator);
 			segments<= (others =>'1');
 			segments(numarator)<='0' ;
-			
 				
-			
 		end if;		
 		
 	end process;

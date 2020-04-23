@@ -6,7 +6,7 @@ use IEEE.STD_LOGIC_1164.all;
 entity Clock1khz is	
 		port (
 	clockin :in std_logic;
-	clockout :inout std_logic
+	clockout :inout std_logic:='0'
 	);
 end Clock1khz;
 
@@ -19,7 +19,7 @@ begin
 	begin 	  
 		if (clockin ='1')and (clockin'event)  then
 			numarator1:=numarator1+1;
-			if numarator1 =10 then
+			if numarator1 =1 then
 				numarator1:=0; 
 				clockout<=(not clockout);
 			end if;

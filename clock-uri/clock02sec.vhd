@@ -5,7 +5,7 @@ use IEEE.STD_LOGIC_1164.all;
 entity clock02sec is 
 	port (
 	clockin :in std_logic;
-	clockout :inout std_logic
+	clockout :inout std_logic:='0'
 	);
 end clock02sec;
 

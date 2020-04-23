@@ -38,7 +38,6 @@ component Display_to_BCD is
 	);
 end component;
 
-signal afisor1: array4BCD;
 signal clock02s :std_logic;
 signal number1:number:=0;
 signal number2:number:=0;
