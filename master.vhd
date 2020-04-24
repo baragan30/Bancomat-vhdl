@@ -12,8 +12,6 @@ entity master is
 	);
 end master;
 
---}} End of automatically maintained section
-
 architecture master of master is 
  component clock02sec is 
 	port (
@@ -41,8 +39,7 @@ end component;
 signal clock02s :std_logic;
 signal number1:number:=0;
 signal number2:number:=0;
-begin 
-		
+begin 	
 	
 	G1:clock02sec port map(clock,clock02s); 
 	G2:read_integer port map (clock02s,sw,number1);

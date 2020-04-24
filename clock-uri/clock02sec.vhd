@@ -14,14 +14,14 @@ architecture clock02sec of clock02sec is
 begin
 	process(clockin)
 	variable numarator1: integer range 0 to 1_000_001:=0;
-	variable numarator2: integer range 0 to 26:=0;
+	variable numarator2: integer range 0 to 31:=0;
 	begin 	  
 		if (clockin ='1')and (clockin'event)  then
 			numarator1:=numarator1+1;
-			if numarator1 =1 then
+			if numarator1 =1_000_000 then
 				numarator1:=0; 
 				numarator2:=numarator2+1;
-				if numarator2 =10 then
+				if numarator2 =30 then
 					numarator2:=0;
 					clockout<=(not clockout);
 				end if;
