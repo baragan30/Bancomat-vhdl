@@ -41,7 +41,7 @@ component number_to_digits is
 	digits:out array4digits
 	);
 end component;	
-entity master_display is
+component master_display is
 	port (
 	CLK :in std_logic;
 	cifre1:in array4digits;
@@ -49,7 +49,7 @@ entity master_display is
 	afisor:out BCD;
 	segments:out std_logic_vector(7 downto 0)
 	);
-end master_display;
+end component;
 
 --------------------------------------------semnale--------------------------------------
 signal clk02s :std_logic;	
@@ -111,10 +111,12 @@ begin
 		
 	end process; 
 	
-	c1:clock02sec port map(clk,clock02s); 
-	c2:
-	G2:read_integer port map (clock02s,sw,numar);
-	--G3:number_to_digits port map(numar1,cifre1); 
-	--G4:number_to_digits port map(numar2,cifre2);
+	c1:clock02sec port map(clk,clk02s); 
+	c2:Clock1khz port map (clk,clk1khz);
+	G1:read_integer port map (clk02s,sw,numar);
+	G2:number_to_digits port map(numar1,cifre1); 
+	G3:number_to_digits port map(numar2,cifre2);
+	
+	Af1:master_display port	map(clk1khz,cifre1,cifre2,afisor,segments);
 
 end master;
