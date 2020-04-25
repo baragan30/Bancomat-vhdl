@@ -49,8 +49,7 @@ component master_display is
 	afisor:out BCD;
 	segments:out std_logic_vector(7 downto 0)
 	);
-end component;
-
+end component; 
 --------------------------------------------semnale--------------------------------------
 signal clk02s :std_logic;	
 signal clk1khz:std_logic;
@@ -115,8 +114,10 @@ begin
 	c2:Clock1khz port map (clk,clk1khz);
 	G1:read_integer port map (clk02s,sw,numar);
 	G2:number_to_digits port map(numar1,cifre1); 
-	G3:number_to_digits port map(numar2,cifre2);
+	G3:number_to_digits port map(numar2,cifre2); 
 	
 	Af1:master_display port	map(clk1khz,cifre1,cifre2,afisor,segments);
+
+	
 
 end master;
