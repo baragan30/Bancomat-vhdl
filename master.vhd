@@ -84,38 +84,22 @@ signal semnalRAM:digit:=4;
 begin 	   
 
 -------------------------------------------organigrama---------------------------------------
-	process(clk) 
-	variable stare :number:=1;
+	process(clk,ok,back,exi,cifre1) 
+	variable stare :number:=0;
 	begin 	 
 		case stare is 
 ----------------------------------------START---------------------------------------------
 			when 0 =>  
-				if (ok= '1' and ok'event)then
-					if(sw="0000")then
-						stare:=2;
-					elsif(sw = "0001")then 
-						stare:=1;
-					end if;
-				end if ;
+				
+					
 				numar1<=stare ;
 				afisor1 <= cifre1;
 				afisor2 <= (0,0,0,0);
 --------------------------------------ADMIN-----------------------------------------------
 				when 1=> 
 				
-				if (ok= '1' and ok'event)then
-					semnalRAM<=0; 
-				end if;
-				if(semnalRAM=0)then
-					semnalRAM<=4;
-					if(corect='1')then 
-						stare:=3;  
-					end if;
-				elsif (back= '1' and back'event)then
-					stare:=0;  
-				elsif (exi= '1' and exi'event)then
-					stare:=0;  
-				end if ; 
+				
+					
 				cod<=0;
 				pin<=numar;
 				numar2<=numar ;
@@ -123,7 +107,8 @@ begin
 				afisor1 <= cifre1;
 				afisor2 <= cifre2; 
 ------------------------------------SELECTOR ADMIN---------------------------------------
-			when others =>stare:=stare ;
+			when others =>
+			stare:=stare ;
 		end case;
 		
 		

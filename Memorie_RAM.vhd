@@ -22,7 +22,7 @@ begin
 	variable suma: pin:=(0,0,0,0,0);
 	variable PIN : pin:=(0,0,0,0,0);
     begin	 
-        if t'event then
+        --if (t'event) then
         if(t=0) then
             if(PIN(codin)=PINin) then
                 corect<='1';
@@ -42,7 +42,7 @@ begin
            -- Mesaj de eroare
             end if;
         end if;
-    end if;	
+  --  end if;	
 	sumout<=suma(codin);
     end process;
 
