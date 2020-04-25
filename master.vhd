@@ -49,7 +49,18 @@ component master_display is
 	afisor:out BCD;
 	segments:out std_logic_vector(7 downto 0)
 	);
-end component; 
+end component; 	 
+----------------------------------------------RAM-uri----------------------------------
+ component Memorie_RAM is
+     Port ( 
+     codin: in number;
+     PINin: in number;
+     sumin: in number;
+     sumout: out number;
+     t : in digit;   --0-afisare, 1-schimbare pin 2-adaug bani 3-scot bani
+     corect: out std_logic:='0'
+     );
+end component;	 
 --------------------------------------------semnale--------------------------------------
 signal clk02s :std_logic;	
 signal clk1khz:std_logic;
@@ -62,24 +73,27 @@ signal numar:number:=0;
 signal numar1:number:=0;
 signal numar2:number:=0; 
 ------------------RAM
-signal pin:number;
+signal pin:number; 
 signal cod:number;
+signal sumin: number;
+signal sumout: number;
 signal corect:std_logic;--daca pinul e corect
+signal semnalRAM:digit:=4;
 
 
 begin 	   
 
 -------------------------------------------organigrama---------------------------------------
 	process(clk) 
-	variable stare :number:=0;
-	begin 
+	variable stare :number:=1;
+	begin 	 
 		case stare is 
 ----------------------------------------START---------------------------------------------
 			when 0 =>  
 				if (ok= '1' and ok'event)then
-					if(sw="0000")then 
+					if(sw="0000")then
 						stare:=2;
-					elsif(sw="0001")then 
+					elsif(sw = "0001")then 
 						stare:=1;
 					end if;
 				end if ;
@@ -87,15 +101,20 @@ begin
 				afisor1 <= cifre1;
 				afisor2 <= (0,0,0,0);
 --------------------------------------ADMIN-----------------------------------------------
-			when 1=> 
+				when 1=> 
+				
 				if (ok= '1' and ok'event)then
+					semnalRAM<=0; 
+				end if;
+				if(semnalRAM=0)then
+					semnalRAM<=4;
 					if(corect='1')then 
 						stare:=3;  
 					end if;
 				elsif (back= '1' and back'event)then
 					stare:=0;  
 				elsif (exi= '1' and exi'event)then
-					stare:=0;
+					stare:=0;  
 				end if ; 
 				cod<=0;
 				pin<=numar;
@@ -115,9 +134,8 @@ begin
 	G1:read_integer port map (clk02s,sw,numar);
 	G2:number_to_digits port map(numar1,cifre1); 
 	G3:number_to_digits port map(numar2,cifre2); 
+	G4: Memorie_RAM port  map(cod,pin,sumin,sumout,semnalRAM,corect);
 	
-	Af1:master_display port	map(clk1khz,cifre1,cifre2,afisor,segments);
-
-	
+	Af1:master_display port	map(clk1khz,cifre1,cifre2,afisor,segments);	
 
 end master;

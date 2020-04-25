@@ -8,16 +8,14 @@ entity Memorie_RAM is
      Port ( 
      codin: in number;
      PINin: in number;
-     PINout: out number;
      sumin: in number;
      sumout: out number;
-     t : inout digit;   --0-afisare, 1-schimbare pin 2-adaug bani 3-scot bani
-     corect: inout std_logic:='0'
+     t : in digit;   --0-afisare, 1-schimbare pin 2-adaug bani 3-scot bani
+     corect: out std_logic:='0'
      );
 end Memorie_RAM;
 
 architecture Behavioral of Memorie_RAM is
-
 
 begin
     process(t,codin) 
@@ -46,7 +44,6 @@ begin
         end if;
     end if;	
 	sumout<=suma(codin);
-	pinout<=Pin(codin);
     end process;
 
 end Behavioral;
