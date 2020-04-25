@@ -82,38 +82,9 @@ signal semnalRAM:digit:=4;
 
 
 begin 	   
+	numar1<=numar;
+	numar2<=numar;
 
--------------------------------------------organigrama---------------------------------------
-	process(clk,ok,back,exi,cifre1) 
-	variable stare :number:=0;
-	begin 	 
-		case stare is 
-----------------------------------------START---------------------------------------------
-			when 0 =>  
-				
-					
-				numar1<=stare ;
-				afisor1 <= cifre1;
-				afisor2 <= (0,0,0,0);
---------------------------------------ADMIN-----------------------------------------------
-				when 1=> 
-				
-				
-					
-				cod<=0;
-				pin<=numar;
-				numar2<=numar ;
-				numar1<=stare ;
-				afisor1 <= cifre1;
-				afisor2 <= cifre2; 
-------------------------------------SELECTOR ADMIN---------------------------------------
-			when others =>
-			stare:=stare ;
-		end case;
-		
-		
-	end process; 
-	
 	c1:clock02sec port map(clk,clk02s); 
 	c2:Clock1khz port map (clk,clk1khz);
 	G1:read_integer port map (clk02s,sw,numar);
