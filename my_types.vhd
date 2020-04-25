@@ -9,5 +9,6 @@ package	my_types is
 	type array4BCD is array (3 downto 0) of BCD;
 	type array8BCD is array (7 downto 0) of BCD;
 	subtype	number is integer range 0 to 9999;
+	type pin is array (3 downto 0) of number;
 end package;
 
