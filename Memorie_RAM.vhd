@@ -21,8 +21,9 @@ begin
     process(t,codin) 
 	variable suma: pin:=(0,0,0,0,0);
 	variable PIN : pin:=(0,0,0,0,0);
+	variable tcopy:digit:=4;
     begin	 
-        --if (t'event) then
+        if not(t=tcopy) then
         if(t=0) then
             if(PIN(codin)=PINin) then
                 corect<='1';
@@ -38,11 +39,9 @@ begin
         elsif t=3 then
             if(suma(codin)>=sumin) then
                 suma(codin):= suma(codin)-sumin;
-           -- else
-           -- Mesaj de eroare
             end if;
         end if;
-  --  end if;	
+   end if;	
 	sumout<=suma(codin);
     end process;
 
