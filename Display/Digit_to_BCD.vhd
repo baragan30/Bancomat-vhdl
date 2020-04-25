@@ -13,7 +13,7 @@ entity Digit_to_BCD is
   afisor:out BCD);
 end Digit_to_BCD;
 
-architecture a_digit_to_BCD of Digit_to_BCD is
+architecture digit_to_BCD of Digit_to_BCD is
 begin	  --segements1(0)(0)
      afisor<=
      "0000001" when sw=0 else --0
@@ -30,4 +30,4 @@ begin	  --segements1(0)(0)
      "1101010" when sw=11 else --r
      "1100010";                --o
 
-end a_digit_to_BCD;
+end digit_to_BCD;

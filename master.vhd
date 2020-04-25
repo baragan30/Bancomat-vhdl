@@ -6,7 +6,8 @@ use work.my_types.all;
 entity master is
 	port (
 	sw :in switch;
-	test_clock:in std_logic;	
+	ok,back,exi:std_logic;
+	clk:in std_logic;	
 	afisor:out BCD  ;
 	segments:out std_logic_vector(7 downto 0)
 	);
@@ -20,29 +21,75 @@ architecture master of master is
 	);
 end component;
 component read_integer is
-  Port ( 
+  Port (
   clk: in std_logic;
   sw: in switch;
   numar: out number);
 end component;	
-
-component Display_to_BCD is
+component number_to_digits is  
 	port (
-	CLK :in std_logic;
-	intreg1:in number;
-	intreg2:in number;
-	afisor:out BCD;
-	segments:out std_logic_vector(7 downto 0)
+	numar:in number;
+	signals:out array4BCD
 	);
 end component;
 
 signal clock02s :std_logic;
-signal number1:number:=0;
-signal number2:number:=0;
-begin 	
+signal afisor1:array4digits;
+signal afisor2:array4digits; 
+signal pin:number;
+signal cod:number;
+signal corect:std_logic;--daca pinul e corect
+signal numar:number:=0;
+signal numar1:number:=0;
+signal numar2:number:=0;
+signal cifre1:array4digits;
+signal cifre2:array4digits;
+begin 	   
+
+-------------------------------------------organigrama---------------------------------------
+	process(clk) 
+	variable stare :number:=0;
+	begin 
+		case stare is 
+----------------------------------------START---------------------------------------------
+			when 0 =>  
+				if (ok= '1' and ok'event)then
+					if(sw="0000")then 
+						stare:=2;
+					elsif(sw="0001")then 
+						stare:=1;
+					end if;
+				end if ;
+				numar1<=stare ;
+				afisor1 <= cifre1;
+				afisor2 <= (0,0,0,0);
+--------------------------------------ADMIN-----------------------------------------------
+			when 1=> 
+				if (ok= '1' and ok'event)then
+					if(corect='1')then 
+						stare:=3;  
+					end if;
+				elsif (back= '1' and back'event)then
+					stare:=0;  
+				elsif (exi= '1' and exi'event)then
+					stare:=0;
+				end if ; 
+				cod<=0;
+				pin<=numar;
+				numar2<=numar ;
+				numar1<=stare ;
+				afisor1 <= cifre1;
+				afisor2 <= cifre2; 
+------------------------------------SELECTOR ADMIN---------------------------------------
+			when others =>stare:=stare ;
+		end case;
+		
+		
+	end process; 
 	
-	G1:clock02sec port map(test_clock,clock02s); 
-	G2:read_integer port map (clock02s,sw,number1);
-	G3:Display_to_BCD port map (test_clock,number1,number2,afisor,segments);
+	G1:clock02sec port map(clk,clock02s);
+	G2:read_integer port map (clock02s,sw,numar);
+	--G3:number_to_digits port map(numar1,cifre1); 
+	--G4:number_to_digits port map(numar2,cifre2);
 
 end master;
