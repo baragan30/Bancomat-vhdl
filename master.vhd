@@ -98,7 +98,7 @@ begin
 			pin<=1234;
 			semnalRAM<=0;
 			when 1=> 
-			pin<=1234 ;
+			pin<=2345 ;
 			semnalRAM<=0;
 			when 2=>
 			semnalRAM<=1;
