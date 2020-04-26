@@ -108,12 +108,13 @@ begin
     cifre2(3)<=0;
     
 	c1:clock02sec       port map(clk,clk02s); 
-	c2:Clock1khz        port map (clk,clk1khz);
+	c2:Clock1khz        port map(clk,clk1khz);
 	B1:button_converter port map(ok1,clk1khz,ok);
 	B2:button_converter port map(back1,clk1khz,back);
-	B3:button_converter port map(back1,clk1khz,exi);
-	G1:read_integer     port map (clk02s,sw,numar);
-	G2: Memorie_RAM     port map(cod,pin,sumin,sumout,semnalRAM,corect);
+	B3:button_converter port map(exi1,clk1khz,exi);
+	G1:read_integer     port map(clk02s,sw,numar);
+	G2:number_to_digits port map(numar1,cifre1); 
+	G3: Memorie_RAM     port map(cod,pin,sumin,sumout,semnalRAM,corect);
 	
 	Af1:master_display port	map(clk1khz,cifre2,cifre1,afisor,segments);	
 
