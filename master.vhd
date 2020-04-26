@@ -88,33 +88,38 @@ begin
 	variable stare :number :=0;
 	begin 
 		if(clk02s'event and clk02s='1')	 then  
-			if(stare < 4)then
+			if(stare < 6)then
 			stare:=stare+1;	
 			else stare:=0;
 			end if ;
 		end if ; 
 		case stare is 
 			when 0=>
-			cod <=0;
-			semnalRAM<=0;
-			when 1=>
-			cod <=1; 
-			semnalRAM<=4;
-			when 2=>
-			cod<=0;
-			semnalRAM<=1;
-			pin<=	2134;
-			when 3=>
-			cod <=0; 
-			semnalRAM<=1;
-			when 4=> 
-			cod<=0;
-			semnalRAM<=1;
 			pin<=1234;
+			semnalRAM<=0;
+			when 1=> 
+			pin<=1234 ;
+			semnalRAM<=0;
+			when 2=>
+			semnalRAM<=1;
+			pin<=2345;
+			when 3=>
+			pin<=1234;
+			semnalRAM<=0;
+			when 4=> 
+			semnalRAM<=1;
+			pin<=1234; 
+			when 5=>
+			semnalRAM<=0;
+			pin<=1234;
+			when 6=>
+			semnalRAM<=4;
+			pin<=2345  ;
 			when others => 
 			stare:=stare; 
 		end case;
-	end process;
+	end process; 
+	cod<=0;
 	numar1<=codout;
 	afisor1<=cifre1;
 	afisor2(0)<= 1 when corect = '1' else 0;

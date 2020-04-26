@@ -21,7 +21,7 @@ architecture Behavioral of Memorie_RAM is
 begin
     process(t,codin) 
 	variable suma: pin:=(0,0,0,0,0);
-	variable PIN : pin:=(1234,1234,0,0,0);
+	variable PIN : pin:=(1234,5678,0,0,0);
 	variable tcopy:digit:=4;
     begin	 
         if not(t=tcopy) then
