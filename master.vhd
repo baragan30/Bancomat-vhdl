@@ -83,15 +83,32 @@ signal semnalRAM:digit:=4;
 
 begin 	   
 	numar1<=numar;
-	numar2<=numar;
+	numar2<=numar; 
+	process(clk02s)
+	variable stare :number :=0;
+	begin 
+		if(clk02s'event and clk02s='1')	 then
+			stare:=stare+1;
+		end if ; 
+		case stare is 
+			when 0=>
+				stare:=1;
+			when others => 
+			stare:=stare; 
+		end case;
+		
+		
+			
+	
+	end process;
 
-	c1:clock02sec port map(clk,clk02s); 
-	c2:Clock1khz port map (clk,clk1khz);
-	G1:read_integer port map (clk02s,sw,numar);
+	c1:clock02sec       port map(clk,clk02s); 
+	c2:Clock1khz        port map (clk,clk1khz);
+	G1:read_integer     port map (clk02s,sw,numar);
 	G2:number_to_digits port map(numar1,cifre1); 
 	G3:number_to_digits port map(numar2,cifre2); 
-	G4: Memorie_RAM port  map(cod,pin,sumin,sumout,semnalRAM,corect);
+	G4: Memorie_RAM     port map(cod,pin,sumin,sumout,semnalRAM,corect);
 	
-	Af1:master_display port	map(clk1khz,cifre1,cifre2,afisor,segments);	
+	Af1:master_display port	map(clk1khz,cifre2,cifre1,afisor,segments);	
 
 end master;

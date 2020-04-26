@@ -14,7 +14,7 @@ end Clock1khz;
 
 architecture Clock1khz of Clock1khz is
 begin
-	  	 process(clockin)
+	process(clockin)
 	variable numarator1: integer range 0 to 100_001:=0;
 	begin 	  
 		if (clockin ='1')and (clockin'event)  then
@@ -25,6 +25,4 @@ begin
 			end if;
 		end if ;
 	end process	; 
-		
-
 end Clock1khz;
