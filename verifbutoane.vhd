@@ -1,19 +1,19 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.all;
+
 use work.my_types.all;
 
-entity verifbutoane is 	 
-		port (
+entity master is
+	port (
 	sw :in switch;
 	ok1,back1,exi1:std_logic;
 	clk:in std_logic;	
 	afisor:out BCD  ;
 	segments:out std_logic_vector(7 downto 0)
 	);
-	
-end verifbutoane;
+end master;
 
-architecture verifbutoane of verifbutoane is
+architecture master of master is 
 --------------------------------------clock-uri---------------------------------------
  component clock02sec is 
 	port (
@@ -25,14 +25,6 @@ component Clock1khz is
 		port (
 	clockin :in std_logic;
 	clockout :inout std_logic
-	);
-end component; 
-component button_converter is 
-	port(	
-	buttonin :in std_logic ;
-	clk :in std_logic   ;
-	buttonout:out std_logic
-	
 	);
 end component;
 
@@ -58,6 +50,23 @@ component master_display is
 	segments:out std_logic_vector(7 downto 0)
 	);
 end component; 	 
+
+
+component button_converter is 
+
+	port(	
+
+	buttonin :in std_logic ;
+
+	clk :in std_logic   ;
+
+	buttonout:out std_logic
+
+	
+
+	);
+
+end component;
 ----------------------------------------------RAM-uri----------------------------------
  component Memorie_RAM is
      Port ( 
@@ -72,10 +81,6 @@ end component;
 --------------------------------------------semnale--------------------------------------
 signal clk02s :std_logic;	
 signal clk1khz:std_logic;
-----------------Buttons
-signal ok :std_logic;
-signal back :std_logic;
-signal exi :std_logic;
 ---------------Display
 signal afisor1:array4digits;
 signal afisor2:array4digits;
@@ -91,35 +96,25 @@ signal sumin: number;
 signal sumout: number;
 signal corect:std_logic;--daca pinul e corect
 signal semnalRAM:digit:=4;
-
+signal ok:std_logic;
+signal back:std_logic;
+signal exi:std_logic;
 
 begin 	   
 	numar1<=numar;
-	process(clk)
-	begin  
-		if(ok='1')then
-			cifre2(0)<= 1;
-		else cifre2(0)<=0;
-		end if;	 
-		if(back='1')then
-			cifre2(1)<=1;
-		else cifre2(1)<=0;
-		end if;
-		if(exi='1')then
-			cifre2(2)<=1;
-		else cifre2(2)<=0;
-		end if;
-	end process  ;
-
+	cifre2(0)<=1 when ok='1' else 0;
+	cifre2(1)<=1 when back='1' else 0;
+	cifre2(2)<=1 when exi='1' else 0;
+    cifre2(3)<=0;
+    
 	c1:clock02sec       port map(clk,clk02s); 
 	c2:Clock1khz        port map (clk,clk1khz);
 	B1:button_converter port map(ok1,clk1khz,ok);
 	B2:button_converter port map(back1,clk1khz,back);
-	B3:button_converter port map(back1,clk1khz,back);
+	B3:button_converter port map(back1,clk1khz,exi);
 	G1:read_integer     port map (clk02s,sw,numar);
-	G2:number_to_digits port map(numar1,cifre1); 
-	G4: Memorie_RAM     port map(cod,pin,sumin,sumout,semnalRAM,corect);
+	G2: Memorie_RAM     port map(cod,pin,sumin,sumout,semnalRAM,corect);
 	
 	Af1:master_display port	map(clk1khz,cifre2,cifre1,afisor,segments);	
 
-end verifbutoane;
+end master;
