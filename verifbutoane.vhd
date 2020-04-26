@@ -62,8 +62,6 @@ component button_converter is
 
 	buttonout:out std_logic
 
-	
-
 	);
 
 end component;

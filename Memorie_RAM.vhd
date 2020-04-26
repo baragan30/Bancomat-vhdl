@@ -10,6 +10,7 @@ entity Memorie_RAM is
      PINin: in number;
      sumin: in number;
      sumout: out number;
+	 codout: out number;
      t : in digit;   --0-afisare, 1-schimbare pin 2-adaug bani 3-scot bani
      corect: out std_logic:='0'
      );
@@ -20,7 +21,7 @@ architecture Behavioral of Memorie_RAM is
 begin
     process(t,codin) 
 	variable suma: pin:=(0,0,0,0,0);
-	variable PIN : pin:=(0,0,0,0,0);
+	variable PIN : pin:=(1234,1234,0,0,0);
 	variable tcopy:digit:=4;
     begin	 
         if not(t=tcopy) then
@@ -42,7 +43,8 @@ begin
             end if;
         end if;
    end if;	
-	sumout<=suma(codin);
+   sumout<=suma(codin);
+   codout<=PIN(codin)  ;
     end process;
 
 end Behavioral;

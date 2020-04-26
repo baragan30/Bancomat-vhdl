@@ -53,10 +53,11 @@ end component;
 ----------------------------------------------RAM-uri----------------------------------
  component Memorie_RAM is
      Port ( 
-     codin: in number;
+       codin: in number;
      PINin: in number;
      sumin: in number;
      sumout: out number;
+	 codout: out number;
      t : in digit;   --0-afisare, 1-schimbare pin 2-adaug bani 3-scot bani
      corect: out std_logic:='0'
      );
@@ -77,38 +78,54 @@ signal pin:number;
 signal cod:number;
 signal sumin: number;
 signal sumout: number;
+signal codout: number;
 signal corect:std_logic;--daca pinul e corect
 signal semnalRAM:digit:=4;
 
 
 begin 	   
-	numar1<=numar;
-	numar2<=numar; 
 	process(clk02s)
 	variable stare :number :=0;
 	begin 
-		if(clk02s'event and clk02s='1')	 then
-			stare:=stare+1;
+		if(clk02s'event and clk02s='1')	 then  
+			if(stare < 4)then
+			stare:=stare+1;	
+			else stare:=0;
+			end if ;
 		end if ; 
 		case stare is 
 			when 0=>
-				stare:=1;
+			cod <=0;
+			semnalRAM<=0;
+			when 1=>
+			cod <=1; 
+			semnalRAM<=4;
+			when 2=>
+			cod<=0;
+			semnalRAM<=1;
+			pin<=	2134;
+			when 3=>
+			cod <=0; 
+			semnalRAM<=1;
+			when 4=> 
+			cod<=0;
+			semnalRAM<=1;
+			pin<=1234;
 			when others => 
 			stare:=stare; 
 		end case;
-		
-		
-			
-	
 	end process;
+	numar1<=codout;
+	afisor1<=cifre1;
+	afisor2(0)<= 1 when corect = '1' else 0;
 
 	c1:clock02sec       port map(clk,clk02s); 
 	c2:Clock1khz        port map (clk,clk1khz);
 	G1:read_integer     port map (clk02s,sw,numar);
 	G2:number_to_digits port map(numar1,cifre1); 
 	G3:number_to_digits port map(numar2,cifre2); 
-	G4: Memorie_RAM     port map(cod,pin,sumin,sumout,semnalRAM,corect);
+	G4: Memorie_RAM     port map(cod,pin,sumin,sumout,codout,semnalRAM,corect);
 	
-	Af1:master_display port	map(clk1khz,cifre2,cifre1,afisor,segments);	
+	Af1:master_display port	map(clk1khz,afisor2,afisor1,afisor,segments);	
 
 end master;
