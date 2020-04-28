@@ -9,6 +9,7 @@ entity master is
 	ok,back,exi:std_logic;
 	clk:in std_logic;	
 	afisor:out BCD  ;
+	led :out std_logic;
 	segments:out std_logic_vector(7 downto 0)
 	);
 end master;
@@ -141,6 +142,7 @@ begin
 	numar1<=codout;
 	afisor1<=cifre1;
 	afisor2<= cifre2;
+	led<=corect;
 
 	c1:clock02sec       port map(clk,clk02s); 
 	c2:Clock1khz        port map (clk,clk1khz);
