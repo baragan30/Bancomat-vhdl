@@ -68,6 +68,7 @@ end component;
 ----------------------------------------------RAM-uri----------------------------------
  component Memorie_RAM is
      Port ( 
+	 clk :in std_logic;
      codin: in number;
      PINin: in number;
      sumin: in number;
@@ -112,7 +113,7 @@ begin
 	B3:button_converter port map(exi1,clk1khz,exi);
 	G1:read_integer     port map(clk02s,sw,numar);
 	G2:number_to_digits port map(numar1,cifre1); 
-	G3: Memorie_RAM     port map(cod,pin,sumin,sumout,semnalRAM,corect);
+	G3: Memorie_RAM     port map(clk1khz,cod,pin,sumin,sumout,semnalRAM,corect);
 	
 	Af1:master_display port	map(clk1khz,cifre2,cifre1,afisor,segments);	
 

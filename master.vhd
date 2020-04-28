@@ -53,7 +53,8 @@ end component;
 ----------------------------------------------RAM-uri----------------------------------
  component Memorie_RAM is
      Port ( 
-       codin: in number;
+	 clk :in std_logic;
+     codin: in number;
      PINin: in number;
      sumin: in number;
      sumout: out number;
@@ -88,7 +89,7 @@ begin
 	variable stare :number :=0;
 	begin 
 		if(clk02s'event and clk02s='1')	 then  
-			if(stare < 6)then
+			if(stare < 12)then
 			stare:=stare+1;	
 			else stare:=0;
 			end if ;
@@ -114,22 +115,39 @@ begin
 			pin<=1234;
 			when 6=>
 			semnalRAM<=4;
-			pin<=2345  ;
+			pin<=2345  ; 
+			when 7=>
+			sumin<=100;
+			semnalRAM<=2; 
+			when 8=>
+			sumin<=100;
+			semnalRAM<=2;
+			when 9=>
+			semnalRAM<=0;
+			when 10=> 
+			sumin<=25;
+			semnalRAM<=3;
+			when 11=>
+			SEMNALRAM<=0;
+			when 12=> 
+			semnalRAM<=3;
+			sumin<=5;
 			when others => 
 			stare:=stare; 
 		end case;
 	end process; 
 	cod<=0;
+	numar2<=sumout;
 	numar1<=codout;
 	afisor1<=cifre1;
-	afisor2(0)<= 1 when corect = '1' else 0;
+	afisor2<= cifre2;
 
 	c1:clock02sec       port map(clk,clk02s); 
 	c2:Clock1khz        port map (clk,clk1khz);
 	G1:read_integer     port map (clk02s,sw,numar);
 	G2:number_to_digits port map(numar1,cifre1); 
 	G3:number_to_digits port map(numar2,cifre2); 
-	G4: Memorie_RAM     port map(cod,pin,sumin,sumout,codout,semnalRAM,corect);
+	G4: Memorie_RAM     port map(clk1khz,cod,pin,sumin,sumout,codout,semnalRAM,corect);
 	
 	Af1:master_display port	map(clk1khz,afisor2,afisor1,afisor,segments);	
 

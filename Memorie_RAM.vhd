@@ -5,7 +5,8 @@ use IEEE.STD_LOGIC_1164.ALL;
 use work.my_types.all;
 
 entity Memorie_RAM is
-     Port ( 
+	Port (   
+	 clk :in std_logic;
      codin: in number;
      PINin: in number;
      sumin: in number;
@@ -17,34 +18,44 @@ entity Memorie_RAM is
 end Memorie_RAM;
 
 architecture Behavioral of Memorie_RAM is
-
+signal t1 :std_logic;
+signal x: std_logic_vector(1 downto 0):="00"  ;
 begin
-    process(t,codin) 
+    process(clk,t,codin) 
 	variable suma: pin:=(0,0,0,0,0);
-	variable PIN : pin:=(1234,5678,0,0,0);
-	variable tcopy:digit:=4;
-    begin	 
-        if not(t=tcopy) then
-        if(t=0) then
-            if(PIN(codin)=PINin) then
-                corect<='1';
-            else
-                corect<='0';
-            end if;
-        elsif t=1 then
-            PIN(codin):=PINin;
-        elsif t=2 then	
-			if(suma(codin) < (9999-sumin) ) then
-            suma(codin):= suma(codin)+sumin; 
+	variable PIN : pin:=(1234,5678,0,0,0); 
+	variable sum :number;
+	variable numarator: std_logic_vector(1 downto 0):="00"  ;
+    begin
+		if(clk'event)then  
+			x(0)<=numarator(0);
+			x(1)<=numarator(1);
+			numarator(0):=t1 and (x(1) or (not x(0)));
+			numarator(1):=t1 and (x(0) or x(1) );	
+			
+			if(numarator ="01")then
+				if(t=2)then
+				sum:=suma(codin)+sumin;	
+				elsif(t=3) then	
+					sum:=suma(codin)-sumin;	
+				end if;
+			elsif(numarator="10")then
+				suma(codin):=sum;
 			end if;
-        elsif t=3 then
-            if(suma(codin)>=sumin) then
-                suma(codin):= suma(codin)-sumin;
-            end if;
-        end if;
-   end if;	
-   sumout<=suma(codin);
-   codout<=PIN(codin)  ;
+			
+			if(t=1)then 
+				PIN(codin):=PINin;
+			end if ;
+	  		sumout<=suma(codin);
+	   		codout<=PIN(codin)  ;
+			   
+			if(pin(codin)=pinin)then
+				corect<='1';
+			else
+				corect<='0';
+			end if;
+		end if;
     end process;
+t1<= '1' when (t=2 or t=3)else '0';
 
 end Behavioral;
