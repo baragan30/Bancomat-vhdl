@@ -86,15 +86,9 @@ signal semnalRAM:digit:=4;
 
 
 begin 	   
-	process(clk02s)
+	process(ok,exi,back)
 	variable stare :number :=0;
 	begin 
-		if(clk02s'event and clk02s='1')	 then  
-			if(stare < 12)then
-			stare:=stare+1;	
-			else stare:=0;
-			end if ;
-		end if ; 
 		case stare is 
 			when 0=>
 			pin<=1234;
