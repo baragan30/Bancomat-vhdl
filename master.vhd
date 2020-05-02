@@ -21,7 +21,6 @@ entity master is
 	afisor:out BCD  ;
 
 
-
 	segments:out std_logic_vector(7 downto 0)
 
 	);
