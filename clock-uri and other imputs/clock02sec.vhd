@@ -21,7 +21,7 @@ begin
 			if numarator1 =1 then
 				numarator1:=0; 
 				numarator2:=numarator2+1;
-				if numarator2 =10 then
+				if numarator2 =15 then
 					numarator2:=0;
 					clockout<=(not clockout);
 				end if;

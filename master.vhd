@@ -9,11 +9,6 @@ entity master is
 	ok,back,exi:std_logic;
 	clk:in std_logic;	
 	afisor:out BCD  ;
-<<<<<<< HEAD
-
-
-=======
->>>>>>> e2724e6d89793c5d8f08d6dfd0182a9adcd99be6
 	segments:out std_logic_vector(7 downto 0)
 	);
 end master;
@@ -27,6 +22,12 @@ architecture master of master is
 	);
 end component;	
 component Clock1khz is	
+		port (
+	clockin :in std_logic;
+	clockout :inout std_logic
+	);
+end component; 
+component clock100khz is
 		port (
 	clockin :in std_logic;
 	clockout :inout std_logic
@@ -71,6 +72,7 @@ end component;
 --------------------------------------------semnale--------------------------------------
 signal clk02s :std_logic;	
 signal clk1khz:std_logic;
+signal clk100khz:std_logic;
 ---------------Display
 signal afisor1:array4digits;
 signal afisor2:array4digits;
@@ -86,7 +88,7 @@ signal sumin: number;
 signal sumout: number;
 signal pinout: number;
 signal corect:std_logic;--daca pinul e corect
-signal semnalRAM:digit:=4; 
+signal semnalRAM:digit; 
 
 signal nou :std_logic;
 
@@ -94,15 +96,19 @@ begin
 	
 	process(ok,exi,back,clk)
 	variable stare :number :=4;
-	variable codcopy:number:=3;
+	variable stare_anterioara :number :=0;
+	variable codcopy:number:=3;	
+	variable numarator :digit:=0; 
+	variable RAMsignal:digit:=0; 
 	begin 
 		cod<=codcopy;
+		semnalRAM<=RAMsignal;
 		case stare is
 ----------------------------------------------------------Start---------------------------------------------------
 			when 0=>
 			numar2<=stare;
 			afisor2<=cifre2;
-			afisor1<=(0,0,0,0);
+			afisor1<=(0,0,0,0);	
 			if(ok'event and ok ='1')then 
 				case sw is 
 					when "0001" =>stare:=1;
@@ -131,7 +137,8 @@ begin
 			when 3=>
 			numar2<=stare;
 			afisor2<=cifre2;
-			afisor1<=(0,0,0,0);
+			afisor1<=(0,0,0,0);	 
+			stare_anterioara:=stare;
 			if(ok'event and ok ='1')then 
 				stare:=3;
 			end if;
@@ -178,8 +185,16 @@ begin
 			numar2<=stare;
 			afisor2<=cifre2;
 			afisor1<=(0,0,0,0);
+			stare_anterioara:=stare;
 			if(ok'event and ok ='1')then 
-				stare:=3;
+					case sw is 
+					when "0001" =>stare:=51;
+					when "0010" =>stare:=52;
+					when "0100" =>stare:=53;	
+					when "0110" =>stare:=54;	
+					when "1000" =>stare:=55;	
+					when others => stare:=stare;
+				end case;
 			end if;
 			if(back'event and back ='1' )then 
 				stare:=1;
@@ -187,6 +202,55 @@ begin
 			if(exi'event and exi ='1')then 
 				stare:=0;
 			end if;	
+----------------------------------------------------------Interogare Sold -------------------------------------
+			when 53=>
+			numar2<=stare;
+			afisor2<=cifre2;
+			numar1<=sumout;
+			afisor1<=cifre1; 
+			if((ok'event and ok ='1'))then 
+				stare:=stare_anterioara;
+			end if;
+			if(back'event and back ='1' )then 
+				stare:=stare_anterioara;
+			end if;	
+			if(exi'event and exi ='1')then 
+				stare:=0;
+			end if;	
+------------------------------------------------------------Schimbare PIN-------------------------------------
+			when 54=> 
+			numar2<=stare;
+			afisor2<=cifre2;
+			numar1<=numar;
+			afisor1<=cifre1; 
+			pin<=numar;
+			if(clk1khz'event and clk1khz='1')then 
+				case numarator is 
+					when 1 => 
+					RAMsignal:=1;
+					numarator:=numarator+1;
+					when 2=>
+					RAMsignal:=0;
+					numarator:=numarator+1;
+					when 3=>
+					numarator:=0; 
+					stare:=stare_anterioara;
+					when others =>
+					RAMsignal:=0;
+				end case;
+			end if;
+			
+			if((ok'event and ok ='1'))then 
+				numarator:=1;
+			end if;
+			if(back'event and back ='1' )then 
+				stare:=stare_anterioara;
+			end if;	
+			if(exi'event and exi ='1')then 
+				stare:=0;
+			end if;
+			
+		
 			
 			
 			when others => 
@@ -196,10 +260,11 @@ begin
 
 	c1:clock02sec       port map(clk,clk02s); 
 	c2:Clock1khz        port map (clk,clk1khz);
+	c3:Clock100khz        port map (clk,clk100khz);
 	G1:read_integer     port map (clk02s,sw,numar);
 	G2:number_to_digits port map(numar1,cifre1); 
 	G3:number_to_digits port map(numar2,cifre2); 
-	G4: Memorie_RAM     port map(clk1khz,cod,pin,sumin,sumout,pinout,semnalRAM,corect);
+	G4: Memorie_RAM     port map(clk100khz,cod,pin,sumin,sumout,pinout,semnalRAM,corect);
 	
 	Af1:master_display port	map(clk1khz,afisor2,afisor1,afisor,segments);	
 

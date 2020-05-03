@@ -7,10 +7,11 @@ use work.my_types.all;
 entity Greedy is
   Port (
   pret: inout number;
-  clk:in std_logic;
-  bancnote_ramase: inout arraybancnota;
-  bancnote_extrase: inout arraybancnota;
-  corect:out std_logic:='0'
+  clk:in std_logic;	
+  bancnote_initiale:in arraybancnota;
+  bancnote_ramase: out arraybancnota;
+  bancnote_extrase: out arraybancnota;
+  corect:out std_logic
    );
 end Greedy;
 
@@ -22,7 +23,7 @@ begin
     variable cant:arraybancnota;
     variable  f:arraybancnota;
     begin
-    cant:=bancnote_ramase;
+    cant:=bancnote_initiale;
     if (clk'event and clk='1')then
         if valoare=800 and cant(5)>0 then
             valoare:=valoare-200;
@@ -65,7 +66,7 @@ begin
     bancnote_extrase<=f;
     bancnote_ramase<=cant;
     if(valoare>0) then
-    --eroare
+    	corect<='0';
     else
         corect<='1';
     end if;
