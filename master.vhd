@@ -6,7 +6,7 @@ use work.my_types.all;
 entity master is
 	port (
 	sw :in switch;
-	ok,back,exi:std_logic;
+	ok1,back1,exi1:std_logic;
 	clk:in std_logic;	
 	afisor:out BCD  ;
 	segments:out std_logic_vector(7 downto 0)
@@ -40,6 +40,19 @@ component read_integer is
   sw: in switch;
   numar: out number);
 end component;	
+component button_converter is 
+
+	port(	
+
+	buttonin :in std_logic ;
+
+	clk :in std_logic   ;
+
+	buttonout:out std_logic
+
+	);
+
+end component;
 ---------------------------------------entitati display---------------------------
 component number_to_digits is  
 	port (
@@ -90,12 +103,14 @@ signal pinout: number;
 signal corect:std_logic;--daca pinul e corect
 signal semnalRAM:digit; 
 
-signal nou :std_logic;
+signal ok:std_logic;
+signal back:std_logic;
+signal exi:std_logic;
 
 begin 	
 	
-	process(ok,exi,back,clk)
-	variable stare :number :=4;
+	process(ok,exi,back,clk,clk1khz)
+	variable stare :number :=55;
 	variable stare_anterioara :number :=0;
 	variable codcopy:number:=3;	
 	variable numarator :digit:=0; 
@@ -218,7 +233,7 @@ begin
 				stare:=0;
 			end if;	
 ------------------------------------------------------------Schimbare PIN-------------------------------------
-			when 54=> 
+			when 55=> 
 			numar2<=stare;
 			afisor2<=cifre2;
 			numar1<=numar;
@@ -260,7 +275,10 @@ begin
 
 	c1:clock02sec       port map(clk,clk02s); 
 	c2:Clock1khz        port map (clk,clk1khz);
-	c3:Clock100khz        port map (clk,clk100khz);
+	c3:Clock100khz        port map (clk,clk100khz);	
+	B1:button_converter port map(ok1,clk1khz,ok);
+	B2:button_converter port map(back1,clk1khz,back);
+	B3:button_converter port map(exi1,clk1khz,exi);
 	G1:read_integer     port map (clk02s,sw,numar);
 	G2:number_to_digits port map(numar1,cifre1); 
 	G3:number_to_digits port map(numar2,cifre2); 
