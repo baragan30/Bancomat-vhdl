@@ -258,7 +258,7 @@ begin
 
 	c1:clock02sec       port map(clk,clk02s); 
 	c2:Clock1khz        port map (clk,clk1khz);
-	c3:Clock100khz      port map (clk,clk100khz);	
+	c3:Clock100khz        port map (clk,clk100khz);	
 	B1:button_converter port map(ok1,clk1khz,ok);
 	B2:button_converter port map(back1,clk1khz,back);
 	B3:button_converter port map(exi1,clk1khz,exi);
