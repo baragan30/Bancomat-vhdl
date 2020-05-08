@@ -107,18 +107,18 @@ signal ok:std_logic;
 signal back:std_logic;
 signal exi:std_logic;
 
-signal stare:number:=0;
+signal stare:number:=5;
 signal backstare:number:=0;
 signal nextstare:number:=0;
+
+signal sari :std_logic:='0';
 begin 	
 	
-	process(ok,exi,back,clk,clk1khz)
+	process(stare,clk)
 	variable codcopy:number:=3;	
 	variable numarator :digit:=0; 
-	variable RAMsignal:digit:=0; 
 	begin 
 		cod<=codcopy;
-		semnalRAM<=RAMsignal;
 		case stare is
 ----------------------------------------------------------Start---------------------------------------------------
 			when 0=>
@@ -175,9 +175,9 @@ begin
 			numar1<=numar;
 			afisor1<=cifre1; 
 			if corect='1'then
-				nextstare<=3;
+				nextstare<=5;
 			end if;
-			backstare<=0;
+			backstare<=2;
 -------------------------------------------------------------Selector client-----------------------------------------
 			when 5=>
 			numar2<=stare;
@@ -190,49 +190,49 @@ begin
 				when "0100" =>nextstare<=53;	
 				when "0110" =>nextstare<=54;
 				when "1000" =>nextstare<=55;
-				
-				when others => nextstare<=3;
+				when others => nextstare<=5;
 			end case;
-----------------------------------------------------------Interogare Sold -------------------------------------
+----------------------------------------------------------Interogare Sold Client -------------------------------------
 			when 53=>
 			numar2<=stare;
 			afisor2<=cifre2;
 			numar1<=sumout;
 			afisor1<=cifre1; 
+			
 			nextstare<=5;
 			backstare<=5;
-------------------------------------------------------------Schimbare PIN-------------------------------------
---			when 55=> 
---			numar2<=stare;
---			afisor2<=cifre2;
---			numar1<=numar;
---			afisor1<=cifre1; 
---			pin<=numar;
---			if(clk1khz'event and clk1khz='1')then 
---				case numarator is 
---					when 1 => 
---					RAMsignal:=1;
---					numarator:=numarator+1;
---					when 2=>
---					RAMsignal:=0;
---					numarator:=numarator+1;
---					when 3=>
---					numarator:=0; 
---					stare:=stare_anterioara;
---					when others =>
---					RAMsignal:=0;
---				end case;
---			end if;
---			
---			if((ok'event and ok ='1'))then 
---				numarator:=1;
---			end if;
---			if(back'event and back ='1' )then 
---				stare:=stare_anterioara;
---			end if;	
---			if(exi'event and exi ='1')then 
---				stare:=0;
---			end if;		   
+------------------------------------------------------------Schimbare PIN 1-------------------------------------
+			when 55=> 
+			numar2<=stare;
+			afisor2<=cifre2;
+			numar1<=numar;
+			afisor1<=cifre1; 
+			
+			nextstare<=551;	
+			backstare<=5;
+			
+			
+------------------------------------------------------------Schimbare PIN 2-------------------------------------
+			when 551=> 
+			numar2<=stare;
+			afisor2<=cifre2;
+			numar1<=numar;
+			afisor1<=cifre1;
+			
+			sari<='1';
+			semnalRAM<=1;
+			nextstare<=552;	
+			backstare<=5;
+------------------------------------------------------------Schimbare PIN 3-------------------------------------
+			when 552=> 
+			numar2<=stare;
+			afisor2<=cifre2;
+			numar1<=numar;
+			afisor1<=cifre1;
+			semnalRAM<=0;
+			sari<='0';
+			nextstare<=5;	
+			backstare<=5;
 			
 			
 			when others => 
@@ -244,7 +244,7 @@ begin
 	process(clk02s)
 	begin	  
 		if (clk02s'event and clk02s='1')then
-			 if(ok ='1')then 
+			 if((ok ='1')or(sari='1'))then 
 				stare<=nextstare;
 			elsif(back ='1' )then 
 				stare<=backstare;	
