@@ -107,11 +107,12 @@ signal ok:std_logic;
 signal back:std_logic;
 signal exi:std_logic;
 
+signal stare:number:=0;
+signal backstare:number:=0;
+signal nextstare:number:=0;
 begin 	
 	
 	process(ok,exi,back,clk,clk1khz)
-	variable stare :number :=55;
-	variable stare_anterioara :number :=0;
 	variable codcopy:number:=3;	
 	variable numarator :digit:=0; 
 	variable RAMsignal:digit:=0; 
@@ -124,114 +125,83 @@ begin
 			numar2<=stare;
 			afisor2<=cifre2; 
 			numar1<=0; 
-			afisor1<=(0,0,0,0);	
-			if(ok'event and ok ='1')then 
-				case sw is 
-					when "0001" =>stare:=1;
-					when "0000" =>stare:=2;	
-					when others => stare:=stare;
-				end case;
-			end if;	
-----------------------------------------------------------Admin-------------------------------------------------
---          when 1=>
---			numar2<=stare;
---			afisor2<=cifre2;
---			numar1<=numar;
---			afisor1<=cifre1;
---			codcopy:=0;	
---			if((ok'event and ok ='1') and corect='1')then 
---				stare:=3;
---			end if;
---			if(back'event and back ='1' )then 
---				stare:=0;
---			end if;	
---			if(exi'event and exi ='1')then 
---				stare:=0;
---			end if;	
-----------------------------------------------------------Selector Admin------------------------------------------------
---			when 3=>
---			numar2<=stare;
---			afisor2<=cifre2;
---			afisor1<=(0,0,0,0);	 
---			stare_anterioara:=stare;
---			if(ok'event and ok ='1')then 
---				stare:=3;
---			end if;
---			if(back'event and back ='1' )then 
---				stare:=1;
---			end if;	
---			if(exi'event and exi ='1')then 
---				stare:=0;
---			end if;	
-------------------------------------------------------Client card-------------------------------------
---			when 2=>
---			numar2<=stare;
---			afisor2<=cifre2;
---			numar1<=numar;
---			afisor1<=cifre1;
---			codcopy:=numar;
---			if(ok'event and ok ='1' )then 
---				stare:=4;
---			end if;
---			if(back'event and back ='1' )then 
---				stare:=0;
---			end if;	
---			if(exi'event and exi ='1')then 
---				stare:=0;
---			end if;
-----------------------------------------------------------Client PIN------------------------------------------------
---			when 4=>
---			numar2<=stare;
---			afisor2<=cifre2;
---			numar1<=numar;
---			afisor1<=cifre1;
---			if((ok'event and ok ='1') and corect='1')then 
---				stare:=5;
---			end if;
---			if(back'event and back ='1' )then 
---				stare:=0;
---			end if;	
---			if(exi'event and exi ='1')then 
---				stare:=0;
---			end if;	
----------------------------------------------------------------Selector client-----------------------------------------
---			when 5=>
---			numar2<=stare;
---			afisor2<=cifre2;
---			afisor1<=(0,0,0,0);
---			stare_anterioara:=stare;
---			if(ok'event and ok ='1')then 
---					case sw is 
---					when "0001" =>stare:=51;
---					when "0010" =>stare:=52;
---					when "0100" =>stare:=53;	
---					when "0110" =>stare:=54;	
---					when "1000" =>stare:=55;	
---					when others => stare:=stare;
---				end case;
---			end if;
---			if(back'event and back ='1' )then 
---				stare:=1;
---			end if;	
---			if(exi'event and exi ='1')then 
---				stare:=0;
---			end if;	
-------------------------------------------------------------Interogare Sold -------------------------------------
---			when 53=>
---			numar2<=stare;
---			afisor2<=cifre2;
---			numar1<=sumout;
---			afisor1<=cifre1; 
---			if((ok'event and ok ='1'))then 
---				stare:=stare_anterioara;
---			end if;
---			if(back'event and back ='1' )then 
---				stare:=stare_anterioara;
---			end if;	
---			if(exi'event and exi ='1')then 
---				stare:=0;
---			end if;	
---------------------------------------------------------------Schimbare PIN-------------------------------------
+			afisor1<=(10,10,10,10);	
+			backstare<=0;
+			case sw is 
+				when "0010" =>nextstare<=1;
+				when "0001" =>nextstare<=2;	
+				when others => nextstare<=0;
+			end case;
+--------------------------------------------------------Admin-------------------------------------------------
+          when 1=>
+			numar2<=stare;
+			afisor2<=cifre2;
+			numar1<=numar;
+			afisor1<=cifre1;
+			codcopy:=0;	
+			if corect='1'then
+				nextstare<=3;
+			end if;
+			backstare<=0;
+--------------------------------------------------------Selector Admin------------------------------------------------
+			when 3=>
+			numar2<=stare;
+			afisor2<=cifre2;
+			afisor1<=(0,0,0,0);	 
+			backstare<=1; 
+			case sw is 
+				when "0001" =>nextstare<=1;
+				when "0010" =>nextstare<=2;	
+				when "0100" =>nextstare<=1;
+				when "1000" =>nextstare<=2;
+				when others => nextstare<=3;
+			end case;
+			
+----------------------------------------------------Client card-------------------------------------
+			when 2=>
+			numar2<=stare;
+			afisor2<=cifre2;
+			numar1<=numar;
+			afisor1<=cifre1;
+			codcopy:=numar;	  
+			nextstare<=4;
+			backstare<=0;
+			
+			
+--------------------------------------------------------Client PIN------------------------------------------------
+			when 4=>
+			numar2<=stare;
+			afisor2<=cifre2;
+			numar1<=numar;
+			afisor1<=cifre1; 
+			if corect='1'then
+				nextstare<=3;
+			end if;
+			backstare<=0;
+-------------------------------------------------------------Selector client-----------------------------------------
+			when 5=>
+			numar2<=stare;
+			afisor2<=cifre2;
+			afisor1<=(0,0,0,0);
+			backstare<=2; 
+			case sw is 
+				when "0001" =>nextstare<=51;
+				when "0010" =>nextstare<=52;	
+				when "0100" =>nextstare<=53;	
+				when "0110" =>nextstare<=54;
+				when "1000" =>nextstare<=55;
+				
+				when others => nextstare<=3;
+			end case;
+----------------------------------------------------------Interogare Sold -------------------------------------
+			when 53=>
+			numar2<=stare;
+			afisor2<=cifre2;
+			numar1<=sumout;
+			afisor1<=cifre1; 
+			nextstare<=5;
+			backstare<=5;
+------------------------------------------------------------Schimbare PIN-------------------------------------
 --			when 55=> 
 --			numar2<=stare;
 --			afisor2<=cifre2;
@@ -262,14 +232,28 @@ begin
 --			end if;	
 --			if(exi'event and exi ='1')then 
 --				stare:=0;
---			end if;
+--			end if;		   
+			
+			
 			when others => 
-			stare:=stare;
 			numar2<=stare;
 			afisor2<=cifre2;
 			afisor1<=(0,0,0,0);	
 		end case;
-	end process; 
+	end process;
+	process(clk02s)
+	begin	  
+		if (clk02s'event and clk02s='1')then
+			 if(ok ='1')then 
+				stare<=nextstare;
+			elsif(back ='1' )then 
+				stare<=backstare;	
+			elsif( exi ='1')then 
+				stare<=0;
+			end if;
+		end if;
+	end process;
+	
 	pin<=numar;
 
 	c1:clock02sec       port map(clk,clk02s); 

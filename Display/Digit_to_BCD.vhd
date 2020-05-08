@@ -25,9 +25,10 @@ begin	  --segements1(0)(0)
      "0100000" when sw=6 else --6
      "0001111" when sw=7 else --7
      "0000000" when sw=8 else --8
-     "0000100" when sw=9 else --9
-     "0110000" when sw=10 else --E
-     "1101010" when sw=11 else --r
+     "0000100" when sw=9 else --9 
+	 "1111111" when sw=10 else-- nothing
+     "0110000" when sw=11 else --E
+     "1101010" when sw=12 else --r
      "1100010";                --o
 
 end digit_to_BCD;
