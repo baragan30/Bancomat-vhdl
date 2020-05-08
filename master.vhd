@@ -114,7 +114,7 @@ signal nextstare:number:=0;
 signal sari :std_logic:='0';
 begin 	
 	
-	process(stare,clk)
+	process(stare,cifre1,cifre2,sw,numar,corect)
 	variable codcopy:number:=3;	
 	variable numarator :digit:=0; 
 	begin 
@@ -236,12 +236,11 @@ begin
 			
 			
 			when others => 
-			numar2<=stare;
-			afisor2<=cifre2;
-			afisor1<=(0,0,0,0);	
+			afisor2<=(10,10,10,10);
+			afisor1<=(10,10,10,10);	
 		end case;
 	end process;
-	process(clk02s)
+	process(clk02s,ok,stare,sari,back,exi)
 	begin	  
 		if (clk02s'event and clk02s='1')then
 			 if((ok ='1')or(sari='1'))then 
