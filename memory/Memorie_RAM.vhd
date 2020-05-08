@@ -27,15 +27,9 @@ begin
 	variable sum :number;
 	variable numarator: std_logic_vector(1 downto 0):="00"  ;
     begin
-		if(clk'event and clk='1')then  
-			x(0)<=numarator(0);
-			x(1)<=numarator(1);
-			numarator(0):=t1 and (x(1) or (not x(0)));
-			numarator(1):=t1 and (x(0) or x(1) );	
-			
 			if(numarator ="01")then
 				if(t=2)then
-				sum:=suma(codin)+sumin;	
+				    sum:=suma(codin)+sumin;	
 				elsif(t=3) then	
 					sum:=suma(codin)-sumin;	
 				end if;
@@ -54,6 +48,20 @@ begin
 			else
 				corect<='0';
 			end if;
+    end process;
+    
+    --numaratorul
+    process(clk,t,codin) 
+	variable suma: pin:=(0,0,0,0,0);
+	variable PIN : pin:=(1234,5678,0,0,0); 
+	variable sum :number;
+	variable numarator: std_logic_vector(1 downto 0):="00"  ;
+    begin
+		if(clk'event and clk='1')then  
+			x(0)<=numarator(0);
+			x(1)<=numarator(1);
+			numarator(0):=t1 and (x(1) or (not x(0)));
+			numarator(1):=t1 and (x(0) or x(1) );	
 		end if;
     end process;
 t1<= '1' when (t=2 or t=3)else '0';
