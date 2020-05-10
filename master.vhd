@@ -82,12 +82,7 @@ end component;
      corect: out std_logic:='0'
      );
 end component;	
-component Memorie_RAM_bancnote is
-  Port ( 
-  t: in std_logic;
-  cantitate_bancnote_in: in arraybancnota;	
-  cantitate_bancnote_out: out arraybancnota);
-end component;
+
 --------------------------------------------semnale--------------------------------------
 signal clk02s :std_logic;	
 signal clk1khz:std_logic;
@@ -112,24 +107,21 @@ signal pinout: number;
 signal corect:std_logic;--daca pinul e corect
 signal semnalRAM:digit;
 -----------------RAM_bacnote 
-signal semnalRAM_bancnote:std_logic:='0';
-signal cantitate_bancnote_in:arraybancnota;	
-signal cantitate_bancnote_out: arraybancnota;
 
 
 
 
 ---------------------diverse
-signal stare:number:=5;
+signal stare:number:=0;
 signal backstare:number:=0;
 signal nextstare:number:=0;
 signal sari :std_logic:='0';
 begin 	
 	
-	process(stare,cifre1,cifre2,sw,numar,corect)
-	variable codcopy:number:=3;
-	variable coddestinatie:number:=4;
-	variable codsursa:number:=4;
+	process(stare,cifre1,cifre2,sw,numar,corect,sumin,sumout)
+	variable codcopy:number:=0;
+	variable coddestinatie:number:=0;
+	variable codsursa:number:=0;
 	variable numarator :digit:=0; 
 	begin 
 		cod<=codcopy;
@@ -202,12 +194,13 @@ begin
 			backstare<=2; 
 			case sw is 
 				when "0001" =>nextstare<=51;
-				when "0010" =>nextstare<=52;	
+				when "0010" =>nextstare<=53;	
 				when "0100" =>nextstare<=53;	
 				when "0110" =>nextstare<=54;
 				when "1000" =>nextstare<=55;
 				when others => nextstare<=5;
 			end case; 
+<<<<<<< HEAD
 ----------------------------------------------------------Retragere numerar-introducere suma-------------------------------------
 			when 52=>
 			numar2<=stare;
@@ -232,6 +225,9 @@ begin
 			end if;
 			sari<='1';
 			backstare<=5;	
+=======
+
+>>>>>>> b9374bbb122daa0026daaef6b2f56ff1460caaa3
 ----------------------------------------------------------Interogare Sold Client -------------------------------------
 			when 53=>
 			numar2<=stare;
@@ -406,7 +402,11 @@ begin
 	G2:number_to_digits port map(numar1,cifre1); 
 	G3:number_to_digits port map(numar2,cifre2); 
 	R1: Memorie_RAM     port map(clk100khz,cod,pin,sumin,sumout,pinout,semnalRAM,corect);
+<<<<<<< HEAD
 	R2:Memorie_RAM_bancnote port map(semnalRAM_bancnote,cantitate_bancnote_in,cantitate_bancnote_out);
+=======
+	
+>>>>>>> b9374bbb122daa0026daaef6b2f56ff1460caaa3
 	Af1:master_display port	map(clk1khz,afisor2,afisor1,afisor,segments);	
 
 end master;

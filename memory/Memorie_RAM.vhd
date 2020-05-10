@@ -22,7 +22,7 @@ signal t1 :std_logic;
 signal x: std_logic_vector(1 downto 0):="00"  ;
 signal numaratorul: std_logic_vector(1 downto 0):="00"  ;
 begin
-    process(clk,t,codin) 
+    process(clk,t,codin,numaratorul,sumin,PINin) 
 	variable suma: pin:=(100,200,100,300,0);
 	variable PIN : pin:=(1234,5678,0,0,0); 
 	variable sum :number;
@@ -51,10 +51,7 @@ begin
     end process;
     
     --numaratorul
-    process(clk,t1,codin) 
-	variable suma: pin:=(100,200,300,250,0);
-	variable PIN : pin:=(1234,5678,0,0,0); 
-	variable sum :number;
+    process(clk,t1) 
 	variable numarator: std_logic_vector(1 downto 0):="00"  ;
     begin
 		if(clk'event and clk='1')then  
