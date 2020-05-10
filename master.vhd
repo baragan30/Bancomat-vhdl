@@ -115,7 +115,9 @@ signal sari :std_logic:='0';
 begin 	
 	
 	process(stare,cifre1,cifre2,sw,numar,corect)
-	variable codcopy:number:=3;	
+	variable codcopy:number:=3;
+	variable coddestinatie:number:=4;
+	variable codsursa:number:=4;
 	variable numarator :digit:=0; 
 	begin 
 		cod<=codcopy;
@@ -163,8 +165,10 @@ begin
 			afisor2<=cifre2;
 			numar1<=numar;
 			afisor1<=cifre1;
-			codcopy:=numar;	  
-			nextstare<=4;
+			codcopy:=numar;
+			if(numar>0and numar <5)	 then
+				nextstare<=4;	
+			end if;
 			backstare<=0;
 			
 			
@@ -191,7 +195,31 @@ begin
 				when "0110" =>nextstare<=54;
 				when "1000" =>nextstare<=55;
 				when others => nextstare<=5;
-			end case;
+			end case; 
+----------------------------------------------------------Retragere numerar-introducere suma-------------------------------------
+			when 52=>
+			numar2<=stare;
+			afisor2<=cifre2;
+			numar1<=numar;
+			afisor1<=cifre1;
+			
+			sumin<=numar;
+			nextstare<=542;
+			backstare<=54;
+-------------------------------------------------------Retragere numerar-verificare suma  -------------------------------------
+			when 521=>
+			numar2<=stare;
+			afisor2<=cifre2;
+			numar1<=numar;
+			afisor1<=cifre1;
+			
+			if(sumout>sumin)then 
+				nextstare<=543; 
+			else 
+				nextstare<=598;
+			end if;
+			sari<='1';
+			backstare<=5;	
 ----------------------------------------------------------Interogare Sold Client -------------------------------------
 			when 53=>
 			numar2<=stare;
@@ -199,9 +227,100 @@ begin
 			numar1<=sumout;
 			afisor1<=cifre1; 
 			
+
+			
 			nextstare<=5;
+			backstare<=5;	
+----------------------------------------------------------Transfer-introducere cod -------------------------------------
+			when 54=>
+			numar2<=stare;
+			afisor2<=cifre2;
+			numar1<=numar;
+			afisor1<=cifre1;
+			
+			coddestinatie:=numar;
+			codsursa:=codcopy;
+			if(numar<5)then
+				nextstare<=541;
+			else
+				nextstare<=548;
+			end if ;   
+			backstare<=5;  
+----------------------------------------------------------Transfer-introducere suma -------------------------------------
+			when 541=>
+			numar2<=stare;
+			afisor2<=cifre2;
+			numar1<=numar;
+			afisor1<=cifre1;
+			
+			sumin<=numar;
+			nextstare<=542;
+			backstare<=54;
+-------------------------------------------------------verificare suma cont sursa  -------------------------------------
+			when 542=>
+			numar2<=stare;
+			afisor2<=cifre2;
+			numar1<=numar;
+			afisor1<=cifre1;
+			
+			if(sumout>sumin)then 
+				nextstare<=543; 
+			else 
+				nextstare<=598;
+			end if;
+			sari<='1';
+			backstare<=5;	
+----------------------------------------------------------verificare suma cod destinatie -------------------------------------
+			when 543=>
+			numar2<=stare;
+			afisor2<=cifre2;
+			numar1<=numar;
+			afisor1<=cifre1; 
+			
+			codcopy:=coddestinatie;
+			if((sumout+sumin<1000))then 
+				nextstare<=544; 
+			else 
+				nextstare<=598;
+			end if;
+			sari<='1';
 			backstare<=5;
-------------------------------------------------------------Schimbare PIN 1-------------------------------------
+----------------------------------------------------------Transfer-adaugare suma -------------------------------------
+			when 544=>
+			numar2<=stare;
+			afisor2<=cifre2;
+			numar1<=numar;
+			afisor1<=cifre1; 
+			
+			semnalRAM<=2;
+			nextstare<=545;
+			sari<='1';
+			backstare<=5;	
+----------------------------------------------------------Transfer-stabilizare-------------------------------------
+			when 545=>
+			numar2<=stare;
+			afisor2<=cifre2;
+			numar1<=numar;
+			afisor1<=cifre1; 
+			
+			codcopy:=codsursa;
+			semnalRAM<=0;
+			nextstare<=546;
+			sari<='1';
+			backstare<=5;	
+----------------------------------------------------------Transfer-scoatere bani-------------------------------------
+			when 546=>
+			numar2<=stare;
+			afisor2<=cifre2;
+			numar1<=numar;
+			afisor1<=cifre1; 
+			
+			semnalRAM<=3;
+			nextstare<=599;
+			sari<='1';
+			backstare<=5;
+			
+----------------------------------------------------------------Schimbare PIN 1-------------------------------------
 			when 55=> 
 			numar2<=stare;
 			afisor2<=cifre2;
@@ -221,17 +340,27 @@ begin
 			
 			sari<='1';
 			semnalRAM<=1;
-			nextstare<=552;	
-			backstare<=5;
-------------------------------------------------------------Schimbare PIN 3-------------------------------------
-			when 552=> 
+			nextstare<=599;	
+			backstare<=5; 
+--------------------------------------------------------Client afisare ok-----------------------------------------------
+			when 599=>
 			numar2<=stare;
 			afisor2<=cifre2;
-			numar1<=numar;
-			afisor1<=cifre1;
+			afisor1<=(10,10,0,13); 
+			
 			semnalRAM<=0;
+			nextstare<=5;
 			sari<='0';
-			nextstare<=5;	
+			backstare<=5;
+--------------------------------------------------------Client afisare eroare-----------------------------------------------
+			when 598=>
+			numar2<=stare;
+			afisor2<=cifre2;
+			afisor1<=(11,12,14,12); 
+			
+			semnalRAM<=0;
+			nextstare<=5;
+			sari<='0';
 			backstare<=5;
 			
 			
@@ -240,9 +369,9 @@ begin
 			afisor1<=(10,10,10,10);	
 		end case;
 	end process;
-	process(clk02s,ok,stare,sari,back,exi)
+	process(clk1khz,ok,stare,sari,back,exi)
 	begin	  
-		if (clk02s'event and clk02s='1')then
+		if (clk1khz'event and clk1khz='1')then
 			 if((ok ='1')or(sari='1'))then 
 				stare<=nextstare;
 			elsif(back ='1' )then 

@@ -29,6 +29,8 @@ begin	  --segements1(0)(0)
 	 "1111111" when sw=10 else-- nothing
      "0110000" when sw=11 else --E
      "1101010" when sw=12 else --r
-     "1100010";                --o
+	 "1001000" when sw=13 else --K
+	 "1100010" when sw=14 else --0
+     "1111110";                -- -
 
 end digit_to_BCD;

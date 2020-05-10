@@ -7,18 +7,19 @@ use work.my_types.all;
 entity Memorie_RAM_bancnote is
   Port ( 
   t: in std_logic;
-  cantitate_bancnote: inout arraybancnota);
+  cantitate_bancnote_in: in arraybancnota;	
+  cantitate_bancnote_out: out arraybancnota);
 end Memorie_RAM_bancnote;
 
 architecture Behavioral of Memorie_RAM_bancnote is
-signal cant: arraybancnota:=(20,20,20,20,20,20,20);
+
 begin
     process(t)
+	variable cant: arraybancnota:=(20,20,20,20,20,20,20);
     begin
-    if(t='0') then
-    cantitate_bancnote<=cant;
-    else
-    cant<=cantitate_bancnote;
-    end if;
+    if(t='1') then
+   		cant:=cantitate_bancnote_in;  
+    end if;	  
+	cantitate_bancnote_out<=cant;
     end process;
 end Behavioral;
