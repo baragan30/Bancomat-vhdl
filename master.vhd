@@ -88,19 +88,6 @@ end component;
 --  cantitate_bancnote_in: in arraybancnota;	
 --  cantitate_bancnote_out: out arraybancnota);
 --end component;	
-<<<<<<< HEAD
---------------------------------------Algoritmi------------------------------------------
---component Greedy is
---  Port (
---  pret: in number;
---  clk:in std_logic;	
---  bancnote_initiale:in arraybancnota;
---  bancnote_ramase: out arraybancnota;
---  bancnote_extrase: out arraybancnota;
---  corect:out std_logic
---   );
---end component;
-=======
 ------------------------------------Algoritmi------------------------------------------
 component Greedy is
   Port (
@@ -112,7 +99,6 @@ component Greedy is
   corect:out std_logic
    );
 end component;
->>>>>>> 6af2a25518d5bce4e11c25da52e43b1e644052a7
 
 
 --------------------------------------------semnale--------------------------------------
@@ -138,20 +124,13 @@ signal sumout: number;
 signal pinout: number;
 signal corect:std_logic;--daca pinul e corect
 signal semnalRAM:digit;
-<<<<<<< HEAD
--------------------RAM_bacnote 
-=======
 -----------------RAM_bacnote 
->>>>>>> 6af2a25518d5bce4e11c25da52e43b1e644052a7
 --signal semnalRAM_bancnote:std_logic:='0';
 --signal cantitate_bancnote_in:arraybancnota;	
 --signal cantitate_bancnote_out: arraybancnota;
 --signal cantitate_bancnote:arraybancnota;
-<<<<<<< HEAD
-=======
 
 signal semnal_sum:number:=0;
->>>>>>> 6af2a25518d5bce4e11c25da52e43b1e644052a7
 
 
 ---------------------diverse
@@ -267,27 +246,11 @@ begin
 --			afisor1<=cifre1;
 			
 			
-<<<<<<< HEAD
-			sari<='0';
-			if corect='1'then
-				nextstare<=5;
-			else 
-				nextstare<=4;
-			end if;
-			backstare<=2;
--------------------------------------------------------------Selector client-----------------------------------------
-			when 5=>
-			numar2<=stare;
-			afisor2<=cifre2;
-			numar1<=0;
-			afisor1<=(10,10,10,10);
-=======
 --			sum:=0;
 --			semnalRAM<=0;
 --			coddestinatie:=coddestinatie;
 --			codsursa:=codsursa ;
 --			codcopy:=codcopy;
->>>>>>> 6af2a25518d5bce4e11c25da52e43b1e644052a7
 			
 --			sari<='0';
 --			if corect='1'then
@@ -569,7 +532,7 @@ begin
 			backstare<=0;
 		end case;
 	end process;
-	process(clk1khz,ok,nextstare,backstare,back,exi)
+	process(clk1khz,ok,stare,sari,back,exi)
 	begin	  
 		if (clk1khz'event and clk1khz='1')then
 			 if((ok ='1')or(sari='1'))then 
