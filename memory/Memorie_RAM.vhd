@@ -21,12 +21,16 @@ architecture Behavioral of Memorie_RAM is
 signal t1 :std_logic;
 signal x: std_logic_vector(1 downto 0):="00"  ;
 signal numaratorul: std_logic_vector(1 downto 0):="00"  ;
+
 begin
     process(clk,t,codin,numaratorul,sumin,PINin) 
 	variable suma: pin:=(100,200,100,300,0);
-	variable PIN : pin:=(1234,5678,0,0,0); 
+	variable PIN1 : pin:=(1234,5678,0,0,0); 
 	variable sum :number;
     begin
+            sum:=sum;
+            suma:=suma;
+            PIN1:=PIN1;
 			if(numaratorul ="01")then
 				if(t=2)then
 				    sum:=suma(codin)+sumin;	
@@ -38,12 +42,12 @@ begin
 			end if;
 			
 			if(t=1)then 
-				PIN(codin):=PINin;
+				PIN1(codin):=PINin;
 			end if ;
 	  		sumout<=suma(codin);
-	   		codout<=PIN(codin)  ;
+	   		codout<=PIN1(codin)  ;
 			   
-			if(pin(codin)=pinin)then
+			if(PIN1(codin)=pinin)then
 				corect<='1';
 			else
 				corect<='0';

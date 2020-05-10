@@ -88,6 +88,7 @@ end component;
 --  cantitate_bancnote_in: in arraybancnota;	
 --  cantitate_bancnote_out: out arraybancnota);
 --end component;	
+<<<<<<< HEAD
 --------------------------------------Algoritmi------------------------------------------
 --component Greedy is
 --  Port (
@@ -99,6 +100,19 @@ end component;
 --  corect:out std_logic
 --   );
 --end component;
+=======
+------------------------------------Algoritmi------------------------------------------
+component Greedy is
+  Port (
+  pret: in number;
+  clk:in std_logic;	
+  bancnote_initiale:in arraybancnota;
+  bancnote_ramase: out arraybancnota;
+  bancnote_extrase: out arraybancnota;
+  corect:out std_logic
+   );
+end component;
+>>>>>>> 6af2a25518d5bce4e11c25da52e43b1e644052a7
 
 
 --------------------------------------------semnale--------------------------------------
@@ -124,11 +138,20 @@ signal sumout: number;
 signal pinout: number;
 signal corect:std_logic;--daca pinul e corect
 signal semnalRAM:digit;
+<<<<<<< HEAD
 -------------------RAM_bacnote 
+=======
+-----------------RAM_bacnote 
+>>>>>>> 6af2a25518d5bce4e11c25da52e43b1e644052a7
 --signal semnalRAM_bancnote:std_logic:='0';
 --signal cantitate_bancnote_in:arraybancnota;	
 --signal cantitate_bancnote_out: arraybancnota;
 --signal cantitate_bancnote:arraybancnota;
+<<<<<<< HEAD
+=======
+
+signal semnal_sum:number:=0;
+>>>>>>> 6af2a25518d5bce4e11c25da52e43b1e644052a7
 
 
 ---------------------diverse
@@ -154,7 +177,7 @@ begin
 			numar1<=0; 
 			afisor1<=(10,10,10,10);
 			
-			sum:=0;
+			sum:=semnal_sum;
 			codcopy:=codcopy; 
 			semnalRAM<=0;
 			coddestinatie:=coddestinatie;
@@ -168,6 +191,7 @@ begin
 				when "0001" =>nextstare<=2;	
 				when others => nextstare<=0;
 			end case;
+			semnal_sum<=sum;
 --------------------------------------------------------Admin-------------------------------------------------
           when 1=>
 			numar2<=stare;
@@ -175,7 +199,7 @@ begin
 			numar1<=numar;
 			afisor1<=cifre1;
 			
-			sum:=0;
+			sum:=semnal_sum;
 			codcopy:=0; 
 			semnalRAM<=0;
 			coddestinatie:=coddestinatie;
@@ -188,6 +212,7 @@ begin
 				nextstare<=1;
 			end if;
 			backstare<=0;
+			semnal_sum<=sum;
 --------------------------------------------------------Selector Admin------------------------------------------------
 			when 3=>
 			numar2<=stare;
@@ -195,7 +220,7 @@ begin
 			numar1<=0;
 			afisor1<=(10,10,10,10);
 			
-			sum:=0;
+			sum:=semnal_sum;
 			codcopy:=codcopy; 
 			semnalRAM<=0;
 			coddestinatie:=coddestinatie;
@@ -210,44 +235,39 @@ begin
 				when "1000" =>nextstare<=2;
 				when others => nextstare<=3;
 			end case;
-			
-----------------------------------------------------Client card-------------------------------------
-			when 2=>
-			numar2<=stare;
-			afisor2<=cifre2;
-			numar1<=numar;
-			afisor1<=cifre1; 
-			
-			
-			codcopy:=numar;
-			sum:=0;
-			semnalRAM<=0;
-			coddestinatie:=coddestinatie;
-			codsursa:=codsursa ;
-			
-			 sari<='0';
-			if(numar>0and numar <5)	 then
-				nextstare<=4;
-			else 
-				nextstare<=2;
-			end if;
-			backstare<=0;
+			semnal_sum<=sum;
+------------------------------------------------------Client card-------------------------------------
+--			when 2=>
+--			numar2<=stare;
+--			afisor2<=cifre2;
+--			numar1<=numar;
+--			afisor1<=cifre1; 
 			
 			
---------------------------------------------------------Client PIN------------------------------------------------
-			when 4=>
-			numar2<=stare;
-			afisor2<=cifre2;
-			numar1<=numar;
-			afisor1<=cifre1;
+--			codcopy:=numar;
+--			sum:=0;
+--			semnalRAM<=0;
+--			coddestinatie:=coddestinatie;
+--			codsursa:=codsursa ;
+			
+--			 sari<='0';
+--			if(numar>0and numar <5)	 then
+--				nextstare<=4;
+--			else 
+--				nextstare<=2;
+--			end if;
+--			backstare<=0;
 			
 			
-			sum:=0;
-			semnalRAM<=0;
-			coddestinatie:=coddestinatie;
-			codsursa:=codsursa ;
-			codcopy:=codcopy;
+----------------------------------------------------------Client PIN------------------------------------------------
+--			when 4=>
+--			numar2<=stare;
+--			afisor2<=cifre2;
+--			numar1<=numar;
+--			afisor1<=cifre1;
 			
+			
+<<<<<<< HEAD
 			sari<='0';
 			if corect='1'then
 				nextstare<=5;
@@ -261,41 +281,133 @@ begin
 			afisor2<=cifre2;
 			numar1<=0;
 			afisor1<=(10,10,10,10);
+=======
+--			sum:=0;
+--			semnalRAM<=0;
+--			coddestinatie:=coddestinatie;
+--			codsursa:=codsursa ;
+--			codcopy:=codcopy;
+>>>>>>> 6af2a25518d5bce4e11c25da52e43b1e644052a7
 			
-			sum:=0;
-			semnalRAM<=0;
-			coddestinatie:=coddestinatie;
-			codsursa:=codsursa ;
-			codcopy:=codcopy;
+--			sari<='0';
+--			if corect='1'then
+--				nextstare<=5;
+--			end if;
+--			backstare<=2;
+---------------------------------------------------------------Selector client-----------------------------------------
+--			when 5=>
+--			numar2<=stare;
+--			afisor2<=cifre2;
+--			numar1<=0;
+--			afisor1<=(10,10,10,10);
+			
+--			sum:=0;
+--			semnalRAM<=0;
+--			coddestinatie:=coddestinatie;
+--			codsursa:=codsursa ;
+--			codcopy:=codcopy;
 			
 			
-			backstare<=2; 
-			sari<='0';
-			case sw is 
-				when "0001" =>nextstare<=51;
-				when "0010" =>nextstare<=53;	
-				when "0100" =>nextstare<=53;	
-				when "0110" =>nextstare<=54;
-				when "1000" =>nextstare<=55;
-				when others => nextstare<=5;
-			end case; 
-------------------------------------------------------------Retragere numerar-introducere suma-------------------------------------
---			when 52=>
+--			backstare<=2; 
+--			sari<='0';
+--			case sw is 
+--				when "0001" =>nextstare<=51;
+--				when "0010" =>nextstare<=53;	
+--				when "0100" =>nextstare<=53;	
+--				when "0110" =>nextstare<=54;
+--				when "1000" =>nextstare<=55;
+--				when others => nextstare<=5;
+--			end case; 
+--------------------------------------------------------------Retragere numerar-introducere suma-------------------------------------
+----			when 52=>
+----			numar2<=stare;
+----			afisor2<=cifre2;
+----			numar1<=numar;
+----			afisor1<=cifre1;
+----			
+----			sum:=numar;
+----			nextstare<=521;
+----			backstare<=5;
+-----------------------------------------------------------Retragere numerar-verificare suma  -------------------------------------
+----			when 521=>
+----			numar2<=stare;
+----			afisor2<=cifre2;
+----			numar1<=numar;
+----			afisor1<=cifre1;
+----			
+----			if(sumout>sumin)then 
+----				nextstare<=543; 
+----			else 
+----				nextstare<=598;
+----			end if;
+----			sari<='1';
+----			backstare<=5;	
+
+------------------------------------------------------------Interogare Sold Client -------------------------------------
+--			when 53=>
+--			numar2<=stare;
+--			afisor2<=cifre2;
+--			numar1<=sumout;
+--			afisor1<=cifre1; 
+			
+--			sum:=0;
+--			semnalRAM<=0;
+--			coddestinatie:=coddestinatie;
+--			codsursa:=codsursa ;
+--			codcopy:=codcopy;
+			
+--			sari<='0';
+--			nextstare<=5;
+--			backstare<=5;	
+------------------------------------------------------------Transfer-introducere cod -------------------------------------
+--			when 54=>
+--			numar2<=stare;
+--			afisor2<=cifre2;
+--			numar1<=numar;
+--			afisor1<=cifre1; 
+			
+--			sum:=sum;
+--			semnalRAM<=0;
+--			coddestinatie:=numar;
+--			codsursa:=codcopy;
+--			codcopy:=codcopy;
+			
+--			sari<='0';
+--			if(numar<5)then
+--				nextstare<=541;
+--			else
+--				nextstare<=548;
+--			end if ;   
+--			backstare<=5;  
+------------------------------------------------------------Transfer-introducere suma -------------------------------------
+--			when 541=>
 --			numar2<=stare;
 --			afisor2<=cifre2;
 --			numar1<=numar;
 --			afisor1<=cifre1;
---			
+			
 --			sum:=numar;
---			nextstare<=521;
---			backstare<=5;
----------------------------------------------------------Retragere numerar-verificare suma  -------------------------------------
---			when 521=>
+--			semnalRAM<=0;
+--			coddestinatie:=coddestinatie;
+--			codsursa:=codsursa ;
+--			codcopy:=codcopy;
+			
+--			sari<='0';
+--			nextstare<=542;
+--			backstare<=54;
+---------------------------------------------------------verificare suma cont sursa  -------------------------------------
+--			when 542=>
 --			numar2<=stare;
 --			afisor2<=cifre2;
 --			numar1<=numar;
 --			afisor1<=cifre1;
---			
+			
+--			sum:=sum;
+--			semnalRAM<=0;
+--			coddestinatie:=coddestinatie;
+--			codsursa:=codsursa ;
+--			codcopy:=codcopy;
+			
 --			if(sumout>sumin)then 
 --				nextstare<=543; 
 --			else 
@@ -303,214 +415,141 @@ begin
 --			end if;
 --			sari<='1';
 --			backstare<=5;	
-
-----------------------------------------------------------Interogare Sold Client -------------------------------------
-			when 53=>
-			numar2<=stare;
-			afisor2<=cifre2;
-			numar1<=sumout;
-			afisor1<=cifre1; 
+------------------------------------------------------------verificare suma cod destinatie -------------------------------------
+--			when 543=>
+--			numar2<=stare;
+--			afisor2<=cifre2;
+--			numar1<=numar;
+--			afisor1<=cifre1;
 			
-			sum:=0;
-			semnalRAM<=0;
-			coddestinatie:=coddestinatie;
-			codsursa:=codsursa ;
-			codcopy:=codcopy;
+--			sum:=sum;
+--			semnalRAM<=0;
+--			coddestinatie:=coddestinatie;
+--			codsursa:=codsursa ;
+--			codcopy:=coddestinatie;
 			
-			sari<='0';
-			nextstare<=5;
-			backstare<=5;	
-----------------------------------------------------------Transfer-introducere cod -------------------------------------
-			when 54=>
-			numar2<=stare;
-			afisor2<=cifre2;
-			numar1<=numar;
-			afisor1<=cifre1; 
+--			if((sumout+sumin<1000))then 
+--				nextstare<=544; 
+--			else 
+--				nextstare<=598;
+--			end if;
+--			sari<='1';
+--			backstare<=5;
+------------------------------------------------------------Transfer-adaugare suma -------------------------------------
+--			when 544=>
+--			numar2<=stare;
+--			afisor2<=cifre2;
+--			numar1<=numar;
+--			afisor1<=cifre1; 
 			
-			sum:=sum;
-			semnalRAM<=0;
-			coddestinatie:=numar;
-			codsursa:=codcopy;
-			codcopy:=codcopy;
+--			sum:=sum;
+--			semnalRAM<=2;
+--			coddestinatie:=coddestinatie;
+--			codsursa:=codsursa ;
+--			codcopy:=codcopy;
 			
-			sari<='0';
-			if(numar<5)then
-				nextstare<=541;
-			else
-				nextstare<=548;
-			end if ;   
-			backstare<=5;  
-----------------------------------------------------------Transfer-introducere suma -------------------------------------
-			when 541=>
-			numar2<=stare;
-			afisor2<=cifre2;
-			numar1<=numar;
-			afisor1<=cifre1;
+--			nextstare<=545;
+--			sari<='1';
+--			backstare<=5;	
+------------------------------------------------------------Transfer-stabilizare-------------------------------------
+--			when 545=>
+--			numar2<=stare;
+--			afisor2<=cifre2;
+--			numar1<=numar;
+--			afisor1<=cifre1;
 			
-			sum:=numar;
-			semnalRAM<=0;
-			coddestinatie:=coddestinatie;
-			codsursa:=codsursa ;
-			codcopy:=codcopy;
+--			sum:=sum;
+--			semnalRAM<=0;
+--			coddestinatie:=coddestinatie;
+--			codsursa:=codsursa ;
+--			codcopy:=codsursa;
 			
-			sari<='0';
-			nextstare<=542;
-			backstare<=54;
--------------------------------------------------------verificare suma cont sursa  -------------------------------------
-			when 542=>
-			numar2<=stare;
-			afisor2<=cifre2;
-			numar1<=numar;
-			afisor1<=cifre1;
+--			nextstare<=546;
+--			sari<='1';
+--			backstare<=5;	
+------------------------------------------------------------Transfer-scoatere bani-------------------------------------
+--			when 546=>
+--			numar2<=stare;
+--			afisor2<=cifre2;
+--			numar1<=numar;
+--			afisor1<=cifre1;
 			
-			sum:=sum;
-			semnalRAM<=0;
-			coddestinatie:=coddestinatie;
-			codsursa:=codsursa ;
-			codcopy:=codcopy;
+--			sum:=sum;
+--			semnalRAM<=3;
+--			coddestinatie:=coddestinatie;
+--			codsursa:=codsursa ;
+--			codcopy:=codcopy;
 			
-			if(sumout>sumin)then 
-				nextstare<=543; 
-			else 
-				nextstare<=598;
-			end if;
-			sari<='1';
-			backstare<=5;	
-----------------------------------------------------------verificare suma cod destinatie -------------------------------------
-			when 543=>
-			numar2<=stare;
-			afisor2<=cifre2;
-			numar1<=numar;
-			afisor1<=cifre1;
+--			nextstare<=599;
+--			sari<='1';
+--			backstare<=5;
 			
-			sum:=sum;
-			semnalRAM<=0;
-			coddestinatie:=coddestinatie;
-			codsursa:=codsursa ;
-			codcopy:=coddestinatie;
+------------------------------------------------------------------Schimbare PIN 1-------------------------------------
+--			when 55=> 
+--			numar2<=stare;
+--			afisor2<=cifre2;
+--			numar1<=numar;
+--			afisor1<=cifre1; 
 			
-			if((sumout+sumin<1000))then 
-				nextstare<=544; 
-			else 
-				nextstare<=598;
-			end if;
-			sari<='1';
-			backstare<=5;
-----------------------------------------------------------Transfer-adaugare suma -------------------------------------
-			when 544=>
-			numar2<=stare;
-			afisor2<=cifre2;
-			numar1<=numar;
-			afisor1<=cifre1; 
+--			sum:=sum;
+--			semnalRAM<=0;
+--			coddestinatie:=coddestinatie;
+--			codsursa:=codsursa ;
+--			codcopy:=codcopy;
 			
-			sum:=sum;
-			semnalRAM<=2;
-			coddestinatie:=coddestinatie;
-			codsursa:=codsursa ;
-			codcopy:=codcopy;
-			
-			nextstare<=545;
-			sari<='1';
-			backstare<=5;	
-----------------------------------------------------------Transfer-stabilizare-------------------------------------
-			when 545=>
-			numar2<=stare;
-			afisor2<=cifre2;
-			numar1<=numar;
-			afisor1<=cifre1;
-			
-			sum:=sum;
-			semnalRAM<=0;
-			coddestinatie:=coddestinatie;
-			codsursa:=codsursa ;
-			codcopy:=codsursa;
-			
-			nextstare<=546;
-			sari<='1';
-			backstare<=5;	
-----------------------------------------------------------Transfer-scoatere bani-------------------------------------
-			when 546=>
-			numar2<=stare;
-			afisor2<=cifre2;
-			numar1<=numar;
-			afisor1<=cifre1;
-			
-			sum:=sum;
-			semnalRAM<=3;
-			coddestinatie:=coddestinatie;
-			codsursa:=codsursa ;
-			codcopy:=codcopy;
-			
-			nextstare<=599;
-			sari<='1';
-			backstare<=5;
-			
-----------------------------------------------------------------Schimbare PIN 1-------------------------------------
-			when 55=> 
-			numar2<=stare;
-			afisor2<=cifre2;
-			numar1<=numar;
-			afisor1<=cifre1; 
-			
-			sum:=sum;
-			semnalRAM<=0;
-			coddestinatie:=coddestinatie;
-			codsursa:=codsursa ;
-			codcopy:=codcopy;
-			
-			sari<='0';
-			nextstare<=551;	
-			backstare<=5;
+--			sari<='0';
+--			nextstare<=551;	
+--			backstare<=5;
 			
 			
-------------------------------------------------------------Schimbare PIN 2-------------------------------------
-			when 551=> 
-			numar2<=stare;
-			afisor2<=cifre2;
-			numar1<=numar;
-			afisor1<=cifre1; 
+--------------------------------------------------------------Schimbare PIN 2-------------------------------------
+--			when 551=> 
+--			numar2<=stare;
+--			afisor2<=cifre2;
+--			numar1<=numar;
+--			afisor1<=cifre1; 
 			
-			sum:=sum;
-			semnalRAM<=1;
-			coddestinatie:=coddestinatie;
-			codsursa:=codsursa ;
-			codcopy:=codcopy;
+--			sum:=sum;
+--			semnalRAM<=1;
+--			coddestinatie:=coddestinatie;
+--			codsursa:=codsursa ;
+--			codcopy:=codcopy;
 			
-			sari<='1';
-			nextstare<=599;	
-			backstare<=5; 
---------------------------------------------------------Client afisare ok-----------------------------------------------
-			when 599=>
-			numar2<=stare;
-			afisor2<=cifre2;
-			numar1<=0;
-			afisor1<=(10,10,0,13); 
+--			sari<='1';
+--			nextstare<=599;	
+--			backstare<=5; 
+----------------------------------------------------------Client afisare ok-----------------------------------------------
+--			when 599=>
+--			numar2<=stare;
+--			afisor2<=cifre2;
+--			numar1<=0;
+--			afisor1<=(10,10,0,13); 
 			
-			sum:=sum;
-			semnalRAM<=0;
-			coddestinatie:=coddestinatie;
-			codsursa:=codsursa ;
-			codcopy:=codcopy;
+--			sum:=sum;
+--			semnalRAM<=0;
+--			coddestinatie:=coddestinatie;
+--			codsursa:=codsursa ;
+--			codcopy:=codcopy;
 			
-			nextstare<=5;
-			sari<='0';
-			backstare<=5;
---------------------------------------------------------Client afisare eroare-----------------------------------------------
-			when 598=>
-			numar2<=stare;
-			afisor2<=cifre2;
-			numar1<=0;
-			afisor1<=(11,12,14,12); 
+--			nextstare<=5;
+--			sari<='0';
+--			backstare<=5;
+----------------------------------------------------------Client afisare eroare-----------------------------------------------
+--			when 598=>
+--			numar2<=stare;
+--			afisor2<=cifre2;
+--			numar1<=0;
+--			afisor1<=(11,12,14,12); 
 			
-			sum:=sum;
-			semnalRAM<=0;
-			coddestinatie:=coddestinatie;
-			codsursa:=codsursa ;
-			codcopy:=codcopy;
+--			sum:=sum;
+--			semnalRAM<=0;
+--			coddestinatie:=coddestinatie;
+--			codsursa:=codsursa ;
+--			codcopy:=codcopy;
 			
-			nextstare<=5;
-			sari<='0';
-			backstare<=5;
+--			nextstare<=5;
+--			sari<='0';
+--			backstare<=5;
 			
 			
 			when others => 
@@ -519,12 +558,12 @@ begin
 			numar1<=0;
 			afisor1<=(10,10,10,10);	
 			
-			sum:=sum;
+			sum:=semnal_sum;
 			semnalRAM<=0;
 			coddestinatie:=coddestinatie;
 			codsursa:=codsursa ;
 			codcopy:=codcopy;  
-			
+			semnal_sum<=sum;
 			nextstare<=0;
 			sari<='1';
 			backstare<=0;
