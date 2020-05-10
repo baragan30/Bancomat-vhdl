@@ -14,7 +14,7 @@ end Memorie_RAM_bancnote;
 architecture Behavioral of Memorie_RAM_bancnote is
 
 begin
-    process(t)
+    process(t,cantitate_bancnote_in)
 	variable cant: arraybancnota:=(20,20,20,20,20,20,20);
     begin
     if(t='1') then

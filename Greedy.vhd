@@ -4,7 +4,7 @@ use work.my_types.all;
 
 entity Greedy is
   Port (
-  pret: inout number;
+  pret: in number;
   clk:in std_logic;	
   bancnote_initiale:in arraybancnota;
   bancnote_ramase: out arraybancnota;

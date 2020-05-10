@@ -216,8 +216,8 @@ begin
 			afisor1<=cifre1;
 			
 			sumin<=numar;
-			nextstare<=542;
-			backstare<=54;
+			nextstare<=521;
+			backstare<=5;
 -------------------------------------------------------Retragere numerar-verificare suma  -------------------------------------
 			when 521=>
 			numar2<=stare;
@@ -398,7 +398,7 @@ begin
 
 	c1:clock02sec       port map(clk,clk02s); 
 	c2:Clock1khz        port map (clk,clk1khz);
-	c3:Clock100khz        port map (clk,clk100khz);	
+	c3:Clock100khz      port map (clk,clk100khz);	
 	B1:button_converter port map(ok1,clk1khz,ok);
 	B2:button_converter port map(back1,clk1khz,back);
 	B3:button_converter port map(exi1,clk1khz,exi);
@@ -407,7 +407,6 @@ begin
 	G3:number_to_digits port map(numar2,cifre2); 
 	R1: Memorie_RAM     port map(clk100khz,cod,pin,sumin,sumout,pinout,semnalRAM,corect);
 	R2:Memorie_RAM_bancnote port map(semnalRAM_bancnote,cantitate_bancnote_in,cantitate_bancnote_out);
-	
 	Af1:master_display port	map(clk1khz,afisor2,afisor1,afisor,segments);	
 
 end master;
