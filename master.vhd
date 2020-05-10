@@ -192,7 +192,7 @@ begin
 			when 3=>
 			numar2<=stare;
 			afisor2<=cifre2;
-			numar2<=0;
+			numar1<=0;
 			afisor1<=(10,10,10,10);
 			
 			sum:=0;
@@ -277,16 +277,16 @@ begin
 				when "1000" =>nextstare<=55;
 				when others => nextstare<=5;
 			end case; 
-----------------------------------------------------------Retragere numerar-introducere suma-------------------------------------
-			when 52=>
-			numar2<=stare;
-			afisor2<=cifre2;
-			numar1<=numar;
-			afisor1<=cifre1;
-			
-			sum:=numar;
-			nextstare<=521;
-			backstare<=5;
+------------------------------------------------------------Retragere numerar-introducere suma-------------------------------------
+--			when 52=>
+--			numar2<=stare;
+--			afisor2<=cifre2;
+--			numar1<=numar;
+--			afisor1<=cifre1;
+--			
+--			sum:=numar;
+--			nextstare<=521;
+--			backstare<=5;
 ---------------------------------------------------------Retragere numerar-verificare suma  -------------------------------------
 --			when 521=>
 --			numar2<=stare;
