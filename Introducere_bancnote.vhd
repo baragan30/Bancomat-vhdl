@@ -9,14 +9,17 @@ entity Introducere_bancnote is
   reset:in std_logic;
   bancnote_initiale:in arraybancnota;
   numar:in number;
+  bancnota_curenta_i: in number;
   suma_finala: out number;
   corect: out std_logic;
-  bancnota_curenta: inout number;
+  bancnota_curenta_o: out number;
   bancnote_finale: out arraybancnota
   );
 end Introducere_bancnote;
 
 architecture Behavioral of Introducere_bancnote is
+signal bancnota_urmatoare:number;
+signal bancnota_anterioara:number;
 begin
     process(ok,back,reset)
     variable bancnote_curente: arraybancnota;
@@ -31,24 +34,10 @@ begin
         bancnote_finale<=bancnote_initiale;
         elsif(back='1') then
         bancnote_finale<=bancnote_initiale;
-            if(bancnota_curenta=0) then
-                bancnota_curenta<=1;
-            elsif(bancnota_curenta=1) then
-                bancnota_curenta<=5;
-            elsif(bancnota_curenta=5) then
-                bancnota_curenta<=10;
-            elsif(bancnota_curenta=10) then
-                bancnota_curenta<=50;
-            elsif(bancnota_curenta=50) then
-                bancnota_curenta<=100;
-            elsif(bancnota_curenta=100) then
-                bancnota_curenta<=200;
-            elsif(bancnota_curenta=200) then
-                bancnota_curenta<=500;
-            end if;
+        bancnota_curenta_o<=bancnota_urmatoare;
         else
             if(ok='1') then
-                if(bancnota_curenta=0) then
+                if(bancnota_curenta_i=0) then
                     bancnota_curenta<=500;
                     suma:=0;
                 end if;
@@ -87,4 +76,23 @@ begin
        end if; 
     end process;
 
+    --pentru bancnota urmatoare
+    process(ok,back,reset)
+    begin
+            if(bancnota_curenta_i=0) then
+                bancnota_urmatoare<=1;
+            elsif(bancnota_curenta_i=1) then
+                bancnota_urmatoare<=5;
+            elsif(bancnota_curenta_i=5) then
+                bancnota_urmatoare<=10;
+            elsif(bancnota_curenta_i=10) then
+                bancnota_urmatoare<=50;
+            elsif(bancnota_curenta_i=50) then
+                bancnota_urmatoare<=100;
+            elsif(bancnota_curenta_i=100) then
+                bancnota_urmatoare<=200;
+            elsif(bancnota_curenta_i=200) then
+                bancnota_urmatoare<=500;
+            end if;
+    end process;
 end Behavioral;

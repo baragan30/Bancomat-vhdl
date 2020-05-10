@@ -4,12 +4,14 @@ use work.my_types.all;
 
 entity Greedy is
   Port (
-  pret: inout number;
+  start: in std_logic;
+  pret: in number;
   clk:in std_logic;	
   bancnote_initiale:in arraybancnota;
   bancnote_ramase: out arraybancnota;
   bancnote_extrase: out arraybancnota;
-  corect:out std_logic
+  corect:out std_logic;
+  final: out std_logic
    );
 end Greedy;
 
@@ -17,11 +19,19 @@ architecture Behavioral of Greedy is
 signal semnal_valoare: number:=pret;
 begin
     process(clk)
-    variable valoare:number:=pret;
+    variable valoare:number;
     variable cant:arraybancnota;
     variable  f:arraybancnota;
+    variable pret_modif:number:=0;
     begin
+    if(start='1') then
     cant:=bancnote_initiale;
+    valoare:=pret;
+    
+    if not(pret_modif=0) then
+    valoare:=pret_modif;
+    end if;
+    
     if (clk'event and clk='1')then
         if semnal_valoare=800 and bancnote_initiale(5)>0 then
             valoare:=valoare-200;
@@ -64,10 +74,12 @@ begin
     semnal_valoare<=valoare;
     bancnote_extrase<=f;
     bancnote_ramase<=cant;
+    pret_modif:=valoare;
     if(valoare>0) then
     	corect<='0';
     else
         corect<='1';
+    end if;
     end if;
     end process;
 end Behavioral;
