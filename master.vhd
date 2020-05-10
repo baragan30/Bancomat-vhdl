@@ -81,11 +81,20 @@ end component;
      t : in digit;   --0-afisare, 1-schimbare pin 2-adaug bani 3-scot bani
      corect: out std_logic:='0'
      );
-end component;	 
+end component;	
+component Memorie_RAM_bancnote is
+  Port ( 
+  t: in std_logic;
+  cantitate_bancnote_in: in arraybancnota;	
+  cantitate_bancnote_out: out arraybancnota);
+end component;
 --------------------------------------------semnale--------------------------------------
 signal clk02s :std_logic;	
 signal clk1khz:std_logic;
-signal clk100khz:std_logic;
+signal clk100khz:std_logic;	 
+signal ok:std_logic;
+signal back:std_logic;
+signal exi:std_logic;
 ---------------Display
 signal afisor1:array4digits;
 signal afisor2:array4digits;
@@ -101,16 +110,19 @@ signal sumin: number;
 signal sumout: number;
 signal pinout: number;
 signal corect:std_logic;--daca pinul e corect
-signal semnalRAM:digit; 
+signal semnalRAM:digit;
+-----------------RAM_bacnote 
+signal semnalRAM_bancnote:std_logic:='0';
+signal cantitate_bancnote_in:arraybancnota;	
+signal cantitate_bancnote_out: arraybancnota;
 
-signal ok:std_logic;
-signal back:std_logic;
-signal exi:std_logic;
 
+
+
+---------------------diverse
 signal stare:number:=5;
 signal backstare:number:=0;
 signal nextstare:number:=0;
-
 signal sari :std_logic:='0';
 begin 	
 	
@@ -393,7 +405,8 @@ begin
 	G1:read_integer     port map (clk02s,sw,numar);
 	G2:number_to_digits port map(numar1,cifre1); 
 	G3:number_to_digits port map(numar2,cifre2); 
-	G4: Memorie_RAM     port map(clk100khz,cod,pin,sumin,sumout,pinout,semnalRAM,corect);
+	R1: Memorie_RAM     port map(clk100khz,cod,pin,sumin,sumout,pinout,semnalRAM,corect);
+	R2:Memorie_RAM_bancnote port map(semnalRAM_bancnote,cantitate_bancnote_in,cantitate_bancnote_out);
 	
 	Af1:master_display port	map(clk1khz,afisor2,afisor1,afisor,segments);	
 
