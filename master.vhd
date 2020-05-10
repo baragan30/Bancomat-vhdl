@@ -82,23 +82,23 @@ end component;
      corect: out std_logic:='0'
      );
 end component;	
-component Memorie_RAM_bancnote is
-  Port ( 
-  t: in std_logic;
-  cantitate_bancnote_in: in arraybancnota;	
-  cantitate_bancnote_out: out arraybancnota);
-end component;	
-------------------------------------Algoritmi------------------------------------------
-component Greedy is
-  Port (
-  pret: in number;
-  clk:in std_logic;	
-  bancnote_initiale:in arraybancnota;
-  bancnote_ramase: out arraybancnota;
-  bancnote_extrase: out arraybancnota;
-  corect:out std_logic
-   );
-end component;
+--component Memorie_RAM_bancnote is
+--  Port ( 
+--  t: in std_logic;
+--  cantitate_bancnote_in: in arraybancnota;	
+--  cantitate_bancnote_out: out arraybancnota);
+--end component;	
+--------------------------------------Algoritmi------------------------------------------
+--component Greedy is
+--  Port (
+--  pret: in number;
+--  clk:in std_logic;	
+--  bancnote_initiale:in arraybancnota;
+--  bancnote_ramase: out arraybancnota;
+--  bancnote_extrase: out arraybancnota;
+--  corect:out std_logic
+--   );
+--end component;
 
 
 --------------------------------------------semnale--------------------------------------
@@ -124,11 +124,11 @@ signal sumout: number;
 signal pinout: number;
 signal corect:std_logic;--daca pinul e corect
 signal semnalRAM:digit;
------------------RAM_bacnote 
-signal semnalRAM_bancnote:std_logic:='0';
-signal cantitate_bancnote_in:arraybancnota;	
-signal cantitate_bancnote_out: arraybancnota;
-signal cantitate_bancnote:arraybancnota;
+-------------------RAM_bacnote 
+--signal semnalRAM_bancnote:std_logic:='0';
+--signal cantitate_bancnote_in:arraybancnota;	
+--signal cantitate_bancnote_out: arraybancnota;
+--signal cantitate_bancnote:arraybancnota;
 
 
 ---------------------diverse
@@ -251,6 +251,8 @@ begin
 			sari<='0';
 			if corect='1'then
 				nextstare<=5;
+			else 
+				nextstare<=4;
 			end if;
 			backstare<=2;
 -------------------------------------------------------------Selector client-----------------------------------------
@@ -528,7 +530,7 @@ begin
 			backstare<=0;
 		end case;
 	end process;
-	process(clk1khz,ok,stare,sari,back,exi)
+	process(clk1khz,ok,nextstare,backstare,back,exi)
 	begin	  
 		if (clk1khz'event and clk1khz='1')then
 			 if((ok ='1')or(sari='1'))then 
@@ -553,7 +555,7 @@ begin
 	G2:number_to_digits port map(numar1,cifre1); 
 	G3:number_to_digits port map(numar2,cifre2); 
 	R1: Memorie_RAM     port map(clk100khz,cod,pin,sumin,sumout,pinout,semnalRAM,corect);
-	R2:Memorie_RAM_bancnote port map(semnalRAM_bancnote,cantitate_bancnote_in,cantitate_bancnote_out);
+	--R2:Memorie_RAM_bancnote port map(semnalRAM_bancnote,cantitate_bancnote_in,cantitate_bancnote_out);
 	Af1:master_display port	map(clk1khz,afisor2,afisor1,afisor,segments);	
 
 end master;
