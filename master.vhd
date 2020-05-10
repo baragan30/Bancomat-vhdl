@@ -142,16 +142,26 @@ begin
 	variable codcopy:number:=0;
 	variable coddestinatie:number:=0;
 	variable codsursa:number:=0;
-	variable numarator :digit:=0; 
+	variable sum: number;
 	begin 
 		cod<=codcopy;
+		sumin<=sum;
 		case stare is
 ----------------------------------------------------------Start---------------------------------------------------
 			when 0=>
 			numar2<=stare;
 			afisor2<=cifre2; 
 			numar1<=0; 
-			afisor1<=(10,10,10,10);	
+			afisor1<=(10,10,10,10);
+			
+			sum:=0;
+			codcopy:=codcopy; 
+			semnalRAM<=0;
+			coddestinatie:=coddestinatie;
+			codsursa:=codsursa;
+			
+			
+			sari<='0';
 			backstare<=0;
 			case sw is 
 				when "0010" =>nextstare<=1;
@@ -164,16 +174,34 @@ begin
 			afisor2<=cifre2;
 			numar1<=numar;
 			afisor1<=cifre1;
-			codcopy:=0;	
+			
+			sum:=0;
+			codcopy:=0; 
+			semnalRAM<=0;
+			coddestinatie:=coddestinatie;
+			codsursa:=codsursa;
+			
+			sari<='0';
 			if corect='1'then
 				nextstare<=3;
+			else 
+				nextstare<=1;
 			end if;
 			backstare<=0;
 --------------------------------------------------------Selector Admin------------------------------------------------
 			when 3=>
 			numar2<=stare;
 			afisor2<=cifre2;
-			afisor1<=(0,0,0,0);	 
+			numar2<=0;
+			afisor1<=(10,10,10,10);
+			
+			sum:=0;
+			codcopy:=codcopy; 
+			semnalRAM<=0;
+			coddestinatie:=coddestinatie;
+			codsursa:=codsursa;
+			
+			sari<='0';
 			backstare<=1; 
 			case sw is 
 				when "0001" =>nextstare<=1;
@@ -188,10 +216,20 @@ begin
 			numar2<=stare;
 			afisor2<=cifre2;
 			numar1<=numar;
-			afisor1<=cifre1;
+			afisor1<=cifre1; 
+			
+			
 			codcopy:=numar;
+			sum:=0;
+			semnalRAM<=0;
+			coddestinatie:=coddestinatie;
+			codsursa:=codsursa ;
+			
+			 sari<='0';
 			if(numar>0and numar <5)	 then
-				nextstare<=4;	
+				nextstare<=4;
+			else 
+				nextstare<=2;
 			end if;
 			backstare<=0;
 			
@@ -201,7 +239,16 @@ begin
 			numar2<=stare;
 			afisor2<=cifre2;
 			numar1<=numar;
-			afisor1<=cifre1; 
+			afisor1<=cifre1;
+			
+			
+			sum:=0;
+			semnalRAM<=0;
+			coddestinatie:=coddestinatie;
+			codsursa:=codsursa ;
+			codcopy:=codcopy;
+			
+			sari<='0';
 			if corect='1'then
 				nextstare<=5;
 			end if;
@@ -210,8 +257,18 @@ begin
 			when 5=>
 			numar2<=stare;
 			afisor2<=cifre2;
-			afisor1<=(0,0,0,0);
+			numar1<=0;
+			afisor1<=(10,10,10,10);
+			
+			sum:=0;
+			semnalRAM<=0;
+			coddestinatie:=coddestinatie;
+			codsursa:=codsursa ;
+			codcopy:=codcopy;
+			
+			
 			backstare<=2; 
+			sari<='0';
 			case sw is 
 				when "0001" =>nextstare<=51;
 				when "0010" =>nextstare<=53;	
@@ -227,23 +284,23 @@ begin
 			numar1<=numar;
 			afisor1<=cifre1;
 			
-			sumin<=numar;
+			sum:=numar;
 			nextstare<=521;
 			backstare<=5;
--------------------------------------------------------Retragere numerar-verificare suma  -------------------------------------
-			when 521=>
-			numar2<=stare;
-			afisor2<=cifre2;
-			numar1<=numar;
-			afisor1<=cifre1;
-			
-			if(sumout>sumin)then 
-				nextstare<=543; 
-			else 
-				nextstare<=598;
-			end if;
-			sari<='1';
-			backstare<=5;	
+---------------------------------------------------------Retragere numerar-verificare suma  -------------------------------------
+--			when 521=>
+--			numar2<=stare;
+--			afisor2<=cifre2;
+--			numar1<=numar;
+--			afisor1<=cifre1;
+--			
+--			if(sumout>sumin)then 
+--				nextstare<=543; 
+--			else 
+--				nextstare<=598;
+--			end if;
+--			sari<='1';
+--			backstare<=5;	
 
 ----------------------------------------------------------Interogare Sold Client -------------------------------------
 			when 53=>
@@ -252,8 +309,13 @@ begin
 			numar1<=sumout;
 			afisor1<=cifre1; 
 			
-
+			sum:=0;
+			semnalRAM<=0;
+			coddestinatie:=coddestinatie;
+			codsursa:=codsursa ;
+			codcopy:=codcopy;
 			
+			sari<='0';
 			nextstare<=5;
 			backstare<=5;	
 ----------------------------------------------------------Transfer-introducere cod -------------------------------------
@@ -261,10 +323,15 @@ begin
 			numar2<=stare;
 			afisor2<=cifre2;
 			numar1<=numar;
-			afisor1<=cifre1;
+			afisor1<=cifre1; 
 			
+			sum:=sum;
+			semnalRAM<=0;
 			coddestinatie:=numar;
 			codsursa:=codcopy;
+			codcopy:=codcopy;
+			
+			sari<='0';
 			if(numar<5)then
 				nextstare<=541;
 			else
@@ -278,7 +345,13 @@ begin
 			numar1<=numar;
 			afisor1<=cifre1;
 			
-			sumin<=numar;
+			sum:=numar;
+			semnalRAM<=0;
+			coddestinatie:=coddestinatie;
+			codsursa:=codsursa ;
+			codcopy:=codcopy;
+			
+			sari<='0';
 			nextstare<=542;
 			backstare<=54;
 -------------------------------------------------------verificare suma cont sursa  -------------------------------------
@@ -287,6 +360,12 @@ begin
 			afisor2<=cifre2;
 			numar1<=numar;
 			afisor1<=cifre1;
+			
+			sum:=sum;
+			semnalRAM<=0;
+			coddestinatie:=coddestinatie;
+			codsursa:=codsursa ;
+			codcopy:=codcopy;
 			
 			if(sumout>sumin)then 
 				nextstare<=543; 
@@ -300,9 +379,14 @@ begin
 			numar2<=stare;
 			afisor2<=cifre2;
 			numar1<=numar;
-			afisor1<=cifre1; 
+			afisor1<=cifre1;
 			
+			sum:=sum;
+			semnalRAM<=0;
+			coddestinatie:=coddestinatie;
+			codsursa:=codsursa ;
 			codcopy:=coddestinatie;
+			
 			if((sumout+sumin<1000))then 
 				nextstare<=544; 
 			else 
@@ -317,7 +401,12 @@ begin
 			numar1<=numar;
 			afisor1<=cifre1; 
 			
+			sum:=sum;
 			semnalRAM<=2;
+			coddestinatie:=coddestinatie;
+			codsursa:=codsursa ;
+			codcopy:=codcopy;
+			
 			nextstare<=545;
 			sari<='1';
 			backstare<=5;	
@@ -326,10 +415,14 @@ begin
 			numar2<=stare;
 			afisor2<=cifre2;
 			numar1<=numar;
-			afisor1<=cifre1; 
+			afisor1<=cifre1;
 			
-			codcopy:=codsursa;
+			sum:=sum;
 			semnalRAM<=0;
+			coddestinatie:=coddestinatie;
+			codsursa:=codsursa ;
+			codcopy:=codsursa;
+			
 			nextstare<=546;
 			sari<='1';
 			backstare<=5;	
@@ -338,9 +431,14 @@ begin
 			numar2<=stare;
 			afisor2<=cifre2;
 			numar1<=numar;
-			afisor1<=cifre1; 
+			afisor1<=cifre1;
 			
+			sum:=sum;
 			semnalRAM<=3;
+			coddestinatie:=coddestinatie;
+			codsursa:=codsursa ;
+			codcopy:=codcopy;
+			
 			nextstare<=599;
 			sari<='1';
 			backstare<=5;
@@ -352,6 +450,13 @@ begin
 			numar1<=numar;
 			afisor1<=cifre1; 
 			
+			sum:=sum;
+			semnalRAM<=0;
+			coddestinatie:=coddestinatie;
+			codsursa:=codsursa ;
+			codcopy:=codcopy;
+			
+			sari<='0';
 			nextstare<=551;	
 			backstare<=5;
 			
@@ -361,19 +466,30 @@ begin
 			numar2<=stare;
 			afisor2<=cifre2;
 			numar1<=numar;
-			afisor1<=cifre1;
+			afisor1<=cifre1; 
+			
+			sum:=sum;
+			semnalRAM<=1;
+			coddestinatie:=coddestinatie;
+			codsursa:=codsursa ;
+			codcopy:=codcopy;
 			
 			sari<='1';
-			semnalRAM<=1;
 			nextstare<=599;	
 			backstare<=5; 
 --------------------------------------------------------Client afisare ok-----------------------------------------------
 			when 599=>
 			numar2<=stare;
 			afisor2<=cifre2;
+			numar1<=0;
 			afisor1<=(10,10,0,13); 
 			
+			sum:=sum;
 			semnalRAM<=0;
+			coddestinatie:=coddestinatie;
+			codsursa:=codsursa ;
+			codcopy:=codcopy;
+			
 			nextstare<=5;
 			sari<='0';
 			backstare<=5;
@@ -381,17 +497,35 @@ begin
 			when 598=>
 			numar2<=stare;
 			afisor2<=cifre2;
+			numar1<=0;
 			afisor1<=(11,12,14,12); 
 			
+			sum:=sum;
 			semnalRAM<=0;
+			coddestinatie:=coddestinatie;
+			codsursa:=codsursa ;
+			codcopy:=codcopy;
+			
 			nextstare<=5;
 			sari<='0';
 			backstare<=5;
 			
 			
 			when others => 
+			numar2<=0;
 			afisor2<=(10,10,10,10);
+			numar1<=0;
 			afisor1<=(10,10,10,10);	
+			
+			sum:=sum;
+			semnalRAM<=0;
+			coddestinatie:=coddestinatie;
+			codsursa:=codsursa ;
+			codcopy:=codcopy;  
+			
+			nextstare<=0;
+			sari<='1';
+			backstare<=0;
 		end case;
 	end process;
 	process(clk1khz,ok,stare,sari,back,exi)
