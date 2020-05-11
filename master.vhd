@@ -139,18 +139,16 @@ begin
 	variable sum:number:=0;
 	begin
 		if(ssum<10000)then
-			sum:=ssum;
+			sumin<=ssum;
 		end if;
-		sumin<=sum;
 	end process; 
 	
 	process(scodcopy)
 	variable codcopy:number:=0;
 	begin
 		if(scodcopy<5)then
-			codcopy:=scodcopy;
+			cod<=scodcopy;
 		end if;
-		cod<=codcopy;
 	end process;
 
 	
