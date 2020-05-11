@@ -24,24 +24,27 @@ signal numaratorul: std_logic_vector(1 downto 0):="00"  ;
 
 
 
-signal suma: pin:=(100,200,100,300,0);
-signal PIN1 : pin:=(1234,5678,0,0,0); 
-signal sum :number;
+
+
 begin
     process(clk,t,codin,numaratorul,sumin,PINin) 
-    begin	
+     variable suma: pin:=(100,200,100,300,0);
+     variable PIN1 : pin:=(1234,5678,0,0,0); 
+     variable sum :number; 
+           begin	
+            if(clk='1' and clk'event) then
 			if(numaratorul ="01")then
 				if(t=2)then
-				    sum<=suma(codin)+sumin;	
+				    sum:=suma(codin)+sumin;	
 				elsif(t=3) then	
-					sum<=suma(codin)-sumin;	
+					sum:=suma(codin)-sumin;	
 				end if;
 			elsif(numaratorul="10")then
-				suma(codin)<=sum;
+				suma(codin):=sum;
 			end if;
 			
 			if(t=1)then 
-				PIN1(codin)<=PINin;
+				PIN1(codin):=PINin;
 			end if ;
 	  		sumout<=sum;
 	   		PINout<=PIN1(codin);
@@ -50,6 +53,7 @@ begin
 				corect<='1';
 			else
 				corect<='0';
+			end if;
 			end if;
     end process;
     
