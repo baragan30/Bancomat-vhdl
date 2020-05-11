@@ -126,6 +126,7 @@ signal semnalRAM:digit;
 --signal cantitate_bancnote:arraybancnota;
 
 signal ssum:number:=0;
+signal scodcopy:number:=0;
 
 
 ---------------------diverse
@@ -135,21 +136,29 @@ signal nextstare:number:=0;
 signal sari :std_logic:='0';
 begin
 	process(ssum)
-	variable sum: number;
+	variable sum:number:=0;
 	begin
 		if(ssum<10000)then
 			sum:=ssum;
 		end if;
 		sumin<=sum;
+	end process; 
+	
+	process(scodcopy)
+	variable codcopy:number:=0;
+	begin
+		if(scodcopy<5)then
+			codcopy:=scodcopy;
+		end if;
+		cod<=codcopy;
 	end process;
+
 	
 	process(stare,cifre1,cifre2,sw,numar,corect,sumin,sumout)
-	variable codcopy:number:=0;
 	variable coddestinatie:number:=0;
 	variable codsursa:number:=0;
 	
 	begin 
-		cod<=codcopy;
 		case stare is
 ----------------------------------------------------------Start---------------------------------------------------
 			when 0=>
@@ -159,7 +168,7 @@ begin
 			afisor1<=(10,10,10,10);
 			
 			ssum<=10000;
-			codcopy:=codcopy; 
+			scodcopy<=5; 
 			semnalRAM<=0;
 			coddestinatie:=coddestinatie;
 			codsursa:=codsursa;
@@ -180,7 +189,7 @@ begin
 			afisor1<=cifre1;
 			
 			ssum<=10000;
-			codcopy:=0; 
+			scodcopy<=5; 
 			semnalRAM<=0;
 			coddestinatie:=coddestinatie;
 			codsursa:=codsursa;
@@ -200,7 +209,7 @@ begin
 			afisor1<=(10,10,10,10);
 			
 			ssum<=10000;
-			codcopy:=codcopy; 
+			scodcopy<=0;  
 			semnalRAM<=0;
 			coddestinatie:=coddestinatie;
 			codsursa:=codsursa;
@@ -223,7 +232,7 @@ begin
 			
 			ssum<=10000;
 			semnalRAM<=0;
-			codcopy:=numar;
+			scodcopy<=numar; 
 			coddestinatie:=coddestinatie;
 			codsursa:=codsursa ;
 			
@@ -242,13 +251,12 @@ begin
 			afisor2<=cifre2;
 			numar1<=numar;
 			afisor1<=cifre1;
-			
-			
+
 			ssum<=10000;
 			semnalRAM<=0;
+			scodcopy<=5; 
 			coddestinatie:=coddestinatie;
 			codsursa:=codsursa ;
-			codcopy:=codcopy;
 			
 			sari<='0';
 			if corect='1'then
@@ -264,10 +272,9 @@ begin
 			
 			ssum<=10000;
 			semnalRAM<=0;
+			scodcopy<=5; 
 			coddestinatie:=coddestinatie;
 			codsursa:=codsursa ;
-			codcopy:=codcopy;
-			
 			
 			backstare<=2; 
 			sari<='0';
@@ -312,10 +319,10 @@ begin
 			afisor1<=cifre1; 
 			
 			ssum<=10000;
-			semnalRAM<=0;
+			semnalRAM<=0; 
+			scodcopy<=5; 
 			coddestinatie:=coddestinatie;
 			codsursa:=codsursa ;
-			codcopy:=codcopy;
 			
 			sari<='0';
 			nextstare<=5;
@@ -329,9 +336,9 @@ begin
 			
 			ssum<=10000;
 			semnalRAM<=0;
+			scodcopy<=5; 
 			coddestinatie:=numar;
-			codsursa:=codcopy;
-			codcopy:=codcopy;
+			codsursa:=cod; 
 			
 			sari<='0';
 			if(numar<5)then
@@ -348,10 +355,10 @@ begin
 			afisor1<=cifre1;
 			
 			ssum<=numar;
-			semnalRAM<=0;
+			semnalRAM<=0; 
+			scodcopy<=5; 
 			coddestinatie:=coddestinatie;
 			codsursa:=codsursa ;
-			codcopy:=codcopy;
 			
 			sari<='0';
 			nextstare<=542;
@@ -365,9 +372,9 @@ begin
 			
 			ssum<=10000;
 			semnalRAM<=0;
+			scodcopy<=5; 
 			coddestinatie:=coddestinatie;
-			codsursa:=codsursa ;
-			codcopy:=codcopy;
+			codsursa:=codsursa;
 			
 			if(sumout>sumin)then 
 				nextstare<=543; 
@@ -385,9 +392,9 @@ begin
 			
 			ssum<=10000;
 			semnalRAM<=0;
+			scodcopy<=coddestinatie; 
 			coddestinatie:=coddestinatie;
 			codsursa:=codsursa ;
-			codcopy:=coddestinatie;
 			
 			if((sumout+sumin<1000))then 
 				nextstare<=544; 
@@ -405,9 +412,9 @@ begin
 			
 			ssum<=10000;
 			semnalRAM<=2;
+			scodcopy<=5; 
 			coddestinatie:=coddestinatie;
 			codsursa:=codsursa ;
-			codcopy:=codcopy;
 			
 			nextstare<=545;
 			sari<='1';
@@ -421,9 +428,9 @@ begin
 			
 			ssum<=10000;
 			semnalRAM<=0;
+			scodcopy<=5; 
 			coddestinatie:=coddestinatie;
 			codsursa:=codsursa ;
-			codcopy:=codsursa;
 			
 			nextstare<=546;
 			sari<='1';
@@ -437,9 +444,9 @@ begin
 			
 			ssum<=10000;
 			semnalRAM<=3;
+			scodcopy<=5; 
 			coddestinatie:=coddestinatie;
 			codsursa:=codsursa ;
-			codcopy:=codcopy;
 			
 			nextstare<=599;
 			sari<='1';
@@ -453,10 +460,10 @@ begin
 			afisor1<=cifre1; 
 			
 			ssum<=10000;
-			semnalRAM<=0;
+			semnalRAM<=0; 
+			scodcopy<=5; 
 			coddestinatie:=coddestinatie;
 			codsursa:=codsursa ;
-			codcopy:=codcopy;
 			
 			sari<='0';
 			nextstare<=551;	
@@ -472,9 +479,9 @@ begin
 			
 			ssum<=10000;
 			semnalRAM<=1;
+			scodcopy<=5; 
 			coddestinatie:=coddestinatie;
 			codsursa:=codsursa ;
-			codcopy:=codcopy;
 			
 			sari<='1';
 			nextstare<=599;	
@@ -488,9 +495,9 @@ begin
 			
 			ssum<=10000;
 			semnalRAM<=0;
+			scodcopy<=5; 
 			coddestinatie:=coddestinatie;
 			codsursa:=codsursa ;
-			codcopy:=codcopy;
 			
 			nextstare<=5;
 			sari<='0';
@@ -503,10 +510,10 @@ begin
 			afisor1<=(11,12,14,12); 
 			
 			ssum<=10000;
-			semnalRAM<=0;
+			semnalRAM<=0; 
+			scodcopy<=5; 
 			coddestinatie:=coddestinatie;
 			codsursa:=codsursa ;
-			codcopy:=codcopy;
 			
 			nextstare<=5;
 			sari<='0';
@@ -521,9 +528,9 @@ begin
 			
 			ssum<=10000;
 			semnalRAM<=0;
+			scodcopy<=5; 
 			coddestinatie:=coddestinatie;
 			codsursa:=codsursa ;
-			codcopy:=codcopy; 
 			
 			nextstare<=0;
 			sari<='1';
