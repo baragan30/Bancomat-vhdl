@@ -91,13 +91,6 @@ component registru is
 	 dateout:out number:=0
 	     );
 end component; 
-component registru_digit is
-	 port(
-	 clk : in STD_LOGIC;
-	 datein:in digit;
-	 dateout:out digit:=0
-	     );
-end component;
 ------------------------------------Algoritmi------------------------------------------
 component Greedy is
   Port (
@@ -161,6 +154,7 @@ begin
 	variable codsursa:number:=0;
 	
 	begin 
+		if(clk='1'and clk'event)then
 		case stare is
 ----------------------------------------------------------Start---------------------------------------------------
 			when 0=>
@@ -193,9 +187,9 @@ begin
 			
 			sum<=10000;
 			semnalRAM<=0;
-			codcopy<=15; 
-			coddestin<=15;
-			codsursain<=15;
+			codcopy<=10000; 
+			coddestin<=10000;
+			codsursain<=10000;
 			
 			sari<='0';
 			if corect='1'then
@@ -214,8 +208,8 @@ begin
 			sum<=10000; 
 			semnalRAM<=0;
 			codcopy<=0; 
-			coddestin<=15;
-			codsursain<=15;
+			coddestin<=10000;
+			codsursain<=10000;
 			
 			sari<='0';
 			backstare<=1; 
@@ -235,9 +229,9 @@ begin
 			
 			sum<=10000;
 			semnalRAM<=0;
-			codcopy<=numar;  
-			coddestin<=15;
-			codsursain<=15;
+			codcopy<=numar;   
+			coddestin<=10000;
+			codsursain<=10000;
 			
 			 sari<='0';
 			if(numar>0and numar <5)	 then
@@ -257,9 +251,9 @@ begin
 
 			sum<=10000;
 			semnalRAM<=0;
-			codcopy<=15; 
-			coddestin<=15;
-			codsursain<=15;
+			codcopy<=10000; 
+			coddestin<=10000;
+			codsursain<=10000;
 			
 			sari<='0';
 			if corect='1'then
@@ -277,9 +271,9 @@ begin
 			
 			sum<=10000;
 			semnalRAM<=0;
-			codcopy<=15; 
-			coddestin<=15;
-			codsursain<=15;
+			codcopy<=10000; 
+			coddestin<=10000;
+			codsursain<=10000;
 			
 			backstare<=2; 
 			sari<='0';
@@ -325,9 +319,9 @@ begin
 			
 			sum<=10000;
 			semnalRAM<=0; 
-			codcopy<=15; 
-			coddestin<=15;
-			codsursain<=15;
+			codcopy<=10000; 
+			coddestin<=10000;
+			codsursain<=10000;
 			
 			sari<='0';
 			nextstare<=5;
@@ -341,7 +335,7 @@ begin
 			
 			sum<=10000;
 			semnalRAM<=0;
-			codcopy<=15; 
+			codcopy<=10000; 
 			coddestin<=numar;
 			codsursain<=cod;
 			
@@ -361,9 +355,9 @@ begin
 			
 			sum<=numar;
 			semnalRAM<=0; 
-			codcopy<=15; 
-			coddestin<=15;
-			codsursain<=15;
+			codcopy<=10000; 
+			coddestin<=10000;
+			codsursain<=10000;
 			
 			sari<='0';
 			nextstare<=542;
@@ -377,9 +371,9 @@ begin
 			
 			sum<=10000;
 			semnalRAM<=0;
-			codcopy<=15; 
-			coddestin<=15;
-			codsursain<=15;
+			codcopy<=10000; 
+			coddestin<=10000;
+			codsursain<=10000;
 			
 			if(sumout>sumin)then 
 				nextstare<=543; 
@@ -398,8 +392,8 @@ begin
 			sum<=10000;
 			semnalRAM<=0;
 			codcopy<=coddestout; 
-			coddestin<=15;
-			codsursain<=15;
+			coddestin<=10000;
+			codsursain<=10000;
 			
 			if((sumout+sumin<1000))then 
 				nextstare<=544; 
@@ -417,9 +411,9 @@ begin
 			
 			sum<=10000;
 			semnalRAM<=2;
-			codcopy<=15; 
-			coddestin<=15;
-			codsursain<=15;
+			codcopy<=10000; 
+			coddestin<=10000;
+			codsursain<=10000;
 			
 			nextstare<=545;
 			sari<='1';
@@ -433,9 +427,9 @@ begin
 			
 			sum<=10000;
 			semnalRAM<=0;
-			codcopy<=15; 
-			coddestin<=15;
-			codsursain<=15;
+			codcopy<=10000; 
+			coddestin<=10000;
+			codsursain<=10000;
 			
 			nextstare<=546;
 			sari<='1';
@@ -449,9 +443,9 @@ begin
 			
 			sum<=10000;
 			semnalRAM<=3;
-			codcopy<=15; 
-			coddestin<=15;
-			codsursain<=15;
+			codcopy<=10000; 
+			coddestin<=10000;
+			codsursain<=10000;
 			
 			nextstare<=599;
 			sari<='1';
@@ -466,9 +460,9 @@ begin
 			
 			sum<=10000;
 			semnalRAM<=0; 
-			codcopy<=15; 
-			coddestin<=15;
-			codsursain<=15;
+			codcopy<=10000; 
+			coddestin<=10000;
+			codsursain<=10000;
 			
 			sari<='0';
 			nextstare<=551;	
@@ -484,9 +478,9 @@ begin
 			
 			sum<=10000;
 			semnalRAM<=1;
-			codcopy<=15; 
-			coddestin<=15;
-			codsursain<=15;
+			codcopy<=10000; 
+			coddestin<=10000;
+			codsursain<=10000;
 			
 			sari<='1';
 			nextstare<=599;	
@@ -500,9 +494,9 @@ begin
 			
 			sum<=10000;
 			semnalRAM<=0;
-			codcopy<=15; 
-			coddestin<=15;
-			codsursain<=15;
+			codcopy<=10000; 
+			coddestin<=10000;
+			codsursain<=10000;
 			
 			nextstare<=5;
 			sari<='0';
@@ -516,9 +510,9 @@ begin
 			
 			sum<=10000;
 			semnalRAM<=0; 
-			codcopy<=15; 
-			coddestin<=15;
-			codsursain<=15;
+			codcopy<=10000; 
+			coddestin<=10000;
+			codsursain<=10000;
 			
 			nextstare<=5;
 			sari<='0';
@@ -533,14 +527,15 @@ begin
 			
 			sum<=10000;
 			semnalRAM<=0;
-			codcopy<=15; 
-			coddestin<=15;
-			codsursain<=15;
+			codcopy<=10000; 
+			coddestin<=10000;
+			codsursain<=10000;
 			
 			nextstare<=0;
 			sari<='1';
 			backstare<=0;
 		end case;
+		end if;
 	end process;
 	process(clk1khz,ok,stare,sari,back,exi)
 	begin	  
@@ -574,8 +569,8 @@ begin
     
     
     
-    Re1: registru port map(clk,sum,sumin);
-	Re2:registru_digit port map(clk,codcopy,cod);
-    Re3:registru_digit port map(clk,coddestin,coddestout);
-    Re4:registru_digit port map(clk,codsursain,codsursaout);
+    Re1:registru port map(clk,sum,sumin);
+	Re2:registru port map(clk,codcopy,cod);
+    Re3:registru port map(clk,coddestin,coddestout);
+    Re4:registru port map(clk,codsursain,codsursaout);
 end master;
