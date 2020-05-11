@@ -83,6 +83,21 @@ end component;
 --  cantitate_bancnote_in: in arraybancnota;	
 --  cantitate_bancnote_out: out arraybancnota);
 --end component;	
+
+component registru is
+	 port(
+	 clk : in STD_LOGIC;
+	 datein:in number;
+	 dateout:out number:=0
+	     );
+end component; 
+component registru_digit is
+	 port(
+	 clk : in STD_LOGIC;
+	 datein:in digit;
+	 dateout:out digit:=0
+	     );
+end component;
 ------------------------------------Algoritmi------------------------------------------
 component Greedy is
   Port (
@@ -125,8 +140,12 @@ signal semnalRAM:digit;
 --signal cantitate_bancnote_out: arraybancnota;
 --signal cantitate_bancnote:arraybancnota;
 
-signal ssum:number:=0;
-signal scodcopy:number:=0;
+signal sum:number:=0;
+signal codcopy:number:=0;
+signal coddestin:number:=0;
+signal coddestout:number:=0;
+signal codsursain:number:=0;
+signal codsursaout:number:=0;
 
 
 ---------------------diverse
@@ -134,28 +153,9 @@ signal stare:number:=0;
 signal backstare:number:=0;
 signal nextstare:number:=0;
 signal sari :std_logic:='0';
-begin
-	process(ssum,clk)
-	begin
-	    if(clk='1' and clk'event)then
-		if(ssum<10000)then
-			sumin<=ssum;
-        else
-            sumin<=sumin;
-		end if;
-		end if;
-	end process; 
-	
-	process(scodcopy,clk)
-	begin
-	    if(clk='1' and clk'event) then
-		if(scodcopy<5)then
-			cod<=scodcopy;
-	    else
-	       cod<=cod;
-		end if;
-		end if;
-	end process;
+begin 
+	Re1: registru port map(clk,sum,sumin);
+	Re2:registru_digit port map(clk,codcopy,cod);
 
 	
 	process(stare,cifre1,cifre2,sw,numar,corect,sumin,sumout)
@@ -171,11 +171,12 @@ begin
 			numar1<=0; 
 			afisor1<=(10,10,10,10);
 			
-			ssum<=10000;
-			scodcopy<=5; 
-			semnalRAM<=0;
-			coddestinatie:=coddestinatie;
-			codsursa:=codsursa;
+			sum<=10000;
+			
+			semnalRAM<=0; 
+			codcopy<=15; 
+			coddestin<=15;
+			codsursain<=15;
 			
 			
 			sari<='0';
@@ -192,11 +193,11 @@ begin
 			numar1<=numar;
 			afisor1<=cifre1;
 			
-			ssum<=10000;
-			scodcopy<=5; 
+			sum<=10000;
 			semnalRAM<=0;
-			coddestinatie:=coddestinatie;
-			codsursa:=codsursa;
+			codcopy<=15; 
+			coddestin<=15;
+			codsursain<=15;
 			
 			sari<='0';
 			if corect='1'then
@@ -212,11 +213,11 @@ begin
 			numar1<=0;
 			afisor1<=(10,10,10,10);
 			
-			ssum<=10000;
-			scodcopy<=0;  
+			sum<=10000; 
 			semnalRAM<=0;
-			coddestinatie:=coddestinatie;
-			codsursa:=codsursa;
+			codcopy<=0; 
+			coddestin<=15;
+			codsursain<=15;
 			
 			sari<='0';
 			backstare<=1; 
@@ -234,11 +235,11 @@ begin
 			numar1<=numar;
 			afisor1<=cifre1; 
 			
-			ssum<=10000;
+			sum<=10000;
 			semnalRAM<=0;
-			scodcopy<=numar; 
-			coddestinatie:=coddestinatie;
-			codsursa:=codsursa ;
+			codcopy<=numar;  
+			coddestin<=15;
+			codsursain<=15;
 			
 			 sari<='0';
 			if(numar>0and numar <5)	 then
@@ -256,11 +257,11 @@ begin
 			numar1<=numar;
 			afisor1<=cifre1;
 
-			ssum<=10000;
+			sum<=10000;
 			semnalRAM<=0;
-			scodcopy<=5; 
-			coddestinatie:=coddestinatie;
-			codsursa:=codsursa ;
+			codcopy<=15; 
+			coddestin<=15;
+			codsursain<=15;
 			
 			sari<='0';
 			if corect='1'then
@@ -276,11 +277,11 @@ begin
 			numar1<=0;
 			afisor1<=(10,10,10,10);
 			
-			ssum<=10000;
+			sum<=10000;
 			semnalRAM<=0;
-			scodcopy<=5; 
-			coddestinatie:=coddestinatie;
-			codsursa:=codsursa ;
+			codcopy<=15; 
+			coddestin<=15;
+			codsursain<=15;
 			
 			backstare<=2; 
 			sari<='0';
@@ -324,11 +325,11 @@ begin
 			numar1<=sumout;
 			afisor1<=cifre1; 
 			
-			ssum<=10000;
+			sum<=10000;
 			semnalRAM<=0; 
-			scodcopy<=5; 
-			coddestinatie:=coddestinatie;
-			codsursa:=codsursa ;
+			codcopy<=15; 
+			coddestin<=15;
+			codsursain<=15;
 			
 			sari<='0';
 			nextstare<=5;
@@ -340,11 +341,11 @@ begin
 			numar1<=numar;
 			afisor1<=cifre1; 
 			
-			ssum<=10000;
+			sum<=10000;
 			semnalRAM<=0;
-			scodcopy<=5; 
-			coddestinatie:=numar;
-			codsursa:=cod; 
+			codcopy<=15; 
+			coddestin<=numar;
+			codsursain<=cod;
 			
 			sari<='0';
 			if(numar<5)then
@@ -360,11 +361,11 @@ begin
 			numar1<=numar;
 			afisor1<=cifre1;
 			
-			ssum<=numar;
+			sum<=numar;
 			semnalRAM<=0; 
-			scodcopy<=5; 
-			coddestinatie:=coddestinatie;
-			codsursa:=codsursa ;
+			codcopy<=15; 
+			coddestin<=15;
+			codsursain<=15;
 			
 			sari<='0';
 			nextstare<=542;
@@ -376,11 +377,11 @@ begin
 			numar1<=numar;
 			afisor1<=cifre1;
 			
-			ssum<=10000;
+			sum<=10000;
 			semnalRAM<=0;
-			scodcopy<=5; 
-			coddestinatie:=coddestinatie;
-			codsursa:=codsursa;
+			codcopy<=15; 
+			coddestin<=15;
+			codsursain<=15;
 			
 			if(sumout>sumin)then 
 				nextstare<=543; 
@@ -396,11 +397,11 @@ begin
 			numar1<=numar;
 			afisor1<=cifre1;
 			
-			ssum<=10000;
+			sum<=10000;
 			semnalRAM<=0;
-			scodcopy<=coddestinatie; 
-			coddestinatie:=coddestinatie;
-			codsursa:=codsursa ;
+			codcopy<=coddestout; 
+			coddestin<=15;
+			codsursain<=15;
 			
 			if((sumout+sumin<1000))then 
 				nextstare<=544; 
@@ -416,11 +417,11 @@ begin
 			numar1<=numar;
 			afisor1<=cifre1; 
 			
-			ssum<=10000;
+			sum<=10000;
 			semnalRAM<=2;
-			scodcopy<=5; 
-			coddestinatie:=coddestinatie;
-			codsursa:=codsursa ;
+			codcopy<=15; 
+			coddestin<=15;
+			codsursain<=15;
 			
 			nextstare<=545;
 			sari<='1';
@@ -432,11 +433,11 @@ begin
 			numar1<=numar;
 			afisor1<=cifre1;
 			
-			ssum<=10000;
+			sum<=10000;
 			semnalRAM<=0;
-			scodcopy<=5; 
-			coddestinatie:=coddestinatie;
-			codsursa:=codsursa ;
+			codcopy<=15; 
+			coddestin<=15;
+			codsursain<=15;
 			
 			nextstare<=546;
 			sari<='1';
@@ -448,11 +449,11 @@ begin
 			numar1<=numar;
 			afisor1<=cifre1;
 			
-			ssum<=10000;
+			sum<=10000;
 			semnalRAM<=3;
-			scodcopy<=5; 
-			coddestinatie:=coddestinatie;
-			codsursa:=codsursa ;
+			codcopy<=15; 
+			coddestin<=15;
+			codsursain<=15;
 			
 			nextstare<=599;
 			sari<='1';
@@ -465,11 +466,11 @@ begin
 			numar1<=numar;
 			afisor1<=cifre1; 
 			
-			ssum<=10000;
+			sum<=10000;
 			semnalRAM<=0; 
-			scodcopy<=5; 
-			coddestinatie:=coddestinatie;
-			codsursa:=codsursa ;
+			codcopy<=15; 
+			coddestin<=15;
+			codsursain<=15;
 			
 			sari<='0';
 			nextstare<=551;	
@@ -483,11 +484,11 @@ begin
 			numar1<=numar;
 			afisor1<=cifre1; 
 			
-			ssum<=10000;
+			sum<=10000;
 			semnalRAM<=1;
-			scodcopy<=5; 
-			coddestinatie:=coddestinatie;
-			codsursa:=codsursa ;
+			codcopy<=15; 
+			coddestin<=15;
+			codsursain<=15;
 			
 			sari<='1';
 			nextstare<=599;	
@@ -499,11 +500,11 @@ begin
 			numar1<=0;
 			afisor1<=(10,10,0,13); 
 			
-			ssum<=10000;
+			sum<=10000;
 			semnalRAM<=0;
-			scodcopy<=5; 
-			coddestinatie:=coddestinatie;
-			codsursa:=codsursa ;
+			codcopy<=15; 
+			coddestin<=15;
+			codsursain<=15;
 			
 			nextstare<=5;
 			sari<='0';
@@ -515,11 +516,11 @@ begin
 			numar1<=0;
 			afisor1<=(11,12,14,12); 
 			
-			ssum<=10000;
+			sum<=10000;
 			semnalRAM<=0; 
-			scodcopy<=5; 
-			coddestinatie:=coddestinatie;
-			codsursa:=codsursa ;
+			codcopy<=15; 
+			coddestin<=15;
+			codsursain<=15;
 			
 			nextstare<=5;
 			sari<='0';
@@ -532,11 +533,11 @@ begin
 			numar1<=0;
 			afisor1<=(10,10,10,10);	
 			
-			ssum<=10000;
+			sum<=10000;
 			semnalRAM<=0;
-			scodcopy<=5; 
-			coddestinatie:=coddestinatie;
-			codsursa:=codsursa ;
+			codcopy<=15; 
+			coddestin<=15;
+			codsursain<=15;
 			
 			nextstare<=0;
 			sari<='1';
