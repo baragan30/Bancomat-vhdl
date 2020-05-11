@@ -72,7 +72,7 @@ end component;
      PINin: in number;
      sumin: in number;
      sumout: out number;
-	 codout: out number;
+	 PINout: out number;
      t : in digit;   --0-afisare, 1-schimbare pin 2-adaug bani 3-scot bani
      corect: out std_logic:='0'
      );
@@ -261,6 +261,8 @@ begin
 			sari<='0';
 			if corect='1'then
 				nextstare<=5;
+			else
+			    nextstare<=4;
 			end if;
 			backstare<=2;
 -------------------------------------------------------------Selector client-----------------------------------------
