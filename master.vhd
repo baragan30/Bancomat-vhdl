@@ -135,17 +135,25 @@ signal backstare:number:=0;
 signal nextstare:number:=0;
 signal sari :std_logic:='0';
 begin
-	process(ssum)
+	process(ssum,clk)
 	begin
+	    if(clk='1' and clk'event)then
 		if(ssum<10000)then
 			sumin<=ssum;
+        else
+            sumin<=sumin;
+		end if;
 		end if;
 	end process; 
 	
-	process(scodcopy)
+	process(scodcopy,clk)
 	begin
+	    if(clk='1' and clk'event) then
 		if(scodcopy<5)then
 			cod<=scodcopy;
+	    else
+	       cod<=cod;
+		end if;
 		end if;
 	end process;
 
