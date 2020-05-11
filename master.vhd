@@ -128,7 +128,7 @@ signal numar1:number:=0;
 signal numar2:number:=0; 
 ------------------RAM
 signal pin:number; 
-signal cod:number;
+signal cod:number:=0;
 signal sumin: number;
 signal sumout: number;
 signal pinout: number;
@@ -154,11 +154,9 @@ signal backstare:number:=0;
 signal nextstare:number:=0;
 signal sari :std_logic:='0';
 begin 
-	Re1: registru port map(clk,sum,sumin);
-	Re2:registru_digit port map(clk,codcopy,cod);
 
 	
-	process(stare,cifre1,cifre2,sw,numar,corect,sumin,sumout)
+	process(stare,cifre1,cifre2,sw,numar,corect,sumin,sumout,coddestin,coddestout,codsursain,codsursaout,cod)
 	variable coddestinatie:number:=0;
 	variable codsursa:number:=0;
 	
@@ -571,5 +569,13 @@ begin
 	R1: Memorie_RAM     port map(clk100khz,cod,pin,sumin,sumout,pinout,semnalRAM,corect);
 	--R2:Memorie_RAM_bancnote port map(semnalRAM_bancnote,cantitate_bancnote_in,cantitate_bancnote_out);
 	Af1:master_display port	map(clk1khz,afisor2,afisor1,afisor,segments);	
-
+    
+    
+    
+    
+    
+    Re1: registru port map(clk,sum,sumin);
+	Re2:registru_digit port map(clk,codcopy,cod);
+    Re3:registru_digit port map(clk,coddestin,coddestout);
+    Re4:registru_digit port map(clk,codsursain,codsursaout);
 end master;

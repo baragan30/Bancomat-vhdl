@@ -6,8 +6,9 @@
 ## - uncomment the lines corresponding to used pins
 
 ## - rename the used ports (in each line, after get_ports) according to the top level signal names in the project
-## Clock signal
 
+
+## Clock signal
 #set_property -dict { PACKAGE_PIN E3    IOSTANDARD LVCMOS33 } [get_ports { CLK100MHZ }]; #IO_L12P_T1_MRCC_35 Sch=clk100mhz
 #create_clock -add -name sys_clk_pin -period 10.00 -waveform {0 5} [get_ports {CLK100MHZ}];
 set_property -dict { PACKAGE_PIN E3    IOSTANDARD LVCMOS33 } [get_ports { clk }]; #IO_L12P_T1_MRCC_35 Sch=clk100mhz
@@ -56,7 +57,7 @@ set_property -dict { PACKAGE_PIN R15   IOSTANDARD LVCMOS33 } [get_ports { sw[3] 
 
 ## LEDs
 
-#set_property -dict { PACKAGE_PIN H17   IOSTANDARD LVCMOS33 } [get_ports { led }]; #IO_L18P_T2_A24_15 Sch=led[0]
+#set_property -dict { PACKAGE_PIN H17   IOSTANDARD LVCMOS33 } [get_ports { Q[0] }]; #IO_L18P_T2_A24_15 Sch=led[0]
 
 #set_property -dict { PACKAGE_PIN K15   IOSTANDARD LVCMOS33 } [get_ports { Q[1] }]; #IO_L24P_T3_RS1_15 Sch=led[1]
 
@@ -92,7 +93,7 @@ set_property -dict { PACKAGE_PIN R15   IOSTANDARD LVCMOS33 } [get_ports { sw[3] 
 
 ## RGB LEDs
 
-#set_property -dict { PACKAGE_PIN R12   IOSTANDARD LVCMOS33 } [get_ports { corect }]; #IO_L5P_T0_D06_14 Sch=led16_b
+#set_property -dict { PACKAGE_PIN R12   IOSTANDARD LVCMOS33 } [get_ports { LED16_B }]; #IO_L5P_T0_D06_14 Sch=led16_b
 
 #set_property -dict { PACKAGE_PIN M16   IOSTANDARD LVCMOS33 } [get_ports { LED16_G }]; #IO_L10P_T1_D14_14 Sch=led16_g
 
@@ -148,7 +149,7 @@ set_property -dict { PACKAGE_PIN U13   IOSTANDARD LVCMOS33 } [get_ports { segmen
 
 set_property -dict { PACKAGE_PIN N17   IOSTANDARD LVCMOS33 } [get_ports { ok1 }]; #IO_L9P_T1_DQS_14 Sch=btnc
 
-set_property -dict { PACKAGE_PIN M18   IOSTANDARD LVCMOS33 } [get_ports { exi1}]; #IO_L4N_T0_D05_14 Sch=btnu
+set_property -dict { PACKAGE_PIN M18   IOSTANDARD LVCMOS33 } [get_ports { exi1 }]; #IO_L4N_T0_D05_14 Sch=btnu
 
 set_property -dict { PACKAGE_PIN P17   IOSTANDARD LVCMOS33 } [get_ports { back1 }]; #IO_L12P_T1_MRCC_14 Sch=btnl
 
