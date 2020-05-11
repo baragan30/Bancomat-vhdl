@@ -88,7 +88,7 @@ component registru is
 	 port(
 	 clk : in STD_LOGIC;
 	 datein:in number;
-	 dateout:out number:=0
+	 dateout:out number
 	     );
 end component; 
 ------------------------------------Algoritmi------------------------------------------
@@ -116,9 +116,9 @@ signal afisor1:array4digits;
 signal afisor2:array4digits;
 signal cifre1:array4digits;
 signal cifre2:array4digits; 
-signal numar:number:=0;
-signal numar1:number:=0;
-signal numar2:number:=0; 
+signal numar:number;
+signal numar1:number;
+signal numar2:number; 
 ------------------RAM
 signal pin:number; 
 signal cod:number:=0;
@@ -133,28 +133,28 @@ signal semnalRAM:digit;
 --signal cantitate_bancnote_out: arraybancnota;
 --signal cantitate_bancnote:arraybancnota;
 
-signal sum:number:=0;
-signal codcopy:number:=0;
-signal coddestin:number:=0;
-signal coddestout:number:=0;
-signal codsursain:number:=0;
-signal codsursaout:number:=0;
+signal sum:number;
+signal codcopy:number;
+signal coddestin:number;
+signal coddestout:number;
+signal codsursain:number;
+signal codsursaout:number;
 
 
 ---------------------diverse
 signal stare:number:=0;
-signal backstare:number:=0;
-signal nextstare:number:=0;
-signal sari :std_logic:='0';
+signal backstare:number;
+signal nextstare:number;
+signal sari :std_logic;
 begin 
 
 	
-	process(stare,cifre1,cifre2,sw,numar,corect,sumin,sumout,coddestin,coddestout,codsursain,codsursaout,cod)
+	process(clk1khz,stare,cifre1,cifre2,sw,numar,corect,sumin,sumout,coddestin,coddestout,codsursain,codsursaout,cod)
 	variable coddestinatie:number:=0;
 	variable codsursa:number:=0;
 	
 	begin 
-		if(clk='1'and clk'event)then
+		if(clk1khz='1'and clk1khz'event)then
 		case stare is
 ----------------------------------------------------------Start---------------------------------------------------
 			when 0=>
@@ -565,12 +565,8 @@ begin
 	--R2:Memorie_RAM_bancnote port map(semnalRAM_bancnote,cantitate_bancnote_in,cantitate_bancnote_out);
 	Af1:master_display port	map(clk1khz,afisor2,afisor1,afisor,segments);	
     
-    
-    
-    
-    
-    Re1:registru port map(clk,sum,sumin);
-	Re2:registru port map(clk,codcopy,cod);
-    Re3:registru port map(clk,coddestin,coddestout);
-    Re4:registru port map(clk,codsursain,codsursaout);
+    Re1:registru port map(clk100khz,sum,sumin);
+	Re2:registru port map(clk100khz,codcopy,cod);
+    Re3:registru port map(clk100khz,coddestin,coddestout);
+    Re4:registru port map(clk100khz,codsursain,codsursaout);
 end master;

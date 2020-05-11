@@ -6,7 +6,7 @@ entity registru is
 	 port(
 	 clk : in STD_LOGIC;
 	 datein:in number;
-	 dateout:out number:=0
+	 dateout:out number
 	     );
 end registru;
 
