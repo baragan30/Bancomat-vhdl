@@ -136,7 +136,6 @@ signal nextstare:number:=0;
 signal sari :std_logic:='0';
 begin
 	process(ssum)
-	variable sum:number:=0;
 	begin
 		if(ssum<10000)then
 			sumin<=ssum;
@@ -144,7 +143,6 @@ begin
 	end process; 
 	
 	process(scodcopy)
-	variable codcopy:number:=0;
 	begin
 		if(scodcopy<5)then
 			cod<=scodcopy;
