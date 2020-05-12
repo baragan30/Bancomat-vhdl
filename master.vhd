@@ -77,12 +77,13 @@ end component;
      corect: out std_logic:='0'
      );
 end component;	
---component Memorie_RAM_bancnote is
---  Port ( 
---  t: in std_logic;
---  cantitate_bancnote_in: in arraybancnota;	
---  cantitate_bancnote_out: out arraybancnota);
---end component;	
+component Memorie_RAM_bancnote is
+  Port ( 
+  clk:in std_logic;
+  t: in std_logic;
+  cantitate_bancnote_in: in arraybancnota;	
+  cantitate_bancnote_out: out arraybancnota);
+end component;	
 
 component registru is
 	 port(
@@ -128,10 +129,10 @@ signal pinout: number;
 signal corect:std_logic;--daca pinul e corect
 signal semnalRAM:digit;
 -----------------RAM_bacnote 
---signal semnalRAM_bancnote:std_logic:='0';
---signal cantitate_bancnote_in:arraybancnota;	
---signal cantitate_bancnote_out: arraybancnota;
---signal cantitate_bancnote:arraybancnota;
+signal semnalRAM_bancnote:std_logic:='0';
+signal cantitate_bancnote_in:arraybancnota;	
+signal cantitate_bancnote_out: arraybancnota;
+signal cantitate_bancnote:arraybancnota;
 
 signal sum:number;
 signal codcopy:number;
@@ -562,7 +563,7 @@ begin
 	G2:number_to_digits port map(numar1,cifre1); 
 	G3:number_to_digits port map(numar2,cifre2); 
 	R1: Memorie_RAM     port map(clk100khz,cod,pin,sumin,sumout,pinout,semnalRAM,corect);
-	--R2:Memorie_RAM_bancnote port map(semnalRAM_bancnote,cantitate_bancnote_in,cantitate_bancnote_out);
+	R2:Memorie_RAM_bancnote port map(clk,semnalRAM_bancnote,cantitate_bancnote_in,cantitate_bancnote_out);
 	Af1:master_display port	map(clk1khz,afisor2,afisor1,afisor,segments);	
     
     Re1:registru port map(clk100khz,sum,sumin);
