@@ -19,9 +19,9 @@ begin
 	variable cant: arraybancnota:=(20,20,20,20,20,20,20);
     begin
     if(clk='1' and clk'event)then
-    if(t='1') then
-   		cant:=cantitate_bancnote_in;  
-    end if;	  
+	    if(t='1') then
+	   		cant:=cantitate_bancnote_in;  
+	    end if;	  
     end if;
 	cantitate_bancnote_out<=cant;
     end process;

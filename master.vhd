@@ -344,7 +344,7 @@ begin
 			if(numar<5)then
 				nextstare<=541;
 			else
-				nextstare<=548;
+				nextstare<=598;
 			end if ;   
 			backstare<=5;  
 ----------------------------------------------------------Transfer-introducere suma -------------------------------------
@@ -428,7 +428,7 @@ begin
 			
 			sum<=10000;
 			semnalRAM<=0;
-			codcopy<=10000; 
+			codcopy<=codsursaout; 
 			coddestin<=10000;
 			codsursain<=10000;
 			
@@ -564,6 +564,7 @@ begin
 	G3:number_to_digits port map(numar2,cifre2); 
 	R1: Memorie_RAM     port map(clk100khz,cod,pin,sumin,sumout,pinout,semnalRAM,corect);
 	R2:Memorie_RAM_bancnote port map(clk,semnalRAM_bancnote,cantitate_bancnote_in,cantitate_bancnote_out);
+	
 	Af1:master_display port	map(clk1khz,afisor2,afisor1,afisor,segments);	
     
     Re1:registru port map(clk100khz,sum,sumin);
