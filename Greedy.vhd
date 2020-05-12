@@ -4,10 +4,10 @@ use work.my_types.all;
 
 entity Greedy is
   Port (
-  start: in std_logic:='0';
-  pret: in number:=800;
+  start: in std_logic;
+  pret: in number;
   clk:in std_logic;	
-  bancnote_initiale:in arraybancnota:=(20,20,20,20,20,20,20);
+  bancnote_initiale:in arraybancnota;
   bancnote_ramase: out arraybancnota;
   bancnote_extrase: out arraybancnota;
   corect:out std_logic;

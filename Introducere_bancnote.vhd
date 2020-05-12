@@ -20,7 +20,7 @@ architecture Behavioral of Introducere_bancnote is
 signal bancnota_urmatoare:number;
 signal bancnota_curenta:number;
 begin
-    process(ok,reset)
+    process(ok,reset,clk)
     variable suma:integer:=0;
     begin 
 		if(reset='1')then 
