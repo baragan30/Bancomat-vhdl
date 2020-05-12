@@ -46,8 +46,12 @@ begin
 			
 			if(t=1)then 
 				PIN1(i):=PINin;
+				sum:=suma(i);
 			end if ;
 	  		
+			if(t=0)then 
+				sum:=suma(i);
+			end if ;
 	   		PINout<=PIN1(i);
 			   
 			if(PIN1(i)=pinin)then
