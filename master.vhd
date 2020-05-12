@@ -103,6 +103,20 @@ component Greedy is
   corect:out std_logic
    );
 end component;
+component Introducere_bancnote is
+  Port ( 
+  	clk:in std_logic;
+  	ok:in std_logic;
+  	reset:in std_logic;
+  	bancnote_initiale:in arraybancnota;
+  	numar:in number;
+  	corect: out std_logic;
+  	suma_finala: out number;
+  	stare: out number;
+  	bancnote_curente: out arraybancnota
+  );
+end component;
+
 
 
 --------------------------------------------semnale--------------------------------------
@@ -132,14 +146,21 @@ signal semnalRAM:digit;
 signal semnalRAM_bancnote:std_logic:='0';
 signal cantitate_bancnote_in:arraybancnota;	
 signal cantitate_bancnote_out: arraybancnota;
-signal cantitate_bancnote:arraybancnota;
+signal cantitate_bancnote:arraybancnota; 
+----------------------Introducere bacnote
+signal reset_int_banc:std_logic:='1';
+signal corect_int_banc:std_logic;
+signal suma_int_banc: number;
+signal stare_int_banc: number;
+signal banc_int_banc:arraybancnota	 ;	 
 
 signal sum:number;
 signal codcopy:number;
 signal coddestin:number;
 signal coddestout:number;
 signal codsursain:number;
-signal codsursaout:number;
+signal codsursaout:number; 
+
 
 
 ---------------------diverse
@@ -564,6 +585,8 @@ begin
 	G3:number_to_digits port map(numar2,cifre2); 
 	R1: Memorie_RAM     port map(clk100khz,cod,pin,sumin,sumout,pinout,semnalRAM,corect);
 	R2:Memorie_RAM_bancnote port map(clk,semnalRAM_bancnote,cantitate_bancnote_in,cantitate_bancnote_out);
+	Alg2:Introducere_bancnote port map (clk1khz,ok,reset_int_banc,cantitate_bancnote_out,numar,corect_int_banc,
+									suma_int_banc,stare_int_banc,banc_int_banc);
 	
 	Af1:master_display port	map(clk1khz,afisor2,afisor1,afisor,segments);	
     
