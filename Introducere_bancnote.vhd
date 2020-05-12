@@ -29,7 +29,7 @@ begin
 		end if;
 		if(clk='1'and clk'event)then	
 			if(ok='1' )then
-				if(suma+bancnota_curenta*numar<9999) then 
+				if(suma+bancnota_curenta*numar<10000) then 
 					suma:=suma+bancnota_curenta*numar;
 	                if(bancnota_curenta=500) then
 	                    bancnote_curente(6)<=bancnote_initiale(6)+numar;
@@ -53,12 +53,13 @@ begin
 	                    bancnote_curente(0)<=bancnote_initiale(0)+numar;
 	                    bancnota_urmatoare<=0;
 					else 
-						bancnota_urmatoare<=500;
+						bancnota_urmatoare<=0;
 	                end if;
 					corect<='1';
 				else 
 					corect<='0';
-				end if;	
+				end if;
+				
 			end if; 
         end if;
 		suma_finala<=suma;

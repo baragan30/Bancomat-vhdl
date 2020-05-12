@@ -151,9 +151,11 @@ signal cantitate_bancnote:arraybancnota;
 signal reset_int_banc:std_logic:='1';
 signal corect_int_banc:std_logic;
 signal suma_int_banc: number;
-signal stare_int_banc: number;
-signal banc_int_banc:arraybancnota	 ;	 
+signal stare_int_banc: number; 
 
+
+
+-------------------------Registri
 signal sum:number;
 signal codcopy:number;
 signal coddestin:number;
@@ -188,9 +190,9 @@ begin
 			sum<=10000;
 			
 			semnalRAM<=0; 
-			codcopy<=15; 
-			coddestin<=15;
-			codsursain<=15;
+			codcopy<=10000; 
+			coddestin<=10000;
+			codsursain<=10000;
 			
 			
 			sari<='0';
@@ -301,12 +303,154 @@ begin
 			sari<='0';
 			case sw is 
 				when "0001" =>nextstare<=51;
-				when "0010" =>nextstare<=53;	
+				when "0010" =>nextstare<=52;	
 				when "0100" =>nextstare<=53;	
 				when "0110" =>nextstare<=54;
 				when "1000" =>nextstare<=55;
 				when others => nextstare<=5;
-			end case; 
+			end case;
+-----------------------------------------------------------Indtroducere bacnote---------------------------------------------
+			when 51=>
+			numar2<=stare_int_banc;
+			afisor2<=cifre2; 
+			numar1<=numar; 
+			afisor1<=cifre1;
+			
+			sum<=10000;
+			semnalRAM<=0; 
+			codcopy<=10000; 
+			coddestin<=10000;
+			codsursain<=10000;
+			reset_int_banc<='0';
+			
+			sari<='0';
+			backstare<=0; 
+			if corect_int_banc='1'then
+				if(stare_int_banc=0)then
+					nextstare<=511;	 
+				else 
+					nextstare<=51;
+				end if;
+			else 
+				nextstare<=598;
+			end if;
+---------------------------------------------------Indtroducere bacnote-verificare suma client---------------------------------------------------
+			when 511=>
+			numar2<=stare;
+			afisor2<=cifre2; 
+			numar1<=0; 
+			afisor1<=(10,10,10,10);
+			
+			sum<=suma_int_banc;
+			semnalRAM<=0; 
+			codcopy<=10000; 
+			coddestin<=cod;
+			codsursain<=10000;
+			reset_int_banc<='0';
+			
+			
+			sari<='1';
+			backstare<=0;
+			if(suma_int_banc+sumout<10000)then
+				nextstare<=512;	
+			else 
+				nextstare<=598;
+			end if;	 
+---------------------------------------------------Indtroducere bacnote-stare tranzitorie---------------------------------------------------
+			when 512=>
+			numar2<=stare;
+			afisor2<=cifre2; 
+			numar1<=0; 
+			afisor1<=(10,10,10,10);
+			
+			sum<=10000;
+			semnalRAM<=0; 
+			codcopy<=0; 
+			coddestin<=10000;
+			codsursain<=10000;
+			reset_int_banc<='0';
+			
+			
+			sari<='1';
+			backstare<=0;
+			nextstare<=513;
+---------------------------------------------------Indtroducere bacnote-verificare suma bancomat---------------------------------------------------
+			when 513=>
+			numar2<=stare;
+			afisor2<=cifre2; 
+			numar1<=0; 
+			afisor1<=(10,10,10,10);
+			
+			sum<=10000;
+			semnalRAM<=0; 
+			codcopy<=10000; 
+			coddestin<=10000;
+			codsursain<=10000;
+			reset_int_banc<='0';
+			semnalRAM_bancnote<='0';
+			
+			sari<='1';
+			backstare<=0;
+			if(suma_int_banc+sumout<10000)then
+				nextstare<=514;	
+			else 
+				nextstare<=598;
+			end if ;
+--------------------------------------------------Indtroducere bacnote--adaugare bani bancomat---------------------------------------------------
+			when 514=>
+			numar2<=stare;
+			afisor2<=cifre2; 
+			numar1<=0; 
+			afisor1<=(10,10,10,10);
+			
+			sum<=10000;
+			semnalRAM<=2; 
+			codcopy<=10000; 
+			coddestin<=10000;
+			codsursain<=10000;
+			reset_int_banc<='0';
+			semnalRAM_bancnote<='1';
+			
+			sari<='1';
+			backstare<=0;
+			nextstare<=515;
+--------------------------------------------------Indtroducere bacnote--stare tranzitorie---------------------------------------------------
+			when 515=>
+			numar2<=stare;
+			afisor2<=cifre2; 
+			numar1<=0; 
+			afisor1<=(10,10,10,10);
+			
+			sum<=10000;
+			semnalRAM<=0; 
+			codcopy<=coddestout; 
+			coddestin<=10000;
+			codsursain<=10000;
+			reset_int_banc<='0';
+			semnalRAM_bancnote<='0';
+			
+			sari<='1';
+			backstare<=0;
+			nextstare<=516;
+-------------------------------------------------Indtroducere bacnote---adaugare suma client si resetare introducere bacnote---------------------------------------------------
+			when 516=>
+			numar2<=stare;
+			afisor2<=cifre2; 
+			numar1<=0; 
+			afisor1<=(10,10,10,10);
+			
+			sum<=10000;
+			semnalRAM<=2; 
+			codcopy<=10000; 
+			coddestin<=10000;
+			codsursain<=10000;
+			reset_int_banc<='1';
+			
+			sari<='1';
+			backstare<=0;
+			nextstare<=599;
+
+			
 --------------------------------------------------------------Retragere numerar-introducere suma-------------------------------------
 ----			when 52=>
 ----			numar2<=stare;
@@ -362,7 +506,7 @@ begin
 			codsursain<=cod;
 			
 			sari<='0';
-			if(numar<5)then
+			if(numar>0 and numar<5)then
 				nextstare<=541;
 			else
 				nextstare<=598;
@@ -417,7 +561,7 @@ begin
 			coddestin<=10000;
 			codsursain<=10000;
 			
-			if((sumout+sumin<1000))then 
+			if((sumout+sumin<10000))then 
 				nextstare<=544; 
 			else 
 				nextstare<=598;
@@ -587,7 +731,7 @@ begin
 	R2:Memorie_RAM_bancnote port map(clk,semnalRAM_bancnote,cantitate_bancnote_in,cantitate_bancnote_out);
 	
 	Alg2:Introducere_bancnote port map (clk1khz,ok,reset_int_banc,cantitate_bancnote_out,numar,corect_int_banc,
-									suma_int_banc,stare_int_banc,banc_int_banc);
+									suma_int_banc,stare_int_banc,cantitate_bancnote_in);
 	
 	Af1:master_display port	map(clk1khz,afisor2,afisor1,afisor,segments);	
     
