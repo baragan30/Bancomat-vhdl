@@ -298,6 +298,8 @@ begin
 			codcopy<=10000; 
 			coddestin<=10000;
 			codsursain<=10000;
+			reset_int_banc<='1';
+			semnalRAM_bancnote<='0';
 			
 			backstare<=2; 
 			sari<='0';
@@ -369,7 +371,6 @@ begin
 			coddestin<=10000;
 			codsursain<=10000;
 			reset_int_banc<='0';
-			
 			
 			sari<='1';
 			backstare<=0;
@@ -663,6 +664,8 @@ begin
 			codcopy<=10000; 
 			coddestin<=10000;
 			codsursain<=10000;
+			reset_int_banc<='1';
+			semnalRAM_bancnote<='0';
 			
 			nextstare<=5;
 			sari<='0';
@@ -679,6 +682,8 @@ begin
 			codcopy<=10000; 
 			coddestin<=10000;
 			codsursain<=10000;
+			reset_int_banc<='1';
+			semnalRAM_bancnote<='0';
 			
 			nextstare<=5;
 			sari<='0';
@@ -696,6 +701,8 @@ begin
 			codcopy<=10000; 
 			coddestin<=10000;
 			codsursain<=10000;
+			reset_int_banc<='1';
+			semnalRAM_bancnote<='0';
 			
 			nextstare<=0;
 			sari<='1';

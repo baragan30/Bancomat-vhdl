@@ -27,6 +27,13 @@ begin
 			suma:=0;
 			bancnota_urmatoare<=500;
 		end if;
+		if((suma+bancnota_curenta*numar<10000 )or reset='1') then 
+		corect<='1';
+		else 
+		corect<='0';	
+		end if;
+		suma_finala<=suma;
+		
 		if(clk='1'and clk'event)then	
 			if(ok='1' )then
 				if(suma+bancnota_curenta*numar<10000) then 
@@ -55,15 +62,12 @@ begin
 					else 
 						bancnota_urmatoare<=0;
 	                end if;
-					corect<='1';
-				else 
-					corect<='0';
 				end if;
 				
 			end if; 
         end if;
-		suma_finala<=suma;
-    end process; 
+    end process;
+		
 	stare<=bancnota_curenta;
 
     process(clk,ok,reset)
