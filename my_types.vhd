@@ -13,3 +13,6 @@ package	my_types is
 	type arraybancnota is array (6 downto 0) of number;
 end package;
 
+
+
+

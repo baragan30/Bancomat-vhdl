@@ -24,7 +24,7 @@ signal  f:arraybancnota;
 signal gata:std_logic:='0';
 signal inventiv:std_logic:='0';
 begin
-    process(clk)
+    process(clk,start,pret,bancnote_initiale)
     begin
     
     if(start='0')then
@@ -94,8 +94,6 @@ begin
     
     bancnote_extrase<=f;
     bancnote_ramase<=cant;
-
-    
     end if;
     
     end process;
