@@ -26,8 +26,9 @@ signal inventiv:std_logic:='0';
 begin
     process(clk)
     begin
-    inventiv<='0';
+    
     if(start='0')then
+    inventiv<='0';
     valoare<=pret;
     cant<=bancnote_initiale;
     end if;		 
@@ -80,9 +81,9 @@ begin
     end if;
     end if;
     end process;
-	corect<='0' when (valoare>0 or inventiv='1') else 
+	corect<='0' when (valoare>0) else 
 		'1';
-	gata<='1' when (valoare<=0 and inventiv='1') else
+	gata<='1' when (valoare<=0 or inventiv='1') else
 		'0';
 	final<=gata;
     semnal_valoare<=valoare;
