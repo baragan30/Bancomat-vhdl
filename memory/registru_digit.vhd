@@ -6,6 +6,7 @@ use work.my_types.all ;
 entity registru_digit is
 	 port(
 	 clk : in STD_LOGIC;
+	 
 	 datein:in digit;
 	 dateout:out digit
 	     );

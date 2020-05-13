@@ -358,6 +358,7 @@ begin
 			codsursain<=10000;
 			reset_int_banc<='0';
 			reset_numar<='0';
+			cantitate_bancnote_in<=bancnote_introduse;
 			
 			sari<='0';
 			backstare<=0; 
@@ -383,6 +384,7 @@ begin
 			coddestin<=cod;
 			codsursain<=10000;
 			reset_int_banc<='0';
+			cantitate_bancnote_in<=bancnote_introduse;
 			
 			
 			sari<='1';
@@ -405,6 +407,7 @@ begin
 			coddestin<=10000;
 			codsursain<=10000;
 			reset_int_banc<='0';
+			cantitate_bancnote_in<=bancnote_introduse;
 			
 			sari<='1';
 			backstare<=0;
@@ -423,6 +426,7 @@ begin
 			codsursain<=10000;
 			reset_int_banc<='0';
 			semnalRAM_bancnote<='0';
+			cantitate_bancnote_in<=bancnote_introduse;
 			
 			sari<='1';
 			backstare<=0;
@@ -445,6 +449,7 @@ begin
 			codsursain<=10000;
 			reset_int_banc<='0';
 			semnalRAM_bancnote<='1';
+			cantitate_bancnote_in<=bancnote_introduse;
 			
 			sari<='1';
 			backstare<=0;
@@ -463,6 +468,7 @@ begin
 			codsursain<=10000;
 			reset_int_banc<='0';
 			semnalRAM_bancnote<='0';
+			cantitate_bancnote_in<=bancnote_introduse;
 			
 			sari<='1';
 			backstare<=0;
@@ -480,36 +486,32 @@ begin
 			coddestin<=10000;
 			codsursain<=10000;
 			reset_int_banc<='1';
+			cantitate_bancnote_in<=bancnote_introduse;
 			
 			sari<='1';
 			backstare<=0;
 			nextstare<=599;
 
 			
---------------------------------------------------------------Retragere numerar-introducere suma-------------------------------------
-----			when 52=>
-----			numar2<=stare;
-----			afisor2<=cifre2;
-----			numar1<=numar;
-----			afisor1<=cifre1;
-----			
-----			sum:=numar;
-----			nextstare<=521;
-----			backstare<=5;
------------------------------------------------------------Retragere numerar-verificare suma  -------------------------------------
-----			when 521=>
-----			numar2<=stare;
-----			afisor2<=cifre2;
-----			numar1<=numar;
-----			afisor1<=cifre1;
-----			
-----			if(sumout>sumin)then 
-----				nextstare<=543; 
-----			else 
-----				nextstare<=598;
-----			end if;
-----			sari<='1';
-----			backstare<=5;	
+----------------------------------------------------------Retragere numere---------------------------------------------
+			when 52=>
+			numar2<=stare;
+			afisor2<=cifre2; 
+			numar1<=numar; 
+			afisor1<=cifre1;
+			
+			sum<=numar;
+			semnalRAM<=0; 
+			codcopy<=10000; 
+			coddestin<=10000;
+			codsursain<=10000;
+			reset_int_banc<='0';
+			reset_numar<='0';
+			cantitate_bancnote_in<=bancnote_ramase;
+			
+			sari<='0';
+			backstare<=0; 
+			nextstare<=521; 
 
 ----------------------------------------------------------Interogare Sold Client -------------------------------------
 			when 53=>
@@ -778,7 +780,7 @@ begin
 	R1: Memorie_RAM     port map(clk100khz,cod,pin,sumin,sumout,pinout,semnalRAM,corect);
 	R2:Memorie_RAM_bancnote port map(clk,semnalRAM_bancnote,cantitate_bancnote_in,cantitate_bancnote_out);
 	
-	Alg1:Greedy port map (start_greedy,numar,clk100khz,cantitate_bancnote_out,bancnote_ramase,bancnote_extrase,corect_greedy,final_greedy);
+	Alg1:Greedy port map (start_greedy,sumin,clk100khz,cantitate_bancnote_out,bancnote_ramase,bancnote_extrase,corect_greedy,final_greedy);
 	Alg2:Introducere_bancnote port map (clk1khz,ok,reset_int_banc,cantitate_bancnote_out,numar,corect_int_banc,
 									suma_int_banc,stare_int_banc,bancnote_introduse);
 	
