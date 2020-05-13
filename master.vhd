@@ -250,12 +250,30 @@ begin
 			sari<='0';
 			backstare<=1; 
 			case sw is 
-				when "0001" =>nextstare<=1;
-				when "0010" =>nextstare<=2;	
-				when "0100" =>nextstare<=1;
-				when "1000" =>nextstare<=2;
+				when "0001" =>nextstare<=31;
+				when "0010" =>nextstare<=32;	
+				when "0100" =>nextstare<=33;
+				when "1000" =>nextstare<=34;
 				when others => nextstare<=3;
 			end case;
+			
+----------------------------------------------------------Interogare Sold Admin -------------------------------------
+			when 33=>
+			numar2<=stare;
+			afisor2<=cifre2;
+			numar1<=sumout;
+			afisor1<=cifre1; 
+			
+			sum<=10000;
+			semnalRAM<=0; 
+			codcopy<=10000; 
+			coddestin<=10000;
+			codsursain<=10000;
+			reset_numar<='0';
+			
+			sari<='0';
+			nextstare<=3;
+			backstare<=3;
 ----------------------------------------------------Client card-------------------------------------
 			when 2=>
 			numar2<=stare;

@@ -18,7 +18,7 @@ end sda;
 architecture sda of sda is
 signal inventiv:std_logic_vector(7 downto 0);
 begin
-	process(clk,load,reset,date_in,serial_in,deplasare)
+	process(clk,load,reset,date_in,serial_in,deplasare,inventiv)
 	begin 
 	    
 		if(clk'event and clk='1')then
