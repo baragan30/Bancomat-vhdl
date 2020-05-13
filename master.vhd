@@ -132,6 +132,7 @@ signal afisor2:array4digits;
 signal cifre1:array4digits;
 signal cifre2:array4digits; 
 signal numar:number;
+signal reset_numar:std_logic:='0';
 signal numar1:number;
 signal numar2:number; 
 ------------------RAM
@@ -193,6 +194,7 @@ begin
 			codcopy<=10000; 
 			coddestin<=10000;
 			codsursain<=10000;
+			reset_numar<='1';
 			
 			
 			sari<='0';
@@ -214,6 +216,7 @@ begin
 			codcopy<=10000; 
 			coddestin<=10000;
 			codsursain<=10000;
+			reset_numar<='0';
 			
 			sari<='0';
 			if corect='1'then
@@ -234,6 +237,7 @@ begin
 			codcopy<=0; 
 			coddestin<=10000;
 			codsursain<=10000;
+			reset_numar<='1';
 			
 			sari<='0';
 			backstare<=1; 
@@ -256,13 +260,31 @@ begin
 			codcopy<=numar;   
 			coddestin<=10000;
 			codsursain<=10000;
+			reset_numar<='0';
 			
 			 sari<='0';
 			if(numar>0and numar <5)	 then
-				nextstare<=4;
+				nextstare<=21;
 			else 
 				nextstare<=2;
 			end if;
+			backstare<=0;  
+----------------------------------------------------Client card-------------------------------------
+			when 21=>
+			numar2<=stare;
+			afisor2<=cifre2;
+			numar1<=numar;
+			afisor1<=cifre1; 
+			
+			sum<=10000;
+			semnalRAM<=0;
+			codcopy<=numar;   
+			coddestin<=10000;
+			codsursain<=10000;
+			reset_numar<='1';
+			
+			 sari<='0';
+			nextstare<=4;
 			backstare<=0;
 			
 			
@@ -278,6 +300,8 @@ begin
 			codcopy<=10000; 
 			coddestin<=10000;
 			codsursain<=10000;
+			reset_numar<='0';
+			
 			
 			sari<='0';
 			if corect='1'then
@@ -300,6 +324,7 @@ begin
 			codsursain<=10000;
 			reset_int_banc<='1';
 			semnalRAM_bancnote<='0';
+			reset_numar<='1';
 			
 			backstare<=2; 
 			sari<='0';
@@ -324,6 +349,7 @@ begin
 			coddestin<=10000;
 			codsursain<=10000;
 			reset_int_banc<='0';
+			reset_numar<='0';
 			
 			sari<='0';
 			backstare<=0; 
@@ -489,6 +515,7 @@ begin
 			codcopy<=10000; 
 			coddestin<=10000;
 			codsursain<=10000;
+			reset_numar<='0';
 			
 			sari<='0';
 			nextstare<=5;
@@ -504,7 +531,8 @@ begin
 			semnalRAM<=0;
 			codcopy<=10000; 
 			coddestin<=numar;
-			codsursain<=cod;
+			codsursain<=cod; 
+			reset_numar<='0';
 			
 			sari<='0';
 			if(numar>0 and numar<5)then
@@ -541,6 +569,7 @@ begin
 			codcopy<=10000; 
 			coddestin<=10000;
 			codsursain<=10000;
+			reset_numar<='0';
 			
 			if(sumout>sumin)then 
 				nextstare<=543; 
@@ -630,6 +659,7 @@ begin
 			codcopy<=10000; 
 			coddestin<=10000;
 			codsursain<=10000;
+			reset_numar<='0';
 			
 			sari<='0';
 			nextstare<=551;	
@@ -665,7 +695,8 @@ begin
 			coddestin<=10000;
 			codsursain<=10000;
 			reset_int_banc<='1';
-			semnalRAM_bancnote<='0';
+			semnalRAM_bancnote<='0'; 
+			reset_numar<='0';
 			
 			nextstare<=5;
 			sari<='0';
@@ -684,6 +715,7 @@ begin
 			codsursain<=10000;
 			reset_int_banc<='1';
 			semnalRAM_bancnote<='0';
+			reset_numar<='0';
 			
 			nextstare<=5;
 			sari<='0';
@@ -703,6 +735,7 @@ begin
 			codsursain<=10000;
 			reset_int_banc<='1';
 			semnalRAM_bancnote<='0';
+			reset_numar<='1';
 			
 			nextstare<=0;
 			sari<='1';
