@@ -37,6 +37,7 @@ end component;
 component read_integer is
   Port (
   clk: in std_logic;
+  reset:in std_logic;
   sw: in switch;
   numar: out number);
 end component;	
@@ -94,13 +95,15 @@ component registru is
 end component; 
 ------------------------------------Algoritmi------------------------------------------
 component Greedy is
-  Port (
+   Port (
+  start: in std_logic;
   pret: in number;
   clk:in std_logic;	
   bancnote_initiale:in arraybancnota;
   bancnote_ramase: out arraybancnota;
   bancnote_extrase: out arraybancnota;
-  corect:out std_logic
+  corect:out std_logic;
+  final: out std_logic
    );
 end component;
 component Introducere_bancnote is
@@ -152,9 +155,14 @@ signal cantitate_bancnote:arraybancnota;
 signal reset_int_banc:std_logic:='1';
 signal corect_int_banc:std_logic;
 signal suma_int_banc: number;
-signal stare_int_banc: number; 
-
-
+signal stare_int_banc: number;
+signal bancnote_introduse:arraybancnota;
+--------------------------Greedy
+signal bancnote_ramase: arraybancnota;
+signal bancnote_extrase: arraybancnota;
+signal corect_greedy: std_logic:='0';
+signal start_greedy: std_logic:='0';
+signal final_greedy: std_logic:='0';
 
 -------------------------Registri
 signal sum:number;
@@ -764,14 +772,15 @@ begin
 	B1:button_converter port map(ok1,clk1khz,ok);
 	B2:button_converter port map(back1,clk1khz,back);
 	B3:button_converter port map(exi1,clk1khz,exi);
-	G1:read_integer     port map (clk02s,sw,numar);
+	G1:read_integer     port map (clk02s,reset_numar,sw,numar);
 	G2:number_to_digits port map(numar1,cifre1); 
 	G3:number_to_digits port map(numar2,cifre2); 
 	R1: Memorie_RAM     port map(clk100khz,cod,pin,sumin,sumout,pinout,semnalRAM,corect);
 	R2:Memorie_RAM_bancnote port map(clk,semnalRAM_bancnote,cantitate_bancnote_in,cantitate_bancnote_out);
 	
+	Alg1:Greedy port map (start_greedy,numar,clk100khz,cantitate_bancnote_out,bancnote_ramase,bancnote_extrase,corect_greedy,final_greedy);
 	Alg2:Introducere_bancnote port map (clk1khz,ok,reset_int_banc,cantitate_bancnote_out,numar,corect_int_banc,
-									suma_int_banc,stare_int_banc,cantitate_bancnote_in);
+									suma_int_banc,stare_int_banc,bancnote_introduse);
 	
 	Af1:master_display port	map(clk1khz,afisor2,afisor1,afisor,segments);	
     
