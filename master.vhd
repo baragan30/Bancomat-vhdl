@@ -260,8 +260,8 @@ begin
 			codcopy<=0; 
 			coddestin<=10000;
 			codsursain<=10000;
-			reset_numar<='1';
-			
+			reset_int_banc<='1';
+			start_greedy<='0';
 			sari<='0';
 			backstare<=1; 
 			case sw is 
@@ -284,7 +284,7 @@ begin
 			codcopy<=10000; 
 			coddestin<=10000;
 			codsursain<=10000;
-			reset_numar<='0';
+			reset_int_banc<='0';
 			cantitate_bancnote_in<=bancnote_ramase;
 			start_greedy<='0';
 			
@@ -307,7 +307,7 @@ begin
 			codcopy<=10000; 
 			coddestin<=10000;
 			codsursain<=10000;
-			reset_numar<='1';
+			reset_int_banc<='1';
 			cantitate_bancnote_in<=bancnote_ramase;
 			start_greedy<='1';
 			semnalRAM_bancnote<='0';
@@ -323,7 +323,8 @@ begin
 			else 
 				nextstare<=321;
 			end if;
-----------------------------------------------------------Retragere numerar-scoatere bani-client------------------------------------------
+
+----------------------------------------------------------Retragere numerar-scoatere bani bancomat------------------------------------------
 			when 322=>
 			numar2<=stare;
 			afisor2<=cifre2; 
@@ -333,58 +334,20 @@ begin
 			sum<=10000;
 			semnalRAM<=3; 
 			codcopy<=10000; 
-			coddestin<=cod;
-			codsursain<=10000;
-			reset_numar<='1';
-			start_greedy<='1';
-			semnalRAM_bancnote<='0';
-			
-			sari<='1';
-			backstare<=0;
-			nextstare<=323;
-----------------------------------------------------------Retragere numerar-stare tranzitorie------------------------------------------
-			when 323=>
-			numar2<=stare;
-			afisor2<=cifre2; 
-			numar1<=0; 
-			afisor1<=(10,10,10,10);
-			
-			sum<=10000;
-			semnalRAM<=0; 
-			codcopy<=0; 
 			coddestin<=10000;
 			codsursain<=10000;
-			reset_numar<='1';
-			start_greedy<='1';
-			semnalRAM_bancnote<='0';
-			
-			sari<='1';
-			backstare<=0;
-			nextstare<=324;
-----------------------------------------------------------Retragere numerar-scoatere bani bancomat------------------------------------------
-			when 324=>
-			numar2<=stare;
-			afisor2<=cifre2; 
-			numar1<=0; 
-			afisor1<=(10,10,10,10);
-			
-			sum<=10000;
-			semnalRAM<=3; 
-			codcopy<=10000; 
-			coddestin<=10000;
-			codsursain<=10000;
-			reset_numar<='1';
+			reset_int_banc<='0';
 			start_greedy<='1';
 			semnalRAM_bancnote<='1';
 			
 			sari<='1';
 			backstare<=0;
-			nextstare<=325;	 
+			nextstare<=323;	 
 ----------------------------------------------------------Retragere numerar-scoatere bani bancomat------------------------------------------
-			when 325=>
-			numar2<=stare;
+			when 323=>
+			numar2<=tip_bancnota;
 			afisor2<=cifre2; 
-			numar1<=0; 
+			numar1<=bancnote_extrase(pozitie_bancnota); 
 			afisor1<=(10,10,10,10);
 			
 			sum<=10000;
