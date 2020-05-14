@@ -158,12 +158,12 @@ signal sumout: number;
 signal pinout: number;
 signal corect:std_logic;--daca pinul e corect
 signal semnalRAM:digit;
------------------RAM_bacnote 
+-----------------RAM_bancnote 
 signal semnalRAM_bancnote:std_logic:='0';
 signal cantitate_bancnote_in:arraybancnota;	
 signal cantitate_bancnote_out: arraybancnota;
 signal cantitate_bancnote:arraybancnota; 
-----------------------Introducere bacnote
+----------------------Introducere bancnote
 signal reset_int_banc:std_logic:='1';
 signal corect_int_banc:std_logic;
 signal suma_int_banc: number;
@@ -499,7 +499,7 @@ begin
 				when "1000" =>nextstare<=55;
 				when others => nextstare<=5;
 			end case;
------------------------------------------------------------Indtroducere bacnote---------------------------------------------
+-----------------------------------------------------------Introducere bancnote---------------------------------------------
 			when 51=>
 			numar2<=stare_int_banc;
 			afisor2<=cifre2; 
@@ -545,7 +545,7 @@ begin
 			sari<='1';
 			backstare<=0; 
 			nextstare<=51;
----------------------------------------------------Introducere bacnote-verificare suma client---------------------------------------------------
+---------------------------------------------------Introducere bancnote-verificare suma client---------------------------------------------------
 			when 511=>
 			numar2<=stare;
 			afisor2<=cifre2; 
@@ -568,7 +568,7 @@ begin
 			else 
 				nextstare<=598;
 			end if;	 
----------------------------------------------------Indtroducere bacnote-stare tranzitorie---------------------------------------------------
+---------------------------------------------------Introducere bancnote-stare tranzitorie---------------------------------------------------
 			when 512=>
 			numar2<=stare;
 			afisor2<=cifre2; 
@@ -586,7 +586,7 @@ begin
 			sari<='1';
 			backstare<=0;
 			nextstare<=513;
----------------------------------------------------Indtroducere bacnote-verificare suma bancomat---------------------------------------------------
+---------------------------------------------------Introducere bancnote-verificare suma bancomat---------------------------------------------------
 			when 513=>
 			numar2<=stare;
 			afisor2<=cifre2; 
@@ -609,7 +609,7 @@ begin
 			else 
 				nextstare<=598;
 			end if ;
---------------------------------------------------Indtroducere bacnote--adaugare bani bancomat---------------------------------------------------
+--------------------------------------------------Introducere bancnote--adaugare bani bancomat---------------------------------------------------
 			when 514=>
 			numar2<=stare;
 			afisor2<=cifre2; 
@@ -628,7 +628,7 @@ begin
 			sari<='1';
 			backstare<=0;
 			nextstare<=515;
---------------------------------------------------Indtroducere bacnote--stare tranzitorie---------------------------------------------------
+--------------------------------------------------Introducere bancnote--stare tranzitorie---------------------------------------------------
 			when 515=>
 			numar2<=stare;
 			afisor2<=cifre2; 
@@ -647,7 +647,7 @@ begin
 			sari<='1';
 			backstare<=0;
 			nextstare<=516;
--------------------------------------------------Indtroducere bacnote---adaugare suma client si resetare introducere bacnote---------------------------------------------------
+-------------------------------------------------Introducere bancnote---adaugare suma client si resetare introducere bancnote---------------------------------------------------
 			when 516=>
 			numar2<=stare;
 			afisor2<=cifre2; 
