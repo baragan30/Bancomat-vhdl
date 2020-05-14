@@ -194,6 +194,9 @@ signal stare:number:=5;
 signal backstare:number;
 signal nextstare:number;
 signal sari :std_logic;
+
+signal numarator: number:=4;
+
 begin 
 
 	
@@ -376,6 +379,26 @@ begin
 			sum<=10000;
 			semnalRAM<=0; 
 			codcopy<=10000; 
+			coddestin<=10000;
+			codsursain<=10000;
+			reset_numar<='0';
+			reset_int_banc<='0';
+			
+			sari<='0';
+			nextstare<=3;
+			backstare<=3;
+----------------------------------------------------------Display conturi---------------------------------------------
+            when 34=>
+            numar2<=numarator;
+            afisor2<=cifre2;
+			numar1<=pinout;
+			afisor1<=cifre1; 
+			
+			
+			
+            sum<=10000;
+			semnalRAM<=0; 
+			codcopy<=numarator; 
 			coddestin<=10000;
 			codsursain<=10000;
 			reset_numar<='0';
@@ -1044,6 +1067,20 @@ begin
 			end if;
 		end if;
 	end process; 
+	
+	
+	process(clk02s)
+	begin
+	     if(clk02s='1' and clk02s'event) then
+	     if(numarator=4)then
+	     numarator<=0;
+	     else
+	     numarator<=numarator+1;
+	     end if;
+	     end if;
+	end process;
+	
+	
 	
 	pin<=numar;
 
