@@ -262,6 +262,7 @@ begin
 			
 			sum<=10000; 
 			semnalRAM<=0;
+			semnalRAM_bancnote<='0';
 			codcopy<=0; 
 			coddestin<=10000;
 			codsursain<=10000;
@@ -401,11 +402,12 @@ begin
 			codcopy<=10000; 
 			coddestin<=10000;
 			codsursain<=10000;
+			semnalRAM_bancnote<='1';
 			reset_int_banc<='1';
 			cantitate_bancnote_in<=bancnote_introduse;
 			
 			sari<='1';
-			backstare<=0;
+			backstare<=398;
 			nextstare<=399;
 
 ----------------------------------------------------------Retragere numerar-introducere suma--------------------------------------------
@@ -778,7 +780,7 @@ begin
 			sari<='1';
 			backstare<=0;
 			nextstare<=516;
--------------------------------------------------Introducere bancnote---adaugare suma client si resetare introducere bancnote---------------------------------------------------
+-------------------------------------------------Introducere bancnote---adaugare suma client --------------------------------------------------
 			when 516=>
 			numar2<=stare;
 			afisor2<=cifre2; 
