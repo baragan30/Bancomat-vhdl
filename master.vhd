@@ -261,6 +261,7 @@ begin
 			coddestin<=10000;
 			codsursain<=10000;
 			reset_int_banc<='1';
+			reset_numar<='1';
 			start_greedy<='0';
 			sari<='0';
 			backstare<=1; 
@@ -293,7 +294,7 @@ begin
 			if(sumout>=numar)then
 				nextstare<=321;  
 			else 
-				nextstare<=598;
+				nextstare<=398;
 			end if;	 
 ----------------------------------------------------------Retragere numerar-greedy--------------------------------------------
 			when 321=>
@@ -318,7 +319,7 @@ begin
 				if(corect_greedy='1')then
 					nextstare<=322;
 				else 
-					nextstare<=598;
+					nextstare<=398;
 				end if;
 			else 
 				nextstare<=321;
@@ -361,7 +362,7 @@ begin
 			
 			sari<='0';
 			backstare<=0;
-			nextstare<=599;
+			nextstare<=399;
 			
 			
 			
@@ -378,6 +379,7 @@ begin
 			coddestin<=10000;
 			codsursain<=10000;
 			reset_numar<='0';
+			reset_int_banc<='0';
 			
 			sari<='0';
 			nextstare<=3;
@@ -720,7 +722,7 @@ begin
 			codcopy<=10000; 
 			coddestin<=10000;
 			codsursain<=10000;
-			reset_numar<='1';
+			reset_int_banc<='1';
 			start_greedy<='1';
 			semnalRAM_bancnote<='1';
 			
@@ -969,6 +971,46 @@ begin
 			backstare<=5;
 			
 			
+--------------------------------------------------------Admin afisare ok-----------------------------------------------
+			when 399=>
+			numar2<=stare;
+			afisor2<=cifre2;
+			numar1<=0;
+			afisor1<=(10,10,0,13); 
+			
+			sum<=10000;
+			semnalRAM<=0;
+			codcopy<=10000; 
+			coddestin<=10000;
+			codsursain<=10000;
+			reset_int_banc<='1';
+			semnalRAM_bancnote<='0'; 
+			reset_numar<='0';
+			
+			nextstare<=5;
+			sari<='0';
+			backstare<=5;
+--------------------------------------------------------Admin afisare eroare-----------------------------------------------
+			when 398=>
+			numar2<=stare;
+			afisor2<=cifre2;
+			numar1<=0;
+			afisor1<=(11,12,14,12); 
+			
+			sum<=10000;
+			semnalRAM<=0; 
+			codcopy<=10000; 
+			coddestin<=10000;
+			codsursain<=10000;
+			reset_int_banc<='1';
+			semnalRAM_bancnote<='0';
+			reset_numar<='0';
+			
+			nextstare<=5;
+			sari<='0';
+			backstare<=5;
+			
+			
 			when others => 
 			numar2<=0;
 			afisor2<=(10,10,10,10);
@@ -1021,7 +1063,7 @@ begin
 	Alg2:Introducere_bancnote port map (clk1khz,ok,reset_int_banc,cantitate_bancnote_out,numar,corect_int_banc,
 									suma_int_banc,stare_int_banc,bancnote_introduse);
 	
-	I1:Interogare_bancnote port map(clk1khz,reset_int_banc,pozitie_bancnota,tip_bancnota);
+	I1:Interogare_bancnote port map(clk02s,reset_int_banc,pozitie_bancnota,tip_bancnota);
 	
 	Af1:master_display port	map(clk1khz,afisor2,afisor1,afisor,segments);	
     
