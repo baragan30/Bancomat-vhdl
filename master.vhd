@@ -194,6 +194,7 @@ signal stare:number:=5;
 signal backstare:number;
 signal nextstare:number;
 signal sari :std_logic;
+signal numara:std_logic;
 
 signal numarator: number:=4;
 
@@ -383,12 +384,7 @@ begin
 			coddestin<=10000;
 			codsursain<=10000;
 			reset_numar<='0';
-			
-			if(sw(0)='1')then
-				reset_int_banc<='0';
-			else 
-				reset_int_banc<='1';
-			end if;
+			reset_int_banc<=not sw(0);
 			
 			sari<='0';
 			nextstare<=3;
@@ -410,11 +406,7 @@ begin
 			coddestin<=10000;
 			codsursain<=10000;
 			reset_numar<='0';
-			if(sw(0)='1')then
-				reset_int_banc<='0';
-			else 
-				reset_int_banc<='1';
-			end if;
+			numara<=not sw(0);
 			
 			sari<='0';
 			nextstare<=3;
@@ -798,11 +790,7 @@ begin
 			reset_numar<='1';
 			start_greedy<='1';
 			semnalRAM_bancnote<='0';
-			if(sw(0)='1')then
-				reset_int_banc<='0';
-			else 
-				reset_int_banc<='1';
-			end if;
+			reset_int_banc<=not (sw(0));
 			
 			sari<='0';
 			backstare<=0;
@@ -1107,12 +1095,15 @@ begin
 	
 	process(clk02s)
 	begin
-	     if(clk02s='1' and clk02s'event) then
+		
+		if(clk02s='1' and clk02s'event) then 
+			if(numara='0')then
 	     if(numarator=4)then
 	     numarator<=0;
 	     else
 	     numarator<=numarator+1;
 	     end if;
+		 end if;
 	     end if;
 	end process;
 	
