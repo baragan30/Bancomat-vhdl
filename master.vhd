@@ -178,7 +178,7 @@ signal final_greedy: std_logic:='0';
 
 -------------------------Registri
 signal sum:number;
-signal codcopy:number:=3;
+signal codcopy:number;
 signal coddestin:number;
 signal coddestout:number;
 signal codsursain:number;
@@ -190,7 +190,7 @@ signal tip_bancnota: number;
 
 
 ---------------------diverse
-signal stare:number:=5;
+signal stare:number:=0;
 signal backstare:number;
 signal nextstare:number;
 signal sari :std_logic;
@@ -297,7 +297,7 @@ begin
 			sari<='0';
 			backstare<=3; 
 			if corect_int_banc='1'then
-				if(stare_int_banc=0)then
+				if(stare_int_banc=1)then
 					nextstare<=311;	 
 				else 
 					nextstare<=3111;
@@ -388,46 +388,9 @@ begin
 			else 
 				nextstare<=398;
 			end if ;
---------------------------------------------------Introducere bancnote--adaugare bani bancomat---------------------------------------------------
+
+---------------------------------------Introducere bancnote---adaugare suma admin si resetare introducere bancnote---------------------------------------------------
 			when 314=>
-			numar2<=stare;
-			afisor2<=cifre2; 
-			numar1<=0; 
-			afisor1<=(10,10,10,10);
-			
-			sum<=10000;
-			semnalRAM<=2; 
-			codcopy<=10000; 
-			coddestin<=10000;
-			codsursain<=10000;
-			reset_int_banc<='0';
-			semnalRAM_bancnote<='1';
-			cantitate_bancnote_in<=bancnote_introduse;
-			
-			sari<='1';
-			backstare<=0;
-			nextstare<=315;
---------------------------------------------------Introducere bancnote--stare tranzitorie---------------------------------------------------
-			when 315=>
-			numar2<=stare;
-			afisor2<=cifre2; 
-			numar1<=0; 
-			afisor1<=(10,10,10,10);
-			
-			sum<=10000;
-			semnalRAM<=0; 
-			codcopy<=coddestout; 
-			coddestin<=10000;
-			codsursain<=10000;
-			reset_int_banc<='0';
-			semnalRAM_bancnote<='0';
-			cantitate_bancnote_in<=bancnote_introduse;
-			
-			sari<='1';
-			backstare<=0;
-			nextstare<=316;
--------------------------------------------------Introducere bancnote---adaugare suma admin si resetare introducere bancnote---------------------------------------------------
-			when 316=>
 			numar2<=stare;
 			afisor2<=cifre2; 
 			numar1<=0; 
@@ -686,7 +649,7 @@ begin
 			sari<='0';
 			backstare<=5; 
 			if corect_int_banc='1'then
-				if(stare_int_banc=0)then
+				if(stare_int_banc=1)then
 					nextstare<=511;	 
 				else 
 					nextstare<=5111;

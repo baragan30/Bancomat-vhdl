@@ -20,11 +20,12 @@ begin
 	variable numarator1: number;
 	begin 	  
 		if (clk ='1')and (clk'event)  then
-
-			if numarator1 =0 or reset='1' then
-				numarator1:=6; 
-			else
-				numarator1:=numarator1-1;
+			if(reset='0')then 
+				if numarator1 =0 then
+					numarator1:=6; 
+				else
+					numarator1:=numarator1-1;
+				end if;
 			end if;
 		end if;
 		pozitie_bancnota<=numarator1;
