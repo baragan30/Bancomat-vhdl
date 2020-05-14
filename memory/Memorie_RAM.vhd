@@ -27,7 +27,7 @@ signal i: integer range 0 to 4;
 
 
 begin
-    i<= codin when codin<5 else 0;
+    i<= codin when (codin<5 and codin>=0) else 0;
     process(clk,t,codin,numarator,sumin,PINin) 
      variable suma: pin:=(100,200,100,300,0);
      variable PIN1 : pin:=(1234,5678,0,0,0); 

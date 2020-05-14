@@ -140,7 +140,7 @@ signal numar1:number;
 signal numar2:number; 
 ------------------RAM
 signal pin:number; 
-signal cod:number:=0;
+signal cod:number;
 signal sumin: number;
 signal sumout: number;
 signal pinout: number;
@@ -166,7 +166,7 @@ signal final_greedy: std_logic:='0';
 
 -------------------------Registri
 signal sum:number;
-signal codcopy:number;
+signal codcopy:number:=3;
 signal coddestin:number;
 signal coddestout:number;
 signal codsursain:number;
@@ -175,7 +175,7 @@ signal codsursaout:number;
 
 
 ---------------------diverse
-signal stare:number:=0;
+signal stare:number:=5;
 signal backstare:number;
 signal nextstare:number;
 signal sari :std_logic;
@@ -309,7 +309,7 @@ begin
 			codsursain<=10000;
 			reset_numar<='1';
 			
-			 sari<='0';
+			 sari<='1';
 			nextstare<=4;
 			backstare<=0;
 			
@@ -511,7 +511,7 @@ begin
 			nextstare<=599;
 
 			
-----------------------------------------------------------Retragere numere---------------------------------------------
+----------------------------------------------------------Retragere numere-introducere suma--------------------------------------------
 			when 52=>
 			numar2<=stare;
 			afisor2<=cifre2; 
@@ -523,13 +523,124 @@ begin
 			codcopy<=10000; 
 			coddestin<=10000;
 			codsursain<=10000;
-			reset_int_banc<='0';
 			reset_numar<='0';
 			cantitate_bancnote_in<=bancnote_ramase;
+			start_greedy<='0';
 			
 			sari<='0';
-			backstare<=0; 
-			nextstare<=521; 
+			backstare<=0;
+			if(sumout>=numar)then
+				nextstare<=521;  
+			else 
+				nextstare<=598;
+			end if;	 
+----------------------------------------------------------Retragere numere-greedy--------------------------------------------
+			when 521=>
+			numar2<=stare;
+			afisor2<=cifre2; 
+			numar1<=0; 
+			afisor1<=(10,10,10,10);
+			
+			sum<=10000;
+			semnalRAM<=0; 
+			codcopy<=10000; 
+			coddestin<=10000;
+			codsursain<=10000;
+			reset_numar<='1';
+			cantitate_bancnote_in<=bancnote_ramase;
+			start_greedy<='1';
+			semnalRAM_bancnote<='0';
+			
+			sari<='1';
+			backstare<=0;
+			if(final_greedy='1')then
+				if(corect_greedy='1')then
+					nextstare<=522;
+				else 
+					nextstare<=598;
+				end if;
+			else 
+				nextstare<=521;
+			end if;
+----------------------------------------------------------Retragere numerar-scoatere bani-client------------------------------------------
+			when 522=>
+			numar2<=stare;
+			afisor2<=cifre2; 
+			numar1<=0; 
+			afisor1<=(10,10,10,10);
+			
+			sum<=10000;
+			semnalRAM<=3; 
+			codcopy<=10000; 
+			coddestin<=cod;
+			codsursain<=10000;
+			reset_numar<='1';
+			start_greedy<='1';
+			semnalRAM_bancnote<='0';
+			
+			sari<='1';
+			backstare<=0;
+			nextstare<=523;
+----------------------------------------------------------Retragere numerar-stare tranzitorie------------------------------------------
+			when 523=>
+			numar2<=stare;
+			afisor2<=cifre2; 
+			numar1<=0; 
+			afisor1<=(10,10,10,10);
+			
+			sum<=10000;
+			semnalRAM<=0; 
+			codcopy<=0; 
+			coddestin<=10000;
+			codsursain<=10000;
+			reset_numar<='1';
+			start_greedy<='1';
+			semnalRAM_bancnote<='0';
+			
+			sari<='1';
+			backstare<=0;
+			nextstare<=524;
+----------------------------------------------------------Retragere numerar-scoatere bani bancomat------------------------------------------
+			when 524=>
+			numar2<=stare;
+			afisor2<=cifre2; 
+			numar1<=0; 
+			afisor1<=(10,10,10,10);
+			
+			sum<=10000;
+			semnalRAM<=3; 
+			codcopy<=10000; 
+			coddestin<=10000;
+			codsursain<=10000;
+			reset_numar<='1';
+			start_greedy<='1';
+			semnalRAM_bancnote<='1';
+			
+			sari<='1';
+			backstare<=0;
+			nextstare<=525;	 
+----------------------------------------------------------Retragere numerar-scoatere bani bancomat------------------------------------------
+			when 525=>
+			numar2<=stare;
+			afisor2<=cifre2; 
+			numar1<=0; 
+			afisor1<=(10,10,10,10);
+			
+			sum<=10000;
+			semnalRAM<=0; 
+			codcopy<=10000; 
+			coddestin<=10000;
+			codsursain<=10000;
+			reset_numar<='1';
+			start_greedy<='1';
+			semnalRAM_bancnote<='0';
+			
+			sari<='0';
+			backstare<=0;
+			nextstare<=599;
+			
+
+			
 
 ----------------------------------------------------------Interogare Sold Client -------------------------------------
 			when 53=>
