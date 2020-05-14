@@ -496,7 +496,7 @@ begin
 			reset_numar<='1';
 			start_greedy<='1';
 			semnalRAM_bancnote<='0';
-			
+			reset_int_banc<=not (sw(0));
 			sari<='0';
 			backstare<=0;
 			nextstare<=3;

@@ -16,8 +16,7 @@ entity Greedy is
 end Greedy;
 
 architecture Behavioral of Greedy is
-signal semnal_valoare: number:=pret;
-signal pret_modif:number:=0;
+signal semnal_valoare: number:=0;
 signal valoare:number;
 signal cant:arraybancnota;
 signal  f:arraybancnota;

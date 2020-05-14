@@ -28,10 +28,11 @@ begin
 		            end if;
 	            end if; 
 	        end loop;
-			else 
-				y:=(0,0,0,0);
 			end if;
 				
+    end if;
+    if(reset='1') then
+    y:=(0,0,0,0);
     end if;
 	numar<=(y(0)+y(1)*10+y(2)*100+y(3)*1000);
     end process;  
