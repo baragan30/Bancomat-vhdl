@@ -65,6 +65,18 @@ component master_display is
 	segments:out std_logic_vector(7 downto 0)
 	);
 end component; 	 
+
+
+component Interogare_bancnote is
+     Port ( 
+	 		clk:in std_logic;
+	 		reset:in std_logic;
+            pozitie_bancnota:out number;
+            tip_bancnota:out number
+          );
+end component;
+
+
 ----------------------------------------------RAM-uri----------------------------------
  component Memorie_RAM is
      Port ( 
@@ -172,6 +184,9 @@ signal coddestout:number;
 signal codsursain:number;
 signal codsursaout:number; 
 
+-----------------------Interogare_bancnote
+signal pozitie_bancnota: number;
+signal tip_bancnota: number;
 
 
 ---------------------diverse
@@ -257,11 +272,141 @@ begin
 				when others => nextstare<=3;
 			end case;
 			
-----------------------------------------------------------Interogare Sold Admin -------------------------------------
-			when 33=>
+----------------------------------------------------------Retragere numerar-introducere suma--------------------------------------------
+			when 32=>
 			numar2<=stare;
+			afisor2<=cifre2; 
+			numar1<=numar; 
+			afisor1<=cifre1;
+			
+			sum<=numar;
+			semnalRAM<=0; 
+			codcopy<=10000; 
+			coddestin<=10000;
+			codsursain<=10000;
+			reset_numar<='0';
+			cantitate_bancnote_in<=bancnote_ramase;
+			start_greedy<='0';
+			
+			sari<='0';
+			backstare<=0;
+			if(sumout>=numar)then
+				nextstare<=321;  
+			else 
+				nextstare<=598;
+			end if;	 
+----------------------------------------------------------Retragere numerar-greedy--------------------------------------------
+			when 321=>
+			numar2<=stare;
+			afisor2<=cifre2; 
+			numar1<=0; 
+			afisor1<=(10,10,10,10);
+			
+			sum<=10000;
+			semnalRAM<=0; 
+			codcopy<=10000; 
+			coddestin<=10000;
+			codsursain<=10000;
+			reset_numar<='1';
+			cantitate_bancnote_in<=bancnote_ramase;
+			start_greedy<='1';
+			semnalRAM_bancnote<='0';
+			
+			sari<='1';
+			backstare<=0;
+			if(final_greedy='1')then
+				if(corect_greedy='1')then
+					nextstare<=322;
+				else 
+					nextstare<=598;
+				end if;
+			else 
+				nextstare<=321;
+			end if;
+----------------------------------------------------------Retragere numerar-scoatere bani-client------------------------------------------
+			when 322=>
+			numar2<=stare;
+			afisor2<=cifre2; 
+			numar1<=0; 
+			afisor1<=(10,10,10,10);
+			
+			sum<=10000;
+			semnalRAM<=3; 
+			codcopy<=10000; 
+			coddestin<=cod;
+			codsursain<=10000;
+			reset_numar<='1';
+			start_greedy<='1';
+			semnalRAM_bancnote<='0';
+			
+			sari<='1';
+			backstare<=0;
+			nextstare<=323;
+----------------------------------------------------------Retragere numerar-stare tranzitorie------------------------------------------
+			when 323=>
+			numar2<=stare;
+			afisor2<=cifre2; 
+			numar1<=0; 
+			afisor1<=(10,10,10,10);
+			
+			sum<=10000;
+			semnalRAM<=0; 
+			codcopy<=0; 
+			coddestin<=10000;
+			codsursain<=10000;
+			reset_numar<='1';
+			start_greedy<='1';
+			semnalRAM_bancnote<='0';
+			
+			sari<='1';
+			backstare<=0;
+			nextstare<=324;
+----------------------------------------------------------Retragere numerar-scoatere bani bancomat------------------------------------------
+			when 324=>
+			numar2<=stare;
+			afisor2<=cifre2; 
+			numar1<=0; 
+			afisor1<=(10,10,10,10);
+			
+			sum<=10000;
+			semnalRAM<=3; 
+			codcopy<=10000; 
+			coddestin<=10000;
+			codsursain<=10000;
+			reset_numar<='1';
+			start_greedy<='1';
+			semnalRAM_bancnote<='1';
+			
+			sari<='1';
+			backstare<=0;
+			nextstare<=325;	 
+----------------------------------------------------------Retragere numerar-scoatere bani bancomat------------------------------------------
+			when 325=>
+			numar2<=stare;
+			afisor2<=cifre2; 
+			numar1<=0; 
+			afisor1<=(10,10,10,10);
+			
+			sum<=10000;
+			semnalRAM<=0; 
+			codcopy<=10000; 
+			coddestin<=10000;
+			codsursain<=10000;
+			reset_numar<='1';
+			start_greedy<='1';
+			semnalRAM_bancnote<='0';
+			
+			sari<='0';
+			backstare<=0;
+			nextstare<=599;
+			
+			
+			
+----------------------------------------------------------Interogare Bancnote Admin -------------------------------------
+			when 33=>
+			numar2<=tip_bancnota;
 			afisor2<=cifre2;
-			numar1<=sumout;
+			numar1<=cantitate_bancnote_out(pozitie_bancnota);
 			afisor1<=cifre1; 
 			
 			sum<=10000;
@@ -389,7 +534,7 @@ begin
 			else 
 				nextstare<=598;
 			end if;
----------------------------------------------------Indtroducere bacnote-verificare suma client---------------------------------------------------
+---------------------------------------------------Introducere bacnote-verificare suma client---------------------------------------------------
 			when 511=>
 			numar2<=stare;
 			afisor2<=cifre2; 
@@ -511,7 +656,7 @@ begin
 			nextstare<=599;
 
 			
-----------------------------------------------------------Retragere numere-introducere suma--------------------------------------------
+----------------------------------------------------------Retragere numerar-introducere suma--------------------------------------------
 			when 52=>
 			numar2<=stare;
 			afisor2<=cifre2; 
@@ -534,7 +679,7 @@ begin
 			else 
 				nextstare<=598;
 			end if;	 
-----------------------------------------------------------Retragere numere-greedy--------------------------------------------
+----------------------------------------------------------Retragere numerar-greedy--------------------------------------------
 			when 521=>
 			numar2<=stare;
 			afisor2<=cifre2; 
@@ -912,6 +1057,8 @@ begin
 	Alg1:Greedy port map (start_greedy,sumin,clk100khz,cantitate_bancnote_out,bancnote_ramase,bancnote_extrase,corect_greedy,final_greedy);
 	Alg2:Introducere_bancnote port map (clk1khz,ok,reset_int_banc,cantitate_bancnote_out,numar,corect_int_banc,
 									suma_int_banc,stare_int_banc,bancnote_introduse);
+	
+	I1:Interogare_bancnote port map(clk1khz,reset_int_banc,pozitie_bancnota,tip_bancnota);
 	
 	Af1:master_display port	map(clk1khz,afisor2,afisor1,afisor,segments);	
     

@@ -14,7 +14,7 @@ end read_integer;
 architecture a_read_integer of read_integer is
 
 begin
-    process(clk)
+    process(clk,reset)
     variable y: array4digits;
     begin 
 		if(reset='1')then
