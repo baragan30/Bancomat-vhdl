@@ -344,12 +344,12 @@ begin
 			sari<='1';
 			backstare<=0;
 			nextstare<=323;	 
-----------------------------------------------------------Retragere numerar-scoatere bani bancomat------------------------------------------
+----------------------------------------------------------Retragere numerar-afisare bancnote------------------------------------------
 			when 323=>
 			numar2<=tip_bancnota;
 			afisor2<=cifre2; 
 			numar1<=bancnote_extrase(pozitie_bancnota); 
-			afisor1<=(10,10,10,10);
+			afisor1<=cifre1;
 			
 			sum<=10000;
 			semnalRAM<=0; 
@@ -458,7 +458,7 @@ begin
 			codcopy<=10000; 
 			coddestin<=10000;
 			codsursain<=10000;
-			reset_int_banc<='1';
+			start_greedy<='0';
 			semnalRAM_bancnote<='0';
 			reset_numar<='1';
 			
@@ -729,12 +729,12 @@ begin
 			sari<='1';
 			backstare<=0;
 			nextstare<=525;	 
-----------------------------------------------------------Retragere numerar-scoatere bani bancomat------------------------------------------
+----------------------------------------------------------Retragere numerar-afisare numerar------------------------------------------
 			when 525=>
-			numar2<=stare;
+			numar2<=tip_bancnota;
 			afisor2<=cifre2; 
-			numar1<=0; 
-			afisor1<=(10,10,10,10);
+			numar1<=bancnote_extrase(pozitie_bancnota); 
+			afisor1<=cifre1;
 			
 			sum<=10000;
 			semnalRAM<=0; 
@@ -747,7 +747,7 @@ begin
 			
 			sari<='0';
 			backstare<=0;
-			nextstare<=599;
+			nextstare<=5;
 			
 
 			
