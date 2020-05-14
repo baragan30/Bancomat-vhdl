@@ -512,16 +512,35 @@ begin
 			cantitate_bancnote_in<=bancnote_introduse;
 			
 			sari<='0';
-			backstare<=0; 
+			backstare<=5; 
 			if corect_int_banc='1'then
 				if(stare_int_banc=0)then
 					nextstare<=511;	 
 				else 
-					nextstare<=51;
+					nextstare<=5111;
 				end if;
 			else 
 				nextstare<=598;
 			end if;
+-----------------------------------------------------------resetare numar---------------------------------------------
+			when 5111=>
+			numar2<=stare_int_banc;
+			afisor2<=cifre2; 
+			numar1<=numar; 
+			afisor1<=cifre1;
+			
+			sum<=10000;
+			semnalRAM<=0; 
+			codcopy<=10000; 
+			coddestin<=10000;
+			codsursain<=10000;
+			reset_int_banc<='0';
+			reset_numar<='1';
+			cantitate_bancnote_in<=bancnote_introduse;
+			
+			sari<='1';
+			backstare<=0; 
+			nextstare<=51;
 ---------------------------------------------------Introducere bacnote-verificare suma client---------------------------------------------------
 			when 511=>
 			numar2<=stare;
