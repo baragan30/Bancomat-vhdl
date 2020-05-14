@@ -16,7 +16,7 @@ signal x :arraybancnota;
 begin  
 	x<=(500,200,100,50,10,5,1);
 	
-    process(clk,reset)
+    process(clk,reset,x)
 	variable numarator1: number;
 	begin 	  
 		if (clk ='1')and (clk'event)  then

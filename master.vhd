@@ -208,6 +208,7 @@ begin
 	begin 
 		if(clk1khz='1'and clk1khz'event)then
 		case stare is
+
 ----------------------------------------------------------Start---------------------------------------------------
 			when 0=>
 			numar2<=stare;
@@ -277,6 +278,173 @@ begin
 				when others => nextstare<=3;
 			end case;
 			
+-----------------------------------------------------------Introducere bancnote---------------------------------------------
+			when 31=>
+			numar2<=stare_int_banc;
+			afisor2<=cifre2; 
+			numar1<=numar; 
+			afisor1<=cifre1;
+			
+			sum<=10000;
+			semnalRAM<=0; 
+			codcopy<=10000; 
+			coddestin<=10000;
+			codsursain<=10000;
+			reset_int_banc<='0';
+			reset_numar<='0';
+			cantitate_bancnote_in<=bancnote_introduse;
+			
+			sari<='0';
+			backstare<=3; 
+			if corect_int_banc='1'then
+				if(stare_int_banc=0)then
+					nextstare<=311;	 
+				else 
+					nextstare<=3111;
+				end if;
+			else 
+				nextstare<=398;
+			end if;
+-----------------------------------------------------------resetare numar---------------------------------------------
+			when 3111=>
+			numar2<=stare_int_banc;
+			afisor2<=cifre2; 
+			numar1<=numar; 
+			afisor1<=cifre1;
+			
+			sum<=10000;
+			semnalRAM<=0; 
+			codcopy<=10000; 
+			coddestin<=10000;
+			codsursain<=10000;
+			reset_int_banc<='0';
+			reset_numar<='1';
+			cantitate_bancnote_in<=bancnote_introduse;
+			
+			sari<='1';
+			backstare<=0; 
+			nextstare<=31;
+---------------------------------------------------Introducere bancnote-verificare suma admin---------------------------------------------------
+			when 311=>
+			numar2<=stare;
+			afisor2<=cifre2; 
+			numar1<=0; 
+			afisor1<=(10,10,10,10);
+			
+			sum<=suma_int_banc;
+			semnalRAM<=0; 
+			codcopy<=10000; 
+			coddestin<=cod;
+			codsursain<=10000;
+			reset_int_banc<='0';
+			cantitate_bancnote_in<=bancnote_introduse;
+			
+			
+			sari<='1';
+			backstare<=0;
+			if(suma_int_banc+sumout<10000)then
+				nextstare<=312;	
+			else 
+				nextstare<=398;
+			end if;	 
+---------------------------------------------------Introducere bancnote-stare tranzitorie---------------------------------------------------
+			when 312=>
+			numar2<=stare;
+			afisor2<=cifre2; 
+			numar1<=0; 
+			afisor1<=(10,10,10,10);
+			
+			sum<=10000;
+			semnalRAM<=0; 
+			codcopy<=0; 
+			coddestin<=10000;
+			codsursain<=10000;
+			reset_int_banc<='0';
+			cantitate_bancnote_in<=bancnote_introduse;
+			
+			sari<='1';
+			backstare<=0;
+			nextstare<=313;
+---------------------------------------------------Introducere bancnote-verificare suma bancomat---------------------------------------------------
+			when 313=>
+			numar2<=stare;
+			afisor2<=cifre2; 
+			numar1<=0; 
+			afisor1<=(10,10,10,10);
+			
+			sum<=10000;
+			semnalRAM<=0; 
+			codcopy<=10000; 
+			coddestin<=10000;
+			codsursain<=10000;
+			reset_int_banc<='0';
+			semnalRAM_bancnote<='0';
+			cantitate_bancnote_in<=bancnote_introduse;
+			
+			sari<='1';
+			backstare<=0;
+			if(suma_int_banc+sumout<10000)then
+				nextstare<=314;	
+			else 
+				nextstare<=398;
+			end if ;
+--------------------------------------------------Introducere bancnote--adaugare bani bancomat---------------------------------------------------
+			when 314=>
+			numar2<=stare;
+			afisor2<=cifre2; 
+			numar1<=0; 
+			afisor1<=(10,10,10,10);
+			
+			sum<=10000;
+			semnalRAM<=2; 
+			codcopy<=10000; 
+			coddestin<=10000;
+			codsursain<=10000;
+			reset_int_banc<='0';
+			semnalRAM_bancnote<='1';
+			cantitate_bancnote_in<=bancnote_introduse;
+			
+			sari<='1';
+			backstare<=0;
+			nextstare<=315;
+--------------------------------------------------Introducere bancnote--stare tranzitorie---------------------------------------------------
+			when 315=>
+			numar2<=stare;
+			afisor2<=cifre2; 
+			numar1<=0; 
+			afisor1<=(10,10,10,10);
+			
+			sum<=10000;
+			semnalRAM<=0; 
+			codcopy<=coddestout; 
+			coddestin<=10000;
+			codsursain<=10000;
+			reset_int_banc<='0';
+			semnalRAM_bancnote<='0';
+			cantitate_bancnote_in<=bancnote_introduse;
+			
+			sari<='1';
+			backstare<=0;
+			nextstare<=316;
+-------------------------------------------------Introducere bancnote---adaugare suma admin si resetare introducere bancnote---------------------------------------------------
+			when 316=>
+			numar2<=stare;
+			afisor2<=cifre2; 
+			numar1<=0; 
+			afisor1<=(10,10,10,10);
+			
+			sum<=10000;
+			semnalRAM<=2; 
+			codcopy<=10000; 
+			coddestin<=10000;
+			codsursain<=10000;
+			reset_int_banc<='1';
+			cantitate_bancnote_in<=bancnote_introduse;
+			
+			sari<='1';
+			backstare<=0;
+			nextstare<=399;
+
 ----------------------------------------------------------Retragere numerar-introducere suma--------------------------------------------
 			when 32=>
 			numar2<=stare;
