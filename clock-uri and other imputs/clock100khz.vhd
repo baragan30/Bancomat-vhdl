@@ -19,7 +19,7 @@ begin
 	begin 	  
 		if (clockin ='1')and (clockin'event)  then
 			numarator1:=numarator1+1;
-			if numarator1 =1000 then
+			if numarator1 =1 then
 				numarator1:=0; 
 				clockout<=(not clockout);
 			end if;

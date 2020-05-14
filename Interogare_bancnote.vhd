@@ -14,17 +14,17 @@ end Interogare_bancnote;
 architecture Behavioral of Interogare_bancnote is 
 signal x :arraybancnota;
 begin  
-	x<=(1,5,10,50,100,200,500);
+	x<=(500,200,100,50,10,5,1);
 	
     process(clk,reset)
 	variable numarator1: number;
 	begin 	  
 		if (clk ='1')and (clk'event)  then
 
-			if numarator1 =6 or reset='1' then
-				numarator1:=0; 
+			if numarator1 =0 or reset='1' then
+				numarator1:=6; 
 			else
-				numarator1:=numarator1+1;
+				numarator1:=numarator1-1;
 			end if;
 		end if;
 		pozitie_bancnota<=numarator1;

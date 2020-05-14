@@ -239,7 +239,7 @@ begin
 			
 			sum<=10000;
 			semnalRAM<=0;
-			codcopy<=10000; 
+			codcopy<=0; 
 			coddestin<=10000;
 			codsursain<=10000;
 			reset_numar<='0';
@@ -289,6 +289,7 @@ begin
 			coddestin<=10000;
 			codsursain<=10000;
 			reset_int_banc<='0';
+			reset_numar<='0';
 			cantitate_bancnote_in<=bancnote_ramase;
 			start_greedy<='0';
 			
@@ -365,7 +366,7 @@ begin
 			
 			sari<='0';
 			backstare<=0;
-			nextstare<=399;
+			nextstare<=3;
 			
 			
 			
@@ -382,7 +383,12 @@ begin
 			coddestin<=10000;
 			codsursain<=10000;
 			reset_numar<='0';
-			reset_int_banc<='0';
+			
+			if(sw(0)='1')then
+				reset_int_banc<='0';
+			else 
+				reset_int_banc<='1';
+			end if;
 			
 			sari<='0';
 			nextstare<=3;
@@ -391,10 +397,12 @@ begin
             when 34=>
             numar2<=numarator;
             afisor2<=cifre2;
-			numar1<=pinout;
+			if(sw(1)='1')then 
+				numar1<=pinout;
+			else 
+				numar1<=sumout;
+			end if;
 			afisor1<=cifre1; 
-			
-			
 			
             sum<=10000;
 			semnalRAM<=0; 
@@ -402,7 +410,11 @@ begin
 			coddestin<=10000;
 			codsursain<=10000;
 			reset_numar<='0';
-			reset_int_banc<='0';
+			if(sw(0)='1')then
+				reset_int_banc<='0';
+			else 
+				reset_int_banc<='1';
+			end if;
 			
 			sari<='0';
 			nextstare<=3;
@@ -786,6 +798,11 @@ begin
 			reset_numar<='1';
 			start_greedy<='1';
 			semnalRAM_bancnote<='0';
+			if(sw(0)='1')then
+				reset_int_banc<='0';
+			else 
+				reset_int_banc<='1';
+			end if;
 			
 			sari<='0';
 			backstare<=0;
@@ -1029,9 +1046,9 @@ begin
 			semnalRAM_bancnote<='0'; 
 			reset_numar<='0';
 			
-			nextstare<=5;
+			nextstare<=3;
 			sari<='0';
-			backstare<=5;
+			backstare<=3;
 --------------------------------------------------------Admin afisare eroare-----------------------------------------------
 			when 398=>
 			numar2<=stare;
@@ -1048,9 +1065,9 @@ begin
 			semnalRAM_bancnote<='0';
 			reset_numar<='0';
 			
-			nextstare<=5;
+			nextstare<=3;
 			sari<='0';
-			backstare<=5;
+			backstare<=3;
 			
 			
 			when others => 

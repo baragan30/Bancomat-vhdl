@@ -18,10 +18,10 @@ begin
 	begin 	  
 		if (clockin ='1')and (clockin'event)  then
 			numarator1:=numarator1+1;
-			if numarator1 =1_000_000 then
+			if numarator1 =1 then
 				numarator1:=0; 
 				numarator2:=numarator2+1;
-				if numarator2 =30 then
+				if numarator2 =15 then
 					numarator2:=0;
 					clockout<=(not clockout);
 				end if;
