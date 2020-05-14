@@ -147,7 +147,7 @@ signal afisor2:array4digits;
 signal cifre1:array4digits;
 signal cifre2:array4digits; 
 signal numar:number;
-signal reset_numar:std_logic:='0';
+signal reset_numar:std_logic:='1';
 signal numar1:number;
 signal numar2:number; 
 ------------------RAM
@@ -195,7 +195,6 @@ signal backstare:number;
 signal nextstare:number;
 signal sari :std_logic;
 signal numara:std_logic;
-
 signal numarator: number:=4;
 
 begin 

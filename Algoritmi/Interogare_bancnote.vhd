@@ -30,7 +30,6 @@ begin
 		end if;
 		pozitie_bancnota<=numarator1;
 		tip_bancnota<=x(numarator1);
-		
 	end process	 ;
 
 end Behavioral;
