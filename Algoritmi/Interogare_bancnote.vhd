@@ -14,7 +14,7 @@ end Interogare_bancnote;
 architecture Behavioral of Interogare_bancnote is 
 signal x :arraybancnota;
 begin  
-	x<=(500,200,100,50,10,5,1);
+	x<=(500,200,100,50,20,10,5,2,1);
 	
     process(clk,reset,x)
 	variable numarator1: number;
@@ -22,7 +22,7 @@ begin
 		if (clk ='1')and (clk'event)  then
 			if(reset='0')then 
 				if numarator1 =0 then
-					numarator1:=6; 
+					numarator1:=8; 
 				else
 					numarator1:=numarator1-1;
 				end if;

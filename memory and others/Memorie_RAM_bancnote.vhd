@@ -16,7 +16,7 @@ architecture Behavioral of Memorie_RAM_bancnote is
 
 begin
     process(t,cantitate_bancnote_in,clk)
-	variable cant: arraybancnota:=(10,10,10,10,10,10,10);
+	variable cant: arraybancnota:=(10,10,10,10,10,10,10,10,10);
     begin
     if(clk='1' and clk'event)then
     if(t='1') then
