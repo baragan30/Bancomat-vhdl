@@ -578,7 +578,7 @@ begin
 			reset_numar<='0';
 			
 			 sari<='0';
-			if(numar>0and numar <5)	 then
+			if(numar>0 and numar <5)	 then
 				nextstare<=21;
 			else 
 				nextstare<=2;
@@ -1000,7 +1000,7 @@ begin
 			reset_numar<='0';
 			
 			sari<='0';
-			if(numar>0 and numar<5)then
+			if(numar>0 and numar<5 and (not(cod=numar)))then
 				nextstare<=540;
 			else
 				nextstare<=598;

@@ -1,0 +1,14 @@
+
+
+Proiectul nostru este un bancomat care are 4 conturi bancare si o optiune de admin. Bancomatul e controlat de 4 switchuri si 3 butoane(back,exit,ok). Merge si pe placa, puteti sa puneti linistit codul, nu o virusam. Avem in total 2130 de randuri.
+Daca intram intr-un cont bancar putem sa :
+-Introducem bani in bancomat
+-Scoatem bani din bancomat
+-Interogam soldul contului curent
+-Schimbam PIN-ul contului curent
+-Transfer bancar intre conturi bancare 
+Daca intram in optiunea de admin putem sa:
+-Introducem bani in bancomat
+-Scoatem bani din bancomat
+-Vedem cate bancnote de fiecare tip avem curent in bancomat
+-Vedem PIN-urile si sumele din fiecare cont bancar al bancomatului

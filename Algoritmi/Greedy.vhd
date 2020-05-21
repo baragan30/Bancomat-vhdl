@@ -112,6 +112,7 @@ begin
     semnal_valoare<=valoare;
     bancnote_extrase<=f;
     bancnote_ramase<=cant; 
+    
     process(clk)
     begin
     if(clk='1' and clk'event) then
