@@ -256,7 +256,7 @@ begin
 			numar2<=stare;
 			afisor2<=cifre2;
 			numar1<=cod;
-			afisor1<=(10,10,10,10);
+			afisor1<=cifre1;
 			
 			sum<=10000; 
 			semnalRAM<=0;
