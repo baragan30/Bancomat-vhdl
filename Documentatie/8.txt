@@ -1,5 +1,0 @@
-
-
-Proiectul poate fi dezvoltat prin a mari numarul de conturi bancare care se afla in bancomat,capacitatea fiecarui cont bancar, sa poata sa tina mai mult decat 10000 de euro, se poate sa introducem mai multe tipuri de valuta, sa poata lucra si cu lei si cu dolari sau lire. Se poate imbunatati algoritmul de impartire a banilor, sa nu fie un greedy. Programul principal master ar putea fi impartit in mai multe entitati ca sa poata fi citit mai usor.
-Am putea si sa o conectam placa la un televizor si sa afisam pe un ecran totul, nu pe afisoare, am putea face algoritmul de impartire a banilor sa lucreze pe un clock mai rapid, si cel mai probabil puteam sa facem proiectul in mult mai putine randuri, pentru a fi mai usor de inteles. Putem si sa redenumim anumite semnale in programul master, ca sa poata sa fie mai usor de inteles fiecare semnal pentru ce este si ce valori are.
-Se poate imbunatati ca daca bancomatul nu primeste nicio comanda timp de 3 minute, sa revina in starea initiala(0).

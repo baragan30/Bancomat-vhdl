@@ -1,5 +1,0 @@
-
-
-Am ales aceasta solutie doarece implementarea ei se aseamana cu implementarea intr-un limbaj secvential si prin urmare este usor de inteles. 
-Algortimul de retragere a banilor este de tip greedy pentru ca implementarea e mult mai usoara si ocupa mai putina memorie si da solutii optime aproape intotdeauna. Rareori se intampla ca un bancomat sa ramana fara bani.
-Implementarea unitatii de executie e asa de stufoasa deoarece am vrut ca bancomatul sa aiba foarte multe optiuni pentru utilizatori.
