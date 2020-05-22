@@ -255,7 +255,7 @@ begin
 			when 3=>
 			numar2<=stare;
 			afisor2<=cifre2;
-			numar1<=0;
+			numar1<=cod;
 			afisor1<=(10,10,10,10);
 			
 			sum<=10000; 
@@ -627,8 +627,8 @@ begin
 			when 5=>
 			numar2<=stare;
 			afisor2<=cifre2;
-			numar1<=0;
-			afisor1<=(10,10,10,10);
+			numar1<=cod;
+			afisor1<=cifre1;
 			
 			sum<=10000;
 			semnalRAM<=0;
@@ -953,7 +953,7 @@ begin
 			
 			sum<=10000;
 			semnalRAM<=0; 
-			codcopy<=10000; 
+			codcopy<=coddestout; 
 			coddestin<=10000;
 			codsursain<=10000;
 			reset_numar<='1';
@@ -1030,6 +1030,7 @@ begin
 			numar1<=numar;
 			afisor1<=cifre1;
 			
+			reset_numar<='0';
 			sum<=numar;
 			semnalRAM<=0; 
 			codcopy<=10000; 

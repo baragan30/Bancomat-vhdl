@@ -61,10 +61,10 @@ begin
 	                    bancnota_urmatoare<=2;
 					elsif(bancnota_curenta=2) then
 	                    bancnote_curente(1)<=bancnote_initiale(1)+numar;
-	                    bancnota_urmatoare<=0;
+	                    bancnota_urmatoare<=1;
 	                elsif(bancnota_curenta=1) then
 	                    bancnote_curente(0)<=bancnote_initiale(0)+numar;
-	                    bancnota_urmatoare<=0;
+	                    bancnota_urmatoare<=1;
 					else 
 						bancnota_urmatoare<=0;
 	                end if;
